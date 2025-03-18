@@ -1,68 +1,50 @@
-import ollama
+import cv2
 import numpy as np
-import json
+from PIL import Image
+from io import BytesIO
+import os
 
-'''res = ollama.chat(
-    model="llava:13b",
-    messages=[
-        {
-            'role': 'user',
-            'content': (
-                "Analyze the given image from a drone camera and provide detailed observations in an python object data type (don't use markdown). "
-                "Include the following details:\n\n"
-                "1. **Landmarks and Environment Features:**\n"
-                "   - Identify key landmarks (e.g., buildings, mountains, rivers, etc.).\n"
-                "   - Provide their approximate positions in the image (e.g., top-left, center, bottom-right).\n"
-                "   - Use descriptive adjectives to detail visual features (e.g., 'tall red tower', 'dense green forest').\n\n"
-                "2. **Special Events and Anomalies:**\n"
-                "   - Highlight any unusual activities, movements, or visual anomalies (e.g., 'smoke rising', 'crowd gathering', 'damaged structure').\n\n"
-                "3. **Weather Conditions:**\n"
-                "   - Describe visible weather conditions (e.g., 'clear sky', 'foggy horizon', 'heavy rain').\n"
-                "   - Include details on visibility (e.g., 'excellent', 'limited due to haze', 'poor visibility from mist').\n\n"
-                "Format your response in an python object data type (don't use markdown):\n\n"
-                "{\n"
-                "  \"landmarks\": [\n"
-                "    {\n"
-                "      \"name\": \"Mountain Peak\",\n"
-                "      \"position\": \"top-center\",\n"
-                "      \"description\": \"snow-covered with rocky outcrops\"\n"
-                "    }\n"
-                "  ],\n"
-                "  \"events_anomalies\": [\n"
-                "    {\n"
-                "      \"type\": \"smoke\",\n"
-                "      \"position\": \"bottom-left\",\n"
-                "      \"description\": \"thick black smoke rising from a building\"\n"
-                "    }\n"
-                "  ],\n"
-                "  \"weather\": {\n"
-                "    \"condition\": \"partly cloudy\",\n"
-                "    \"visibility\": \"moderate\"\n"
-                "  }\n"
-                "}"
-            ),
-            'images': ['./city-1.png', './city-2.png', './city-3.png']
-        }
-    ]
-)'''
+# custom packages
+from models.llava import llava_api
 
-res = ollama.chat(
-    model="llava:13b",
-    messages=[
-        {
-            'role': 'user',
-            'content': 'Describe these three images, they are images from my drone, and the interval is 3 seconds. Make sure the description is related to the timeline',
-            'images': ['./city-1.png', './city-2.png', './city-3.png']
-        }
-    ]
-)
+# define some constant here
+VIDEO_PATH = "assets/large_files/videos"
+PARSE_INTERVAL = 5  # in seconds
 
-print(res['message']['content'])
+if __name__ == "__main__":
+    cap = cv2.VideoCapture(VIDEO_PATH + "/city.MP4")
+    
+    if not cap.isOpened():
+        print("Error: Could not open video.")
+        exit()
+        
+    # Get the video frame rate (fps)
+    fps = cap.get(cv2.CAP_PROP_FPS)
+    frame_interval = int(PARSE_INTERVAL * fps)
 
-# content = res['message']['content'].strip().strip('```python').strip('```').strip('```JSON')
+    while True:
+        # Set the position in milliseconds
+        current_time_ms = cap.get(cv2.CAP_PROP_POS_MSEC)
+        print(f"Timestamp: {current_time_ms / 1000:.2f} seconds")
 
-# try:
-#     result = json.loads(content)
-#     print(result['weather'])
-# except json.JSONDecodeError:
-#     print("Failed to decode response as JSON.")
+        # Skip the next frames by setting the video position
+        cap.set(cv2.CAP_PROP_POS_MSEC, current_time_ms + (PARSE_INTERVAL * 1000))
+        
+        ret, frame = cap.read()
+        
+        if not ret:
+            print("Can't receive frame. Exiting ...")
+            break
+        
+        cv2.imshow("frame", frame)
+        
+        if current_time_ms / 1000 < 62 and current_time_ms / 1000 > 58:
+            cv2.imwrite("temp.jpg", frame)
+            print(llava_api.parse_given_image("temp.jpg"))
+        
+        if cv2.waitKey(1) == ord('q'):
+            break
+        
+    cap.release()
+    cv2.destroyAllWindows()
+    os.remove("temp.jpg")
