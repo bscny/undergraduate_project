@@ -2,7 +2,17 @@ import ollama
 import json
 
 def describe_image(image_path):
-    prompt = "Describe the image from my drone as detailed as possible"
+    prompt = """
+    Describe the image from my drone as detailed as possible. Follow this structured format for clarity and completeness:
+    
+    General Overview:Begin with a brief summary of the scene, identifying the primary environment (e.g., residential area, industrial zone, park, etc.) and key visual features.
+
+    Detailed Observations:Provide a numbered list describing notable details in the image. Each point should include:
+
+    - Clear identification of objects or landmarks.
+    - Relative positioning (e.g., "to the left of...", "in the background...", "near the center...").
+    - Descriptions of condition, appearance, or notable characteristics (e.g., "well-maintained", "damaged", "overgrown", etc.).
+    """
     
     res = ollama.chat(
         model="llava:13b",
@@ -20,53 +30,56 @@ def describe_image(image_path):
     return content
 
 def parse_image_json(image_path):
+    prompt = """
+    "Analyze the given image from a drone camera and provide detailed observations in a valid JSON data type (not as a string or markdown). 
+
+    Include the following details: 
+
+    1. Landmarks and Environment Features:  
+    - Identify key landmarks (e.g., buildings, mountains, rivers, etc.).  
+    - Provide their approximate positions in the image (e.g., top-left, center, bottom-right).  
+    - Use descriptive adjectives to detail visual features (e.g., 'tall red tower', 'dense green forest').  
+
+    2. Special Events and Anomalies:  
+    - Highlight any unusual activities, movements, or visual anomalies (e.g., 'smoke rising', 'crowd gathering', 'damaged structure').  
+
+    3. Weather Conditions:  
+    - Describe visible weather conditions (e.g., 'clear sky', 'foggy horizon', 'heavy rain').  
+    - Include details on visibility (e.g., 'excellent', 'limited due to haze', 'poor visibility from mist').
+    
+    "Format your response in an JSON data type:
+    ```json
+    {
+        "landmarks": [
+            {"name": "<landmark_name>", "position": "<relative_position>", "description": "<adjectives>"}
+        ],
+        "anomalies": [
+            {"type": "<event_type>", "position": "<relative_position>", "description": "<adjectives or details>"}
+        ],
+        "weather": {
+            "visibility": "<description>",
+            "conditions": "<weather_details>"
+        },
+    }
+    ```
+
+    Format your response as a valid JSON data type."
+    """
+    
     res = ollama.chat(
         model="llava:13b",
         messages=[
             {
                 'role': 'user',
-                'content': (
-                    "Analyze the given image from a drone camera and provide detailed observations in an python object data type (don't use markdown). "
-                    "Include the following details:\n\n"
-                    "1. **Landmarks and Environment Features:**\n"
-                    "   - Identify key landmarks (e.g., buildings, mountains, rivers, etc.).\n"
-                    "   - Provide their approximate positions in the image (e.g., top-left, center, bottom-right).\n"
-                    "   - Use descriptive adjectives to detail visual features (e.g., 'tall red tower', 'dense green forest').\n\n"
-                    "2. **Special Events and Anomalies:**\n"
-                    "   - Highlight any unusual activities, movements, or visual anomalies (e.g., 'smoke rising', 'crowd gathering', 'damaged structure').\n\n"
-                    "3. **Weather Conditions:**\n"
-                    "   - Describe visible weather conditions (e.g., 'clear sky', 'foggy horizon', 'heavy rain').\n"
-                    "   - Include details on visibility (e.g., 'excellent', 'limited due to haze', 'poor visibility from mist').\n\n"
-                    "Format your response in an python object data type (don't use markdown):\n\n"
-                    "{\n"
-                    "  \"landmarks\": [\n"
-                    "    {\n"
-                    "      \"name\": \"Mountain Peak\",\n"
-                    "      \"position\": \"top-center\",\n"
-                    "      \"description\": \"snow-covered with rocky outcrops\"\n"
-                    "    }\n"
-                    "  ],\n"
-                    "  \"events_anomalies\": [\n"
-                    "    {\n"
-                    "      \"type\": \"smoke\",\n"
-                    "      \"position\": \"bottom-left\",\n"
-                    "      \"description\": \"thick black smoke rising from a building\"\n"
-                    "    }\n"
-                    "  ],\n"
-                    "  \"weather\": {\n"
-                    "    \"condition\": \"partly cloudy\",\n"
-                    "    \"visibility\": \"moderate\"\n"
-                    "  }\n"
-                    "}"
-                ),
+                'content': prompt,
                 'images': [image_path]
             }
         ]
     )
 
-    content = res['message']['content'].strip().strip('`').strip('JSON').strip('python')
+    content = res['message']['content'].strip().strip('`').strip('JSON').strip('python').strip('json')
     
-    # return content
+    return content
 
     try:
         result = json.loads(content)
