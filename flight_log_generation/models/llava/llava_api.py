@@ -1,9 +1,8 @@
 import ollama
-
-image_path = "assets/large_files/images"
+import json
 
 def parse_image():
-    '''res = ollama.chat(
+    res = ollama.chat(
         model="llava:13b",
         messages=[
             {
@@ -42,50 +41,113 @@ def parse_image():
                     "  }\n"
                     "}"
                 ),
-                'images': ['/city-1.png', '/city-2.png', '/city-3.png']
-            }
-        ]
-    )'''
-
-    res = ollama.chat(
-        model="llava:13b",
-        messages=[
-            {
-                'role': 'user',
-                'content': 'Describe these three images, they are images from my drone, and the interval is 3 seconds. Make sure the description is related to the timeline',
-                'images': [image_path + '/city-1.png', image_path + '/city-2.png', image_path + '/city-3.png']
+                'images': ['/city-1.png']
             }
         ]
     )
 
     content = res['message']['content'].strip().strip('python').strip('`').strip('JSON')
 
-    # try:
-    #     result = json.loads(content)
-    #     print(result['weather'])
-    # except json.JSONDecodeError:
-    #     print("Failed to decode response as JSON.")
+    try:
+        result = json.loads(content)
+    except json.JSONDecodeError:
+        print("Failed to decode response as JSON.")
     
-    return content
+    return result
 
-def parse_given_image(image):
+def parse_given_images(image_path, n):
+    images = []
+    for i in range(0, n):
+        images.append(f"{image_path}temp_{i}.jpg")
+
+    prompt_json = """
+    You are an advanced visual observer analyzing images from a drone camera. The images are extracted from a drone video at **5-second intervals**, meaning each image is sampled every 5 seconds. For each image provided, generate a JSON block that describes the following details:
+
+    1. **Landmarks and Environment Features**
+       - Identify prominent landmarks, natural or man-made (e.g., buildings, trees, roads).
+       - Include positional details (e.g., "center-left", "top-right", etc.) and relevant adjectives describing size, color, or state (e.g., "tall red tower", "dense green forest").
+
+    2. **Special Events and Anomalies**
+       - Describe unusual occurrences (e.g., fire, smoke, crowd gathering) with relevant positioning and estimated scale.
+
+    3. **Weather Conditions**
+       - Describe visibility conditions (e.g., "clear sky", "foggy with reduced visibility").
+       - Include details like lighting conditions and notable weather patterns.
+
+    4. **Connections Between Images**
+       - Identify temporal or spatial links between the current and previous images (e.g., "same vehicle moved 10m ahead", "clouds thickened").
+       - Since images are taken at 5-second intervals, describe movement, progression, or changes accordingly.
+
+    **Output Format:**
+    ```json
+    [
+      {
+        "image_id": "<image_1_id>",
+        "landmarks": [
+          {"name": "<landmark_name>", "position": "<relative_position>", "description": "<adjectives>"}
+        ],
+        "anomalies": [
+          {"type": "<event_type>", "position": "<relative_position>", "description": "<adjectives or details>"}
+        ],
+        "weather": {
+          "visibility": "<description>",
+          "conditions": "<weather_details>"
+        },
+        "connections": {
+          "space_relation": "<space_description>",
+          "instance_relation": "<tracked_object_or_event>"
+        }
+      }
+    ]
+    ```
+
+    **Additional Notes:**
+    - If any category has no information, return an empty array or `null` for that field.
+    - Since images are sampled every 5 seconds, ensure descriptions consider possible motion, changes in weather, and evolving anomalies over this interval.
+    """
+    
+    prompt_text = """
+    You are an advanced visual observer analyzing images from a drone camera. The images are extracted from a drone video at **5-second intervals**, meaning each image is sampled every 5 seconds. For each image provided, describes the following details:
+
+    1. **Landmarks and Environment Features**
+       - Identify prominent landmarks, natural or man-made (e.g., buildings, trees, roads).
+       - Include positional details (e.g., "center-left", "top-right", etc.) and relevant adjectives describing size, color, or state (e.g., "tall red tower", "dense green forest").
+
+    2. **Special Events and Anomalies**
+       - Describe unusual occurrences (e.g., fire, smoke, crowd gathering) with relevant positioning and estimated scale.
+
+    3. **Weather Conditions**
+       - Describe visibility conditions (e.g., "clear sky", "foggy with reduced visibility").
+       - Include details like lighting conditions and notable weather patterns.
+
+    4. **Connections Between Images**
+       - Identify temporal or spatial links between the current and previous images (e.g., "same vehicle moved 10m ahead", "clouds thickened").
+       - Since images are taken at 5-second intervals, describe movement, progression, or changes accordingly.
+
+    **Additional Notes:**
+    - Describe as detailed as possible for each images, in other words, you should generate contents on these four categories for EACH images.
+    - Since images are sampled every 5 seconds, ensure descriptions consider possible motion, changes in weather, and evolving anomalies over this interval.
+    """
+    
+    prompt = "Describe these three images, they are images from my drone, and the interval is 3 seconds. Make sure the description is related to the timeline"
+
     res = ollama.chat(
         model="llava:13b",
         messages=[
             {
                 'role': 'user',
-                'content': 'Describe the image you see as detailed as possible.',
-                'images': [image]
+                'content': prompt,
+                # 'images': ['assets/large_files/image2parse/temp_0.jpg', 'assets/large_files/image2parse/temp_1.jpg', 'assets/large_files/image2parse/temp_2.jpg']
+                'images': ['assets/large_files/images/city-1.png', 'assets/large_files/images/city-2.png', 'assets/large_files/images/city-3.png']
             }
         ]
     )
-    
-    content = res['message']['content'].strip().strip('python').strip('`').strip('JSON')
+
+    content = res['message']['content'].strip().strip('python').strip('`').strip('JSON').strip('json')
 
     # try:
     #     result = json.loads(content)
-    #     print(result['weather'])
     # except json.JSONDecodeError:
     #     print("Failed to decode response as JSON.")
-    
+
     return content
