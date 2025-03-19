@@ -1,7 +1,25 @@
 import ollama
 import json
 
-def parse_image():
+def describe_image(image_path):
+    prompt = "Describe the image from my drone as detailed as possible"
+    
+    res = ollama.chat(
+        model="llava:13b",
+        messages=[
+            {
+                'role': 'user',
+                'content': prompt,
+                'images': [image_path]
+            }
+        ]
+    )
+
+    content = res['message']['content'].strip().strip('python').strip('`').strip('JSON').strip('json')
+    
+    return content
+
+def parse_image_json(image_path):
     res = ollama.chat(
         model="llava:13b",
         messages=[
@@ -41,12 +59,14 @@ def parse_image():
                     "  }\n"
                     "}"
                 ),
-                'images': ['/city-1.png']
+                'images': [image_path]
             }
         ]
     )
 
-    content = res['message']['content'].strip().strip('python').strip('`').strip('JSON')
+    content = res['message']['content'].strip().strip('`').strip('JSON').strip('python')
+    
+    # return content
 
     try:
         result = json.loads(content)
@@ -107,26 +127,27 @@ def parse_given_images(image_path, n):
     """
     
     prompt_text = """
-    You are an advanced visual observer analyzing images from a drone camera. The images are extracted from a drone video at **5-second intervals**, meaning each image is sampled every 5 seconds. For each image provided, describes the following details:
+    You are an advanced visual observer analyzing images from a drone camera. For each image provided, describe the visual content in as much detail as possible, organized by image number.
+    Focus on observing and describing:
+    - Landmarks and environment features, including their positions, shapes, colors, and any distinguishing details.
+    - Any notable activities, events, or anomalies that stand out.
+    - Weather conditions and visibility aspects as they appear in the image.
 
-    1. **Landmarks and Environment Features**
-       - Identify prominent landmarks, natural or man-made (e.g., buildings, trees, roads).
-       - Include positional details (e.g., "center-left", "top-right", etc.) and relevant adjectives describing size, color, or state (e.g., "tall red tower", "dense green forest").
+    Be precise and descriptive in your observations. Avoid summarizing or interpreting beyond what is visually evident. Your goal is to capture everything an attentive observer would notice in detail.
+    Because it's important, let me emphasize it again, DO NOT summarize! DO NOT summarize! DO NOT summarize!
+    
+    Use the following format:
 
-    2. **Special Events and Anomalies**
-       - Describe unusual occurrences (e.g., fire, smoke, crowd gathering) with relevant positioning and estimated scale.
+    image 1:
+    [Detailed observations...]
 
-    3. **Weather Conditions**
-       - Describe visibility conditions (e.g., "clear sky", "foggy with reduced visibility").
-       - Include details like lighting conditions and notable weather patterns.
+    image 2:
+    [Detailed observations...]
+    
+    image 3:
+    [Detailed observations...]
 
-    4. **Connections Between Images**
-       - Identify temporal or spatial links between the current and previous images (e.g., "same vehicle moved 10m ahead", "clouds thickened").
-       - Since images are taken at 5-second intervals, describe movement, progression, or changes accordingly.
-
-    **Additional Notes:**
-    - Describe as detailed as possible for each images, in other words, you should generate contents on these four categories for EACH images.
-    - Since images are sampled every 5 seconds, ensure descriptions consider possible motion, changes in weather, and evolving anomalies over this interval.
+    .....
     """
     
     prompt = "Describe these three images, they are images from my drone, and the interval is 3 seconds. Make sure the description is related to the timeline"
@@ -136,9 +157,9 @@ def parse_given_images(image_path, n):
         messages=[
             {
                 'role': 'user',
-                'content': prompt,
+                'content': prompt_text,
                 # 'images': ['assets/large_files/image2parse/temp_0.jpg', 'assets/large_files/image2parse/temp_1.jpg', 'assets/large_files/image2parse/temp_2.jpg']
-                'images': ['assets/large_files/images/city-1.png', 'assets/large_files/images/city-2.png', 'assets/large_files/images/city-3.png']
+                'images': images
             }
         ]
     )

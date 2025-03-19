@@ -8,7 +8,7 @@ from models.llava import llava_api
 VIDEO_PATH = "assets/large_files/videos/"
 IMAGE_PATH = "assets/large_files/image2parse/"
 PARSE_INTERVAL = 5  # in seconds
-IMAGE_BATCHES = 5
+IMAGE_BATCHES = 3
 
 if __name__ == "__main__":
     cap = cv2.VideoCapture(VIDEO_PATH + "city.MP4")
