@@ -1,0 +1,7 @@
+test.py
+__pycache__
+
+flight_log_generation/assets/large_files
+
+.env
+venv
