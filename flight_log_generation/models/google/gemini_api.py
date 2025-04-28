@@ -1,52 +1,34 @@
 from dotenv import load_dotenv
-import base64
 import os
 from google import genai
 from google.genai import types
+from utils.image import image_processor
+from utils import prompts
 
-load_dotenv()
-
-def generate():
+def parse_images_json(image_path):
+    load_dotenv()
+    
     client = genai.Client(api_key = os.getenv("GOOGLE_API_KEY"))
+    
+    # Getting the Base64 string
+    base64_image = image_processor.encode_image(image_path)
 
     contents = [
-#         types.Content(
-#             role="user",
-#             parts=[
-#                 types.Part.from_text(text="""hello whats ur name"""),
-#             ],
-#         ),
-#         types.Content(
-#             role="model",
-#             parts=[
-#                 types.Part.from_text(text="""I am a large language model, trained by Google. I don't have a name.
-# """),
-#             ],
-#         ),
-#         types.Content(
-#             role="user",
-#             parts=[
-#                 types.Part.from_text(text="""oh i thought ur name is Gemini"""),
-#             ],
-#         ),
-#         types.Content(
-#             role="model",
-#             parts=[
-#                 types.Part.from_text(text="""Gemini is the name of the large language model I'm based on. You can think of me as a version of Gemini.
-# """),
-#             ],
-#         ),
         types.Content(
             role = "user",
             parts = [
-                types.Part.from_text(text = """Write a one-sentence bedtime story about a unicorn."""),
+                types.Part.from_bytes(
+                    data=base64_image,
+                    mime_type='image/jpeg',
+                ),
+                types.Part.from_text(text = prompts.prompt_json),
             ],
         ),
     ]
     
     generate_content_config = types.GenerateContentConfig(
         temperature = 0,
-        max_output_tokens = 300,
+        max_output_tokens = 2000,
         response_mime_type = "text/plain",
     )
     
@@ -57,6 +39,3 @@ def generate():
     )
     
     print(response.text)
-
-if __name__ == "__main__":
-    generate()

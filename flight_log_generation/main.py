@@ -5,21 +5,24 @@ import os
 from models.llava import llava_api
 
 # define some constant here
-VIDEO_PATH = "assets/large_files/videos/"
-# IMAGE_PATH = "assets/large_files/image2parse/"
-IMAGE_PATH = "assets/test_images/"
+# path
+VIDEO_FOLDER_PATH = "assets/large_files/videos/"
+IMAGE_FOLDER_PATH = "assets/large_files/image2parse/"
+
+# frame related
 PARSE_INTERVAL = 5  # in seconds
 IMAGE_BATCHES = 10
+START_TIME = 40  # in seconds
 
 if __name__ == "__main__":
-    cap = cv2.VideoCapture(VIDEO_PATH + "city.MP4")
+    cap = cv2.VideoCapture(VIDEO_FOLDER_PATH + "city.MP4")
     
     if not cap.isOpened():
         print("Error: Could not open video.")
         exit()
     else:
-        # start parsing the video at 40 second, omit the take off time
-        cap.set(cv2.CAP_PROP_POS_MSEC, (40 - PARSE_INTERVAL) * 1000)
+        # start parsing the video at `START_TIME` second, omit the take off time
+        cap.set(cv2.CAP_PROP_POS_MSEC, (START_TIME - PARSE_INTERVAL) * 1000)
         cap.read()
         
     image_buffer_index = 0
@@ -36,22 +39,25 @@ if __name__ == "__main__":
         if not ret:
             print("Can't receive frame. Exiting ...")
             
-            print(llava_api.parse_given_images(IMAGE_PATH, image_buffer_index))
+            print(llava_api.parse_images(IMAGE_FOLDER_PATH, image_buffer_index))
             
             break
         
         print(f"Timestamp: {(current_time_ms + (PARSE_INTERVAL * 1000)) / 1000:.2f} seconds")
         cv2.imshow("frame", frame)
         
-        cv2.imwrite(f"{IMAGE_PATH}temp_{image_buffer_index}.jpg", frame)
+        # writes the frame to IMAGE_FOLDER_PATH with name of temp_{image_buffer_index}.jpg
+        cv2.imwrite(f"{IMAGE_FOLDER_PATH}temp_{image_buffer_index}.jpg", frame)
         
         image_buffer_index += 1
         
         if image_buffer_index == IMAGE_BATCHES:
-            # start parsing
-            print(llava_api.parse_given_images(IMAGE_PATH, IMAGE_BATCHES))
+            # start parsing the frame batch
+            print(llava_api.parse_images(IMAGE_FOLDER_PATH, IMAGE_BATCHES))
             
             image_buffer_index = 0
+            
+            # test purpose
             break
         
         if cv2.waitKey(1) == ord('q'):

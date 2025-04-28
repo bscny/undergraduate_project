@@ -88,7 +88,7 @@ def parse_image_json(image_path):
     
     return result
 
-def parse_given_images(image_path, n):
+def parse_images(image_path, n):
     images = []
     for i in range(0, n):
         images.append(f"{image_path}temp_{i}.jpg")
