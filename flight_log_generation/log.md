@@ -145,54 +145,6 @@
 {
   "landmarks": [
     {
-      "landmark_name": "basketball court",
-      "position": "middle",
-      "visual_description": "A green and blue multi-purpose sports court with white line markings for basketball. The court has a distinctive blue perimeter and green playing surface with visible basketball hoops."
-    },
-    {
-      "landmark_name": "road",
-      "position": "right",
-      "visual_description": "A wide multi-lane asphalt road running vertically through the right side of the image, with yellow center lines and white lane markings. Several vehicles can be seen traveling or parked along it."
-    },
-    {
-      "landmark_name": "building",
-      "position": "top-left",
-      "visual_description": "A structure with distinctive orange/terracotta roof tiles surrounded by trees and vegetation. The building appears to be a residential or small commercial property with a courtyard area."
-    },
-    {
-      "landmark_name": "pedestrian walkway",
-      "position": "middle",
-      "visual_description": "A covered walkway or bridge structure with white railings and a brown/reddish walking surface, connecting different areas of what appears to be a recreational complex."
-    },
-    {
-      "landmark_name": "paved plaza",
-      "position": "left",
-      "visual_description": "A large paved area with a reddish-pink grid pattern, likely a public square or gathering space adjacent to the sports facilities."
-    }
-  ],
-  "anomalies": [
-    {
-      "anomaly_name": "damaged court surface",
-      "position": "middle",
-      "visual_description": "The sports court shows signs of wear and deterioration, with faded paint, discolored patches, and what appears to be water damage or weathering on the playing surface, particularly visible on the right side of the court."
-    },
-    {
-      "anomaly_name": "overgrown vegetation",
-      "position": "top-left",
-      "visual_description": "Areas of dense, unmanaged vegetation and trees encroaching on the developed spaces, suggesting lack of maintenance in certain sections of the property."
-    }
-  ],
-  "visibility": {
-    "weather": "sunny",
-    "background_scene": "city"
-  }
-}
-```
-
-```json
-{
-  "landmarks": [
-    {
       "landmark_name": "temple",
       "position": "middle",
       "visual_description": "An ornate temple structure with distinctive orange/terracotta tiled roofs featuring multiple decorative peaks and pavilions. The building has a traditional East Asian architectural style with elaborate roof corners that curve upward."
