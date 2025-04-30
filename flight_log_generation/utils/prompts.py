@@ -58,7 +58,7 @@ You are analyzing a sequence of aerial images taken by a drone. For the given se
 Be as detailed as possible, report everything you see. For each frame `frame_i`, perform:
 
 1. Landmarks
-   - landmark_name: Name or category of the landmark (e.g., "building", "bridge", "road", "forest patch", "communication tower", "farmland", etc.).
+   - landmark_name: Name or category of the landmark (e.g., "building", "bridge", "road", "forest patch", "communication tower", "farmland", etc.), if repeated one already exists, give index.
    - position: One of the following 8 options only — "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left", "bottom-right", "middle".
    - visual_description: A detailed description of the landmark's appearance (include size, shape, color, texture, special characteristics like "red rooftop", "dense green foliage", "long, winding road", etc.).
 
@@ -75,7 +75,7 @@ Be as detailed as possible, report everything you see. For each frame `frame_i`,
 
 For each consecutive pair of frames (`frame_i` and `frame_{i+1}`), determine:
 
-- **movement_direction**: One of the following 8 directions — "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left", "bottom-right".
+- **movement_direction**: One of the following 9 directions — "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left", "bottom-right", "stay".
 - This represents the general movement of the camera/drone between the two frames.
 
 3. Cross-Frame Identity Inference
@@ -135,8 +135,7 @@ Return your answer strictly as a JSON object formatted like this:
   ],
   "motion": [
     {
-      "from_frame": 1,
-      "to_frame": 2,
+      "frame_pair": [1, 2],
       "movement_direction": "bottom-right"
     }
   ],

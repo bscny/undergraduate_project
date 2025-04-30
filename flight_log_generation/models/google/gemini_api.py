@@ -75,7 +75,7 @@ def parse_image_batch_json(image_path):
     
     generate_content_config = types.GenerateContentConfig(
         temperature = 0,
-        max_output_tokens = 5000,
+        max_output_tokens = 2000,
         response_mime_type = "text/plain",
     )
     

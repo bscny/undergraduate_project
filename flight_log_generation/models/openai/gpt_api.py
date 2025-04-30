@@ -48,7 +48,7 @@ def parse_image_batch_json(image_path):
     response = client.responses.create(
         model="gpt-4o",
         temperature = 0,
-        max_output_tokens = 5000,
+        max_output_tokens = 2000,
         input=[
             {
                 "role": "user",

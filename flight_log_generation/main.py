@@ -7,7 +7,7 @@ from models.llava import llava_api
 # define some constant here
 # path
 VIDEO_FOLDER_PATH = "assets/large_files/videos/"
-IMAGE_FOLDER_PATH = "assets/large_files/image2parse/"
+IMAGE_FOLDER_PATH = "assets/large_files/images/"
 
 # frame related
 PARSE_INTERVAL = 5  # in seconds
@@ -39,7 +39,7 @@ if __name__ == "__main__":
         if not ret:
             print("Can't receive frame. Exiting ...")
             
-            print(llava_api.parse_images(IMAGE_FOLDER_PATH, image_buffer_index))
+            # print(llava_api.parse_images(IMAGE_FOLDER_PATH, image_buffer_index))
             
             break
         
@@ -53,7 +53,7 @@ if __name__ == "__main__":
         
         if image_buffer_index == IMAGE_BATCHES:
             # start parsing the frame batch
-            print(llava_api.parse_images(IMAGE_FOLDER_PATH, IMAGE_BATCHES))
+            # print(llava_api.parse_images(IMAGE_FOLDER_PATH, IMAGE_BATCHES))
             
             image_buffer_index = 0
             
