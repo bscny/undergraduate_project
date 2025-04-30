@@ -351,3 +351,591 @@
 </details>
 
 </details>
+
+<details>
+<summary>2025-04-30, test 3 cloud models to see how they handle JSON outputs (timeline involved, batch size 3)</summary>
+
+<details>
+<summary>ChatGPT</summary>
+
+# ChatGPT
+
+```json
+{
+  "frames": [
+    {
+      "frame_id": 1,
+      "landmarks": [
+        {
+          "landmark_name": "basketball court",
+          "position": "bottom-left",
+          "visual_description": "A large outdoor basketball court with blue and green surfaces, surrounded by a fence."
+        },
+        {
+          "landmark_name": "road",
+          "position": "right",
+          "visual_description": "A wide road with multiple lanes and a few parked cars along the side."
+        },
+        {
+          "landmark_name": "building",
+          "position": "top-right",
+          "visual_description": "A building with a white roof and a checkered pattern on the side."
+        }
+      ],
+      "anomalies": [],
+      "visibility": {
+        "weather": "sunny",
+        "background_scene": "city"
+      }
+    },
+    {
+      "frame_id": 2,
+      "landmarks": [
+        {
+          "landmark_name": "temple",
+          "position": "top-left",
+          "visual_description": "A traditional temple with orange-tiled roofs and intricate architectural details."
+        },
+        {
+          "landmark_name": "parking lot",
+          "position": "middle",
+          "visual_description": "A parking lot filled with cars, organized in rows."
+        },
+        {
+          "landmark_name": "road",
+          "position": "right",
+          "visual_description": "A wide road with multiple lanes, similar to the previous frame."
+        }
+      ],
+      "anomalies": [],
+      "visibility": {
+        "weather": "sunny",
+        "background_scene": "city"
+      }
+    },
+    {
+      "frame_id": 3,
+      "landmarks": [
+        {
+          "landmark_name": "parking lot",
+          "position": "top-left",
+          "visual_description": "A large parking lot with numerous cars parked in rows."
+        },
+        {
+          "landmark_name": "road",
+          "position": "right",
+          "visual_description": "A wide road with multiple lanes, consistent with previous frames."
+        }
+      ],
+      "anomalies": [],
+      "visibility": {
+        "weather": "sunny",
+        "background_scene": "city"
+      }
+    }
+  ],
+  "motion": [
+    {
+      "from_frame": 1,
+      "to_frame": 2,
+      "movement_direction": "top-right"
+    },
+    {
+      "from_frame": 2,
+      "to_frame": 3,
+      "movement_direction": "top-right"
+    }
+  ],
+  "inference": [
+    {
+      "type": "landmark",
+      "name": "road",
+      "frame_pair": [1, 2],
+      "inference_probability": 0.95
+    },
+    {
+      "type": "landmark",
+      "name": "road",
+      "frame_pair": [2, 3],
+      "inference_probability": 0.95
+    },
+    {
+      "type": "landmark",
+      "name": "parking lot",
+      "frame_pair": [2, 3],
+      "inference_probability": 0.90
+    }
+  ]
+}
+```
+</details>
+
+<details>
+<summary>Claude</summary>
+
+# Claude
+
+```json
+{
+  "frames": [
+    {
+      "frame_id": 1,
+      "landmarks": [
+        {
+          "landmark_name": "basketball court",
+          "position": "middle",
+          "visual_description": "A green basketball court with blue borders, white court markings, and visible hoops at both ends."
+        },
+        {
+          "landmark_name": "covered walkway",
+          "position": "middle",
+          "visual_description": "A long wooden walkway with white railings and roof structure connecting different areas of the complex."
+        },
+        {
+          "landmark_name": "multi-lane road",
+          "position": "right",
+          "visual_description": "A wide asphalt road with multiple lanes and yellow center line markings."
+        },
+        {
+          "landmark_name": "temple building",
+          "position": "top-left",
+          "visual_description": "A traditional Asian-style building with distinctive orange/terracotta tiled roofs and ornate architectural details."
+        },
+        {
+          "landmark_name": "commercial building",
+          "position": "right",
+          "visual_description": "A long rectangular building with a light blue/white roof and multiple units or sections."
+        },
+        {
+          "landmark_name": "paved plaza",
+          "position": "bottom-left",
+          "visual_description": "A large paved area with reddish-brown tiles arranged in a grid pattern."
+        },
+        {
+          "landmark_name": "green space",
+          "position": "left",
+          "visual_description": "Dense area of trees and vegetation forming a green buffer zone."
+        }
+      ],
+      "anomalies": [],
+      "visibility": {
+        "weather": "sunny",
+        "background_scene": "city"
+      }
+    },
+    {
+      "frame_id": 2,
+      "landmarks": [
+        {
+          "landmark_name": "temple building",
+          "position": "middle-left",
+          "visual_description": "A traditional Asian-style temple complex with multiple orange/terracotta tiled roofs, ornate details, and decorative elements."
+        },
+        {
+          "landmark_name": "parking lot",
+          "position": "top-left",
+          "visual_description": "An organized parking area with numerous white and some colored vehicles arranged in rows on reddish pavement."
+        },
+        {
+          "landmark_name": "multi-lane road",
+          "position": "right",
+          "visual_description": "A wide asphalt road with multiple lanes and yellow center line markings."
+        },
+        {
+          "landmark_name": "covered walkway",
+          "position": "bottom",
+          "visual_description": "A wooden walkway with white railings and roof structure partially visible at the bottom of the frame."
+        },
+        {
+          "landmark_name": "green space",
+          "position": "left",
+          "visual_description": "Dense area of trees and vegetation forming a green buffer zone."
+        },
+        {
+          "landmark_name": "commercial building",
+          "position": "bottom-right",
+          "visual_description": "Part of a rectangular building with a light blue/white roof visible at the edge of the frame."
+        },
+        {
+          "landmark_name": "red-roofed building",
+          "position": "middle",
+          "visual_description": "A structure with a distinctive bright red metal roof adjacent to the temple complex."
+        }
+      ],
+      "anomalies": [],
+      "visibility": {
+        "weather": "sunny",
+        "background_scene": "city"
+      }
+    },
+    {
+      "frame_id": 3,
+      "landmarks": [
+        {
+          "landmark_name": "parking lot",
+          "position": "middle-left",
+          "visual_description": "A large parking area with numerous white and some colored vehicles arranged in neat rows on reddish pavement."
+        },
+        {
+          "landmark_name": "multi-lane road",
+          "position": "middle-right",
+          "visual_description": "A wide asphalt road with multiple lanes, yellow center line markings, and visible crosswalk stripes at an intersection."
+        },
+        {
+          "landmark_name": "temple building",
+          "position": "bottom-left",
+          "visual_description": "Partial view of a traditional Asian-style building with orange/terracotta tiled roof, only a corner is visible."
+        },
+        {
+          "landmark_name": "red-roofed building",
+          "position": "bottom",
+          "visual_description": "Partial view of a structure with a distinctive bright red metal roof."
+        },
+        {
+          "landmark_name": "green space",
+          "position": "left",
+          "visual_description": "Area with trees and vegetation along the left edge of the frame."
+        },
+        {
+          "landmark_name": "parking lot 2",
+          "position": "right",
+          "visual_description": "Another parking area on the right side with vehicles arranged in a more scattered pattern."
+        }
+      ],
+      "anomalies": [],
+      "visibility": {
+        "weather": "sunny",
+        "background_scene": "city"
+      }
+    }
+  ],
+  "motion": [
+    {
+      "from_frame": 1,
+      "to_frame": 2,
+      "movement_direction": "top-left"
+    },
+    {
+      "from_frame": 2,
+      "to_frame": 3,
+      "movement_direction": "top"
+    }
+  ],
+  "inference": [
+    {
+      "type": "landmark",
+      "name": "temple building",
+      "frame_pair": [1, 2],
+      "inference_probability": 0.95
+    },
+    {
+      "type": "landmark",
+      "name": "multi-lane road",
+      "frame_pair": [1, 2],
+      "inference_probability": 0.98
+    },
+    {
+      "type": "landmark",
+      "name": "covered walkway",
+      "frame_pair": [1, 2],
+      "inference_probability": 0.90
+    },
+    {
+      "type": "landmark",
+      "name": "green space",
+      "frame_pair": [1, 2],
+      "inference_probability": 0.95
+    },
+    {
+      "type": "landmark",
+      "name": "commercial building",
+      "frame_pair": [1, 2],
+      "inference_probability": 0.85
+    },
+    {
+      "type": "landmark",
+      "name": "temple building",
+      "frame_pair": [2, 3],
+      "inference_probability": 0.85
+    },
+    {
+      "type": "landmark",
+      "name": "parking lot",
+      "frame_pair": [2, 3],
+      "inference_probability": 0.98
+    },
+    {
+      "type": "landmark",
+      "name": "multi-lane road",
+      "frame_pair": [2, 3],
+      "inference_probability": 0.98
+    },
+    {
+      "type": "landmark",
+      "name": "red-roofed building",
+      "frame_pair": [2, 3],
+      "inference_probability": 0.90
+    },
+    {
+      "type": "landmark",
+      "name": "green space",
+      "frame_pair": [2, 3],
+      "inference_probability": 0.90
+    }
+  ]
+}
+```
+</details>
+
+<details>
+<summary>Gemini</summary>
+
+# Gemini
+
+```json
+{
+  "frames": [
+    {
+      "frame_id": 1,
+      "landmarks": [
+        {
+          "landmark_name": "basketball court",
+          "position": "bottom-left",
+          "visual_description": "A rectangular basketball court with blue and green painted surfaces, white lines marking the boundaries and key areas, and basketball hoops at each end."
+        },
+        {
+          "landmark_name": "multi-purpose court",
+          "position": "middle",
+          "visual_description": "A rectangular multi-purpose court with a green painted surface and curved blue lines along one side. It appears to be adjacent to the basketball court."
+        },
+        {
+          "landmark_name": "road",
+          "position": "right",
+          "visual_description": "A wide, straight road with multiple lanes, marked by white lines. There are trees lining the side of the road."
+        },
+        {
+          "landmark_name": "buildings",
+          "position": "top-right",
+          "visual_description": "A row of low-rise buildings with white walls and gray roofs, located along the right side of the road."
+        },
+        {
+          "landmark_name": "traditional buildings",
+          "position": "top-left",
+          "visual_description": "A cluster of traditional buildings with orange tiled roofs, located near trees and a paved area."
+        },
+        {
+          "landmark_name": "trees",
+          "position": "left",
+          "visual_description": "A dense patch of green trees located near the basketball court and traditional buildings."
+        }
+      ],
+      "anomalies": [],
+      "visibility": {
+        "weather": "sunny",
+        "background_scene": "city"
+      }
+    },
+    {
+      "frame_id": 2,
+      "landmarks": [
+        {
+          "landmark_name": "parking lot",
+          "position": "top-left",
+          "visual_description": "A large parking lot filled with many cars, mostly white and silver. It is located next to the traditional buildings."
+        },
+        {
+          "landmark_name": "traditional buildings",
+          "position": "top",
+          "visual_description": "A cluster of traditional buildings with orange and red tiled roofs. They are located next to the parking lot and a road."
+        },
+        {
+          "landmark_name": "road",
+          "position": "right",
+          "visual_description": "A wide, straight road with multiple lanes, marked by white lines. There are trees lining the side of the road."
+        },
+        {
+          "landmark_name": "buildings",
+          "position": "right",
+          "visual_description": "A row of low-rise buildings with white walls and gray roofs, located along the right side of the road."
+        },
+        {
+          "landmark_name": "basketball court",
+          "position": "bottom-left",
+          "visual_description": "A rectangular basketball court with blue and green painted surfaces, white lines marking the boundaries and key areas, and basketball hoops at each end."
+        },
+        {
+          "landmark_name": "multi-purpose court",
+          "position": "bottom",
+          "visual_description": "A rectangular multi-purpose court with a green painted surface and curved blue lines along one side. It appears to be adjacent to the basketball court."
+        },
+        {
+          "landmark_name": "trees",
+          "position": "left",
+          "visual_description": "A dense patch of green trees located near the parking lot and traditional buildings."
+        }
+      ],
+      "anomalies": [],
+      "visibility": {
+        "weather": "sunny",
+        "background_scene": "city"
+      }
+    },
+    {
+      "frame_id": 3,
+      "landmarks": [
+        {
+          "landmark_name": "parking lot",
+          "position": "left",
+          "visual_description": "A large parking lot filled with many cars, mostly white and silver. It is located next to the traditional buildings."
+        },
+        {
+          "landmark_name": "traditional buildings",
+          "position": "bottom-left",
+          "visual_description": "A cluster of traditional buildings with orange and red tiled roofs. They are located next to the parking lot and a road."
+        },
+        {
+          "landmark_name": "road",
+          "position": "middle",
+          "visual_description": "A wide, straight road with multiple lanes, marked by white lines. There are trees lining the side of the road."
+        },
+        {
+          "landmark_name": "buildings",
+          "position": "right",
+          "visual_description": "A row of low-rise buildings with white walls and gray roofs, located along the right side of the road."
+        },
+        {
+          "landmark_name": "parking lot",
+          "position": "right",
+          "visual_description": "A parking lot filled with many cars, mostly white and silver. It is located next to the buildings."
+        },
+        {
+          "landmark_name": "trees",
+          "position": "left",
+          "visual_description": "A dense patch of green trees located near the parking lot and traditional buildings."
+        }
+      ],
+      "anomalies": [],
+      "visibility": {
+        "weather": "sunny",
+        "background_scene": "city"
+      }
+    }
+  ],
+  "motion": [
+    {
+      "from_frame": 1,
+      "to_frame": 2,
+      "movement_direction": "top-left"
+    },
+    {
+      "from_frame": 2,
+      "to_frame": 3,
+      "movement_direction": "bottom-left"
+    }
+  ],
+  "inference": [
+    {
+      "type": "landmark",
+      "name": "basketball court",
+      "frame_pair": [
+        1,
+        2
+      ],
+      "inference_probability": 0.95
+    },
+    {
+      "type": "landmark",
+      "name": "multi-purpose court",
+      "frame_pair": [
+        1,
+        2
+      ],
+      "inference_probability": 0.95
+    },
+    {
+      "type": "landmark",
+      "name": "road",
+      "frame_pair": [
+        1,
+        2
+      ],
+      "inference_probability": 0.99
+    },
+    {
+      "type": "landmark",
+      "name": "buildings",
+      "frame_pair": [
+        1,
+        2
+      ],
+      "inference_probability": 0.99
+    },
+    {
+      "type": "landmark",
+      "name": "traditional buildings",
+      "frame_pair": [
+        1,
+        2
+      ],
+      "inference_probability": 0.98
+    },
+    {
+      "type": "landmark",
+      "name": "trees",
+      "frame_pair": [
+        1,
+        2
+      ],
+      "inference_probability": 0.98
+    },
+    {
+      "type": "landmark",
+      "name": "traditional buildings",
+      "frame_pair": [
+        2,
+        3
+      ],
+      "inference_probability": 0.98
+    },
+    {
+      "type": "landmark",
+      "name": "road",
+      "frame_pair": [
+        2,
+        3
+      ],
+      "inference_probability": 0.99
+    },
+    {
+      "type": "landmark",
+      "name": "buildings",
+      "frame_pair": [
+        2,
+        3
+      ],
+      "inference_probability": 0.99
+    },
+    {
+      "type": "landmark",
+      "name": "trees",
+      "frame_pair": [
+        2,
+        3
+      ],
+      "inference_probability": 0.98
+    },
+    {
+      "type": "landmark",
+      "name": "parking lot",
+      "frame_pair": [
+        2,
+        3
+      ],
+      "inference_probability": 0.98
+    }
+  ]
+}
+```
+</details>
+
+</details>
