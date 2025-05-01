@@ -13,6 +13,8 @@ IMAGE_FOLDER_PATH = "assets/large_files/images/"
 PARSE_INTERVAL = 5  # in seconds
 IMAGE_BATCHES = 10
 START_TIME = 40  # in seconds
+MAX_WIDTH = 1280
+MAX_HEIGHT = 720
 
 if __name__ == "__main__":
     cap = cv2.VideoCapture(VIDEO_FOLDER_PATH + "city.MP4")
@@ -44,6 +46,15 @@ if __name__ == "__main__":
             break
         
         print(f"Timestamp: {(current_time_ms + (PARSE_INTERVAL * 1000)) / 1000:.2f} seconds")
+        
+        height, width = frame.shape[:2]
+        
+        scaling_factor = min(MAX_WIDTH / width, MAX_HEIGHT / height)
+        
+        # Resize only if larger than desired size
+        if scaling_factor < 1:
+            frame = cv2.resize(frame, (int(width * scaling_factor), int(height * scaling_factor)), interpolation=cv2.INTER_AREA)
+        
         cv2.imshow("frame", frame)
         
         # writes the frame to IMAGE_FOLDER_PATH with name of temp_{image_buffer_index}.jpg

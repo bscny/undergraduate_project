@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from utils.image import image_processor
 from utils import prompts
 import os
+import json
 
 # parse a given image to json files
 def parse_images_json(image_path):
@@ -42,7 +43,7 @@ def parse_images_json(image_path):
     print(message.content[0].text)
     
 # parse a given image batch to json files
-def parse_image_batch_json(image_folder_path, start_index, end_index):
+def parse_image_batch_json(image_folder_path, start_index, end_index, prompt, prev_json = None, prev_frame = None):
     load_dotenv()
 
     client = anthropic.Anthropic(api_key = os.getenv("ANTHROPIC_API_KEY"))
@@ -51,8 +52,23 @@ def parse_image_batch_json(image_folder_path, start_index, end_index):
     
     content.append({
         "type": "text",
-        "text": prompts.prompt_json_batch
+        "text": prompt
     })
+    
+    if prev_json is not None:
+        content.append({
+            "type": "text",
+            "text": "previous frame's metadata: " + json.dumps(prev_json)
+        })
+        
+        content.append({
+            "type": "image",
+            "source": {
+                "type": "base64",
+                "media_type": "image/jpeg",
+                "data": prev_frame
+            }
+        })
     
     for i in range(start_index, end_index + 1):
         content.append({
