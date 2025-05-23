@@ -2,7 +2,7 @@ import cv2
 import os
 
 # custom packages
-from models.llava import llava_api
+from utils.prompts import prompts
 
 # define some constant here
 # path
@@ -10,11 +10,11 @@ VIDEO_FOLDER_PATH = "assets/large_files/videos/"
 IMAGE_FOLDER_PATH = "assets/large_files/images/"
 
 # frame related
-PARSE_INTERVAL = 5  # in seconds
+PARSE_INTERVAL = 3  # in seconds
 IMAGE_BATCHES = 10
 START_TIME = 40  # in seconds
-MAX_WIDTH = 1280
-MAX_HEIGHT = 720
+MAX_WIDTH = 640
+MAX_HEIGHT = 480
 
 if __name__ == "__main__":
     cap = cv2.VideoCapture(VIDEO_FOLDER_PATH + "city.MP4")
@@ -40,7 +40,6 @@ if __name__ == "__main__":
         
         if not ret:
             print("Can't receive frame. Exiting ...")
-            
             # print(llava_api.parse_images(IMAGE_FOLDER_PATH, image_buffer_index))
             
             break
@@ -48,9 +47,7 @@ if __name__ == "__main__":
         print(f"Timestamp: {(current_time_ms + (PARSE_INTERVAL * 1000)) / 1000:.2f} seconds")
         
         height, width = frame.shape[:2]
-        
         scaling_factor = min(MAX_WIDTH / width, MAX_HEIGHT / height)
-        
         # Resize only if larger than desired size
         if scaling_factor < 1:
             frame = cv2.resize(frame, (int(width * scaling_factor), int(height * scaling_factor)), interpolation=cv2.INTER_AREA)

@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from openai import OpenAI
 from utils.image import image_processor
-from utils import prompts
+from flight_log_generation.utils.prompts import prompts_json
 import os
     
 # parse a given image to json files
@@ -21,7 +21,7 @@ def parse_images_json(image_path):
             {
                 "role": "user",
                 "content": [
-                    { "type": "input_text", "text": prompts.prompt_json },
+                    { "type": "input_text", "text": prompts_json.prompt_json },
                     {
                         "type": "input_image",
                         "image_url": f"data:image/jpeg;base64,{base64_image}",
@@ -53,7 +53,7 @@ def parse_image_batch_json(image_path):
             {
                 "role": "user",
                 "content": [
-                    { "type": "input_text", "text": prompts.prompt_json_batch },
+                    { "type": "input_text", "text": prompts_json.prompt_json_batch },
                     {
                         "type": "input_image",
                         "image_url": f"data:image/jpeg;base64,{base64_image0}",

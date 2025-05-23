@@ -3,7 +3,7 @@ import os
 from google import genai
 from google.genai import types
 from utils.image import image_processor
-from utils import prompts
+from flight_log_generation.utils.prompts import prompts_json
 
 # parse a given image to json files
 def parse_images_json(image_path):
@@ -22,7 +22,7 @@ def parse_images_json(image_path):
                     data=base64_image,
                     mime_type='image/jpeg',
                 ),
-                types.Part.from_text(text = prompts.prompt_json),
+                types.Part.from_text(text = prompts_json.prompt_json),
             ],
         ),
     ]
@@ -68,7 +68,7 @@ def parse_image_batch_json(image_path):
                     data=base64_image2,
                     mime_type='image/jpeg',
                 ),
-                types.Part.from_text(text = prompts.prompt_json_batch),
+                types.Part.from_text(text = prompts_json.prompt_json_batch),
             ],
         ),
     ]
