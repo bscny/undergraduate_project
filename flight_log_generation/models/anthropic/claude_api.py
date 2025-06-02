@@ -43,20 +43,7 @@ def parse_images(image_path, prompt, prev_desc = None):
         messages = [
             {
                 "role": "user",
-                "content": [
-                    {
-                        "type": "text",
-                        "text": prompt
-                    },
-                    {
-                        "type": "image",
-                        "source": {
-                            "type": "base64",
-                            "media_type": "image/jpeg",
-                            "data": base64_image
-                        }
-                    }
-                ]
+                "content": content
             }
         ]
     )

@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from openai import OpenAI
 from utils.image import image_processor
-from flight_log_generation.utils.prompts import prompts_json
+from utils.prompts import prompts_json
 import os
     
 # parse a given image to json files
