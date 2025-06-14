@@ -71,9 +71,9 @@ if __name__ == "__main__":
         # get captions from claude for each frame
         # for the 1st frame only:
         if len(captions) == 0:
-            content = claude_api.parse_images(IMAGE_FOLDER_PATH + "image.jpg", prompt)
+            content = claude_api.parse_image(IMAGE_FOLDER_PATH + "image.jpg", prompt)
         else:
-            content = claude_api.parse_images(IMAGE_FOLDER_PATH + "image.jpg", prompt, captions[-1])
+            content = claude_api.parse_image(IMAGE_FOLDER_PATH + "image.jpg", prompt, captions[-1])
 
         captions.append(content)
         # image_buffer_index += 1

@@ -75,3 +75,45 @@ def parse_image_batch_json(image_path):
     )
 
     print(response.output_text)
+    
+# parse a given image with wolf's pipeline
+def parse_image(image_path, prompt, prev_desc = None):
+    load_dotenv()
+
+    client = OpenAI(api_key = os.getenv("OPENAI_API_KEY"))
+    
+    content = []
+    
+    content.append({
+        "type": "text",
+        "text": prompt
+    })
+    
+    if prev_desc is not None:
+        content.append({
+            "type": "text",
+            "text": "previous key frame's description: \n" + prev_desc
+        })
+    
+    content.append({
+        "type": "image",
+        "source": {
+            "type": "base64",
+            "media_type": "image/jpeg",
+            "data": image_processor.encode_image(f"{image_path}")
+        }
+    })
+    
+    response = client.responses.create(
+        model="gpt-4o",
+        temperature = 0,
+        max_output_tokens = 2000,
+        input=[
+            {
+                "role": "user",
+                "content": content
+            }
+        ],
+    )
+
+    return response.output_text

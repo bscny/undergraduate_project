@@ -4,8 +4,8 @@ from utils.image import image_processor
 import os
 import json
 
-# parse a given image to json files
-def parse_images(image_path, prompt, prev_desc = None):
+# parse a given image with wolf's pipeline
+def parse_image(image_path, prompt, prev_desc = None):
     load_dotenv()
 
     client = anthropic.Anthropic(api_key = os.getenv("ANTHROPIC_API_KEY"))
@@ -22,9 +22,6 @@ def parse_images(image_path, prompt, prev_desc = None):
             "type": "text",
             "text": "previous key frame's description: \n" + prev_desc
         })
-    
-    # Getting the Base64 string
-    base64_image = image_processor.encode_image(image_path)
     
     content.append({
         "type": "image",
