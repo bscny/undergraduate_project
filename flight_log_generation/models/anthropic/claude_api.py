@@ -99,3 +99,40 @@ def parse_image_batch_json(image_folder_path, start_index, end_index, prompt, pr
     )
 
     print(message.content[0].text)
+    
+def summarize(captions, instruction, prompt):
+    load_dotenv()
+
+    client = anthropic.Anthropic(api_key = os.getenv("ANTHROPIC_API_KEY"))
+    
+    content = []
+    
+    content.append({
+        "type": "text",
+        "text": prompt
+    })
+    
+    content.append({
+        "type": "text",
+        "text": instruction
+    })
+    
+    content.append({
+        "type": "text",
+        "text": captions
+    })
+    
+    message = client.messages.create(
+        model = "claude-3-7-sonnet-20250219",
+        max_tokens = 5000,
+        temperature = 0,
+        # system = "You are a world-class poet. Respond only with short poems.",
+        messages = [
+            {
+                "role": "user",
+                "content": content
+            }
+        ]
+    )
+
+    print(message.content[0].text)

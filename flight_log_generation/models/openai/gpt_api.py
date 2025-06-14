@@ -85,13 +85,13 @@ def parse_image(image_path, prompt, prev_desc = None):
     content = []
     
     content.append({
-        "type": "text",
+        "type": "input_text",
         "text": prompt
     })
     
     if prev_desc is not None:
         content.append({
-            "type": "text",
+            "type": "input_text",
             "text": "previous key frame's description: \n" + prev_desc
         })
     
@@ -116,4 +116,40 @@ def parse_image(image_path, prompt, prev_desc = None):
         ],
     )
 
+    return response.output_text
+
+def summarize(captions, instruction, prompt):
+    load_dotenv()
+
+    client = OpenAI(api_key = os.getenv("OPENAI_API_KEY"))
+    
+    content = []
+    
+    content.append({
+        "type": "input_text",
+        "text": prompt
+    })
+    
+    content.append({
+        "type": "input_text",
+        "text": instruction
+    })
+    
+    content.append({
+        "type": "input_text",
+        "text": captions
+    })
+    
+    response = client.responses.create(
+        model="gpt-4o",
+        temperature = 0,
+        max_output_tokens = 2000,
+        input=[
+            {
+                "role": "user",
+                "content": content
+            }
+        ],
+    )
+    
     return response.output_text
