@@ -94,14 +94,13 @@ def parse_image(image_path, prompt, prev_desc = None):
             "type": "input_text",
             "text": "previous key frame's description: \n" + prev_desc
         })
+        
+    base64_image = image_processor.encode_image(f"{image_path}")
     
     content.append({
-        "type": "image",
-        "source": {
-            "type": "base64",
-            "media_type": "image/jpeg",
-            "data": image_processor.encode_image(f"{image_path}")
-        }
+        "type": "input_image",
+        "image_url": f"data:image/jpeg;base64,{base64_image}",
+        "detail": "high",
     })
     
     response = client.responses.create(

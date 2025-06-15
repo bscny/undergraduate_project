@@ -3,6 +3,7 @@ import os
 
 # custom packages
 from models.anthropic import claude_api
+from models.openai import gpt_api
 from utils.prompts import prompts
 
 # define some constant here
@@ -71,9 +72,9 @@ if __name__ == "__main__":
         # get captions from claude for each frame
         # for the 1st frame only:
         if len(captions) == 0:
-            content = claude_api.parse_image(IMAGE_FOLDER_PATH + "image.jpg", prompt)
+            content = gpt_api.parse_image(IMAGE_FOLDER_PATH + "image.jpg", prompt)
         else:
-            content = claude_api.parse_image(IMAGE_FOLDER_PATH + "image.jpg", prompt, captions[-1])
+            content = gpt_api.parse_image(IMAGE_FOLDER_PATH + "image.jpg", prompt, captions[-1])
 
         captions.append(content)
         # image_buffer_index += 1
