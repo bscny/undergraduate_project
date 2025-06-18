@@ -5,10 +5,12 @@ import os
 from models.anthropic import claude_api
 from models.openai import gpt_api
 from utils.prompts import prompts
+from utils.prompts import summary_prompts
 
 # define some constant here
 # path
 VIDEO_FOLDER_PATH = "assets/large_files/videos/"
+VIDEO_NAME = "factory.MP4"
 IMAGE_FOLDER_PATH = "assets/large_files/image2parse/"
 # IMAGE_FOLDER_PATH = "assets/large_files/images/"
 TEXT_FOLDER_PATH = "assets/results/"
@@ -20,12 +22,15 @@ START_TIME = 40  # in seconds
 MAX_WIDTH = 640
 MAX_HEIGHT = 480
 
+# Instruction
+INSTRUCTION = '''summarize this video, and especially state all the landmarks you see.'''
+
 if __name__ == "__main__":
     # Clear the captions.txt file before starting
     with open(TEXT_FOLDER_PATH + "captions.txt", "w", encoding="utf-8") as f:
         f.write("")
 
-    cap = cv2.VideoCapture(VIDEO_FOLDER_PATH + "city.MP4")
+    cap = cv2.VideoCapture(VIDEO_FOLDER_PATH + VIDEO_NAME)
     
     if not cap.isOpened():
         print("Error: Could not open video.")
@@ -89,10 +94,19 @@ if __name__ == "__main__":
             break
         
     # organize the content to a single file start with FRAME 1: ...
+    all_captions = ""
     with open(TEXT_FOLDER_PATH + "captions.txt", "w", encoding="utf-8") as f:
         for idx, caption in enumerate(captions, start=1):
-            f.write(f"FRAME {idx}:\n")
-            f.write(caption.strip() + "\n\n")
+            all_captions += f"FRAME {idx}:\n"
+            all_captions += (caption.strip() + "\n\n")
+        
+        f.write(all_captions)
+            
+    # make summarization based on the input instruction
+    with open(TEXT_FOLDER_PATH + "summary.md", "w", encoding="utf-8") as f:
+        sum = claude_api.summarize(all_captions, INSTRUCTION, summary_prompts.sum_prompt)
+        
+        f.write(sum)
         
     cap.release()
     cv2.destroyAllWindows()

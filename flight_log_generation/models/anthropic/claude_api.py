@@ -135,4 +135,4 @@ def summarize(captions, instruction, prompt):
         ]
     )
 
-    print(message.content[0].text)
+    return message.content[0].text
