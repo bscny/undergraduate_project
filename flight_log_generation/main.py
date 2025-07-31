@@ -18,12 +18,12 @@ TEXT_FOLDER_PATH = "assets/results/"
 # frame related
 PARSE_INTERVAL = 3  # in seconds
 IMAGE_BATCHES = 10
-START_TIME = 40  # in seconds
+START_TIME = 0  # in seconds
 MAX_WIDTH = 640
 MAX_HEIGHT = 480
 
 # Instruction
-INSTRUCTION = '''summarize this video, and especially state all the landmarks you see.'''
+INSTRUCTION = '''summarize this video, and especially state all the landmarks you see (list them according to the order of time).'''
 
 if __name__ == "__main__":
     # Clear the captions.txt file before starting
@@ -37,6 +37,10 @@ if __name__ == "__main__":
         exit()
     else:
         # start parsing the video at `START_TIME` second, omit the take off time
+
+        if START_TIME < PARSE_INTERVAL:
+            START_TIME = PARSE_INTERVAL
+
         cap.set(cv2.CAP_PROP_POS_MSEC, (START_TIME - PARSE_INTERVAL) * 1000)
         cap.read()
         

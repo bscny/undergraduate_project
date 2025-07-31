@@ -86,3 +86,46 @@ def parse_image_batch_json(image_path):
     )
     
     print(response.text)
+    
+def parse_video(video_path, instruction_prompt):
+    load_dotenv()
+    
+    client = genai.Client(api_key = os.getenv("GOOGLE_API_KEY"))
+    
+    # Upload the video file
+    # try:
+    #     myfile = client.files.upload(file=video_path)
+    # except Exception as e:
+    #     print(f"Error uploading file: {e}")
+    #     exit()
+        
+    base64_video = image_processor.encode_image(video_path)
+        
+    # Construct the content using the file reference
+    contents = [
+        types.Content(
+            role="user",
+            parts=[
+                # myfile,
+                types.Part(
+                    data=base64_video, # Use base64 encoded data
+                    mime_type="video/mp4"  # Set the correct MIME type for video
+                ),
+                types.Part(text = instruction_prompt)
+            ],
+        ),
+    ]
+    
+    generate_content_config = types.GenerateContentConfig(
+        temperature = 0,
+        max_output_tokens = 5000,
+        response_mime_type = "text/plain",
+    )
+    
+    response = client.models.generate_content(
+        model = "gemini-2.0-flash",
+        contents = contents,
+        config = generate_content_config
+    )
+    
+    return response.text
