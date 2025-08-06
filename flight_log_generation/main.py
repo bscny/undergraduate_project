@@ -1,9 +1,11 @@
 import cv2
 import os
+import threading
 
 # custom packages
 from models.anthropic import claude_api
 from models.openai import gpt_api
+from models.google import gemini_api
 from utils.prompts import prompts
 from utils.prompts import summary_prompts
 
@@ -25,7 +27,7 @@ MAX_HEIGHT = 480
 # Instruction
 INSTRUCTION = '''summarize this video, and especially state all the landmarks you see (list them according to the order of time).'''
 
-if __name__ == "__main__":
+def frame_by_frame_processing():
     # Clear the captions.txt file before starting
     with open(TEXT_FOLDER_PATH + "captions.txt", "w", encoding="utf-8") as f:
         f.write("")
@@ -34,7 +36,7 @@ if __name__ == "__main__":
     
     if not cap.isOpened():
         print("Error: Could not open video.")
-        exit()
+        return
     else:
         # start parsing the video at `START_TIME` second, omit the take off time
 
@@ -115,3 +117,28 @@ if __name__ == "__main__":
     cap.release()
     cv2.destroyAllWindows()
     os.remove(IMAGE_FOLDER_PATH + "image.jpg")
+    
+    print("Frame-by-frame processing completed!")
+    
+def gemini_video_processing():
+    with open(TEXT_FOLDER_PATH + "summary_gemini.md", "w", encoding="utf-8") as f:
+        sum = gemini_api.parse_video(VIDEO_FOLDER_PATH + VIDEO_NAME, INSTRUCTION)
+        f.write(sum)
+    print("Gemini video processing completed!")
+    
+if __name__ == "__main__":
+    # Create threads for both processes
+    thread1 = threading.Thread(target=frame_by_frame_processing, name="FrameProcessor")
+    thread2 = threading.Thread(target=gemini_video_processing, name="GeminiProcessor")
+    
+    print("Starting both video processing threads...")
+    
+    # Start both threads
+    thread1.start()
+    thread2.start()
+    
+    # Wait for both threads to complete
+    thread1.join()
+    thread2.join()
+    
+    print("Both video processing tasks completed!")
