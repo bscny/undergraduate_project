@@ -95,6 +95,7 @@ def parse_video(video_path, instruction_prompt):
     
     # Upload the video file
     try:
+        print("start uploading video to google cloud")
         myfile = client.files.upload(file=video_path)
     except Exception as e:
         print(f"Error uploading file: {e}")
@@ -123,6 +124,8 @@ def parse_video(video_path, instruction_prompt):
         max_output_tokens = 5000,
         response_mime_type = "text/plain",
     )
+    
+    print("finish uploading video, start gemini video understanding")
     
     response = client.models.generate_content(
         model = "gemini-2.0-flash",
