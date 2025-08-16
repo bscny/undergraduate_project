@@ -99,7 +99,7 @@ def parse_video(video_path, instruction_prompt):
         myfile = client.files.upload(file=video_path)
     except Exception as e:
         print(f"Error uploading file: {e}")
-        exit()
+        return "Error uploading file"
         
     # Check whether the file is ready to be used.
     f = client.files.get(name=myfile.name)
@@ -109,7 +109,7 @@ def parse_video(video_path, instruction_prompt):
 
     if f.state.name == "FAILED":
         print(f"Error using the uploaded file: {myfile.name}")
-        exit()
+        return "Error using the uploaded file"
     
     myfile = client.files.get(name=myfile.name)
 
