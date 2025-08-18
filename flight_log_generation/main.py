@@ -6,7 +6,7 @@ import threading
 from models.anthropic import claude_api
 from models.openai import gpt_api
 from models.google import gemini_api
-from utils.prompts import prompts
+from utils.prompts import frame_prompts
 from utils.prompts import summary_prompts
 
 # define some constant here
@@ -46,7 +46,7 @@ def frame_by_frame_processing():
         
     # image_buffer_index = 0
     captions = []
-    prompt = prompts.prompt_wolf_less_structure
+    prompt = frame_prompts.prompt_wolf_less_structure
 
     while True:
         # Set the position in milliseconds
@@ -128,6 +128,8 @@ def gemini_video_processing():
     print("Gemini video processing completed!")
     
 if __name__ == "__main__":
+    LOG_NAME = input("Enter the log name: ").strip()
+    
     # create the end folder for this flight log
     if os.path.exists(TEXT_FOLDER_PATH + LOG_NAME):
         print("flight log generated already")

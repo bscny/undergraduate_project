@@ -1,7 +1,7 @@
 # DRONE FLIGHT LOG
 
 ## FLIGHT IDENTIFICATION
-    **Flight ID:** _______________  
+**Flight ID:** _______________  
 **Date:** _______________  
 **Start Time:** _______________  
 **End Time:** _______________  
@@ -19,14 +19,14 @@
 - Cloud Cover: _______________
 - Precipitation: _______________
 
-    ## PILOT & AIRCRAFT INFORMATION
-    **Pilot Name:** _______________  
-    **Pilot Certificate/License:** _______________  
-    **Visual Observer:** _______________  
-    **Aircraft Make/Model:** _______________  
-    **Serial Number:** _______________  
-    **Registration Number:** _______________  
-    **Firmware Version:** _______________
+## PILOT & AIRCRAFT INFORMATION
+**Pilot Name:** _______________  
+**Pilot Certificate/License:** _______________  
+**Visual Observer:** _______________  
+**Aircraft Make/Model:** _______________  
+**Serial Number:** _______________  
+**Registration Number:** _______________  
+**Firmware Version:** _______________
 
 ## PRE-FLIGHT CHECK
 **Battery Level (Start):** ___________%  
@@ -57,26 +57,26 @@
 **Storage Location:** _______________  
 **File Names/Numbers:** _______________
 
-    ## AIRSPACE & COMPLIANCE
-    **Airspace Class:** _______________  
-    **LAANC Authorization:** ⬜ Not Required ⬜ Approved ⬜ Denied  
-    **Authorization Number:** _______________  
-    **NOTAMs Checked:** ⬜ Yes ⬜ No  
-    **TFR Check:** ⬜ Clear ⬜ Active ⬜ Not Applicable  
+## AIRSPACE & COMPLIANCE
+**Airspace Class:** _______________  
+**LAANC Authorization:** ⬜ Not Required ⬜ Approved ⬜ Denied  
+**Authorization Number:** _______________  
+**NOTAMs Checked:** ⬜ Yes ⬜ No  
+**TFR Check:** ⬜ Clear ⬜ Active ⬜ Not Applicable  
 
-    ## SAFETY CONSIDERATIONS
-    **Nearest Airport:** _______________ (___ miles)  
-    **Obstacles Present:** ⬜ None ⬜ Trees ⬜ Buildings ⬜ Power Lines ⬜ Other: _______________  
-    **People in Area:** ⬜ None ⬜ Pilot Only ⬜ Small Group ⬜ Crowd  
-    **Emergency Landing Sites:** _______________  
-    **Lost Link Procedure:** ⬜ RTH ⬜ Hover ⬜ Land  
+## SAFETY CONSIDERATIONS
+**Nearest Airport:** _______________ (___ miles)  
+**Obstacles Present:** ⬜ None ⬜ Trees ⬜ Buildings ⬜ Power Lines ⬜ Other: _______________  
+**People in Area:** ⬜ None ⬜ Pilot Only ⬜ Small Group ⬜ Crowd  
+**Emergency Landing Sites:** _______________  
+**Lost Link Procedure:** ⬜ RTH ⬜ Hover ⬜ Land  
 
-    ## POST-FLIGHT STATUS
-    **Battery Level (End):** ___________%  
-    **Total Distance Traveled:** _______________ ft/miles  
-    **Data Successfully Recorded:** ⬜ Yes ⬜ No ⬜ Partial  
-    **Equipment Condition:** ⬜ Normal ⬜ Minor Issues ⬜ Damage  
-    **Data Backup Complete:** ⬜ Yes ⬜ No ⬜ Pending  
+## POST-FLIGHT STATUS
+**Battery Level (End):** ___________%  
+**Total Distance Traveled:** _______________ ft/miles  
+**Data Successfully Recorded:** ⬜ Yes ⬜ No ⬜ Partial  
+**Equipment Condition:** ⬜ Normal ⬜ Minor Issues ⬜ Damage  
+**Data Backup Complete:** ⬜ Yes ⬜ No ⬜ Pending  
 
 ## INCIDENTS & OBSERVATIONS
 **Any Issues Encountered:** _______________  
@@ -94,6 +94,3 @@
 ## SIGNATURES
 **Pilot Signature:** _______________ **Date:** _______________  
 **Observer Signature:** _______________ **Date:** _______________  
-
----
-*This log serves as official documentation for drone flight operations. Retain for regulatory compliance and operational records.*
