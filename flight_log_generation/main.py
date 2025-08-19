@@ -11,13 +11,13 @@ from utils.prompts import frame_prompts
 from utils.prompts import summary_prompts
 from utils.prompts import log_gen_prompts
 
-import input
+import input as inp
 
 # define some constant here
 # path
-LOG_NAME = "Factory"
+LOG_NAME = "City"
 VIDEO_FOLDER_PATH = "assets/large_files/videos/"
-VIDEO_NAME = "factory.MP4"
+VIDEO_NAME = "city.mp4"
 IMAGE_FOLDER_PATH = "assets/large_files/image2parse/"
 # IMAGE_FOLDER_PATH = "assets/large_files/images/"
 TEXT_FOLDER_PATH = "assets/flight_logs/"
@@ -141,7 +141,7 @@ if __name__ == "__main__":
     os.mkdir(TEXT_FOLDER_PATH + LOG_NAME)
     
     # Input the pre-flight information
-    pre_flight_info = input.input_drone_flight_log(VIDEO_FOLDER_PATH + VIDEO_NAME)
+    pre_flight_info = inp.input_drone_flight_log(VIDEO_FOLDER_PATH + VIDEO_NAME)
 
     # Create threads for both processes
     thread1 = threading.Thread(target=frame_by_frame_processing, args=(pre_flight_info,), name="FrameProcessor")

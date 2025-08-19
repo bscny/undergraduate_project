@@ -105,7 +105,7 @@ def parse_image(image_path, prompt, prev_desc = None):
     
     response = client.responses.create(
         model="gpt-4o",
-        temperature = 0,
+        temperature = 0.5,
         max_output_tokens = 2000,
         input=[
             {
