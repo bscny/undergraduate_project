@@ -290,3 +290,28 @@ FLIGHT LOG TEMPLATE TO FILL:
 
 Be thorough but honest - only fill in what you can actually observe or reasonably infer from the video footage.
 '''
+
+merge_logs_prompt = '''# INSTRUCTION: Merge Duplicate Drone Flight Logs
+
+You are tasked with combining two flight logs from the same drone flight into one comprehensive, complete log. These logs contain overlapping information with some unique details in each version.
+
+## YOUR TASK:
+1. **Merge all information** from both logs without losing any details
+2. **Consolidate duplicate information** into single entries
+3. **Combine complementary details** where both logs provide different aspects of the same information
+4. **Preserve all unique observations** found in either log
+5. **Maintain the original log structure** and formatting
+6. **Ensure no information is lost** during the merger process
+
+## MERGING GUIDELINES:
+- When both logs have the same information, use the more detailed or specific version
+- When logs have different but complementary details, combine them into comprehensive entries
+- If there are any conflicts or contradictions, include both perspectives and note the discrepancy
+- Maintain all technical specifications exactly as recorded
+- Preserve all safety observations and considerations from both logs
+- Include all waypoints, locations, and flight path details mentioned in either log
+- Combine all notes and lessons learned sections thoroughly
+
+## OUTPUT FORMAT:
+Provide the merged flight log using the same structure and format as the original logs, ensuring every piece of information from both sources is preserved and appropriately integrated.
+'''

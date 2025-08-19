@@ -6,8 +6,12 @@ import threading
 from models.anthropic import claude_api
 from models.openai import gpt_api
 from models.google import gemini_api
+
 from utils.prompts import frame_prompts
 from utils.prompts import summary_prompts
+from utils.prompts import log_gen_prompts
+
+import input
 
 # define some constant here
 # path
@@ -26,9 +30,9 @@ MAX_WIDTH = 640
 MAX_HEIGHT = 480
 
 # Instruction
-INSTRUCTION = '''summarize this video, and especially state all the landmarks you see (list them according to the order of time).'''
+# INSTRUCTION = '''summarize this video, and especially state all the landmarks you see (list them according to the order of time).'''
 
-def frame_by_frame_processing():
+def frame_by_frame_processing(pre_flight_info):
     # Clear the captions.txt file before starting
     with open(TEXT_FOLDER_PATH + LOG_NAME + "/captions.txt", "w", encoding="utf-8") as f:
         f.write("")
@@ -108,11 +112,11 @@ def frame_by_frame_processing():
         
         f.write(all_captions)
             
-    # make summarization based on the input instruction
-    with open(TEXT_FOLDER_PATH + LOG_NAME + "/summary.md", "w", encoding="utf-8") as f:
-        sum = claude_api.summarize(all_captions, INSTRUCTION, summary_prompts.sum_prompt)
+    # make flight log based on the captions
+    with open(TEXT_FOLDER_PATH + LOG_NAME + "/log_claude.md", "w", encoding="utf-8") as f:
+        log = claude_api.flight_log(all_captions, log_gen_prompts.cap_to_complex_log, pre_flight_info)
         
-        f.write(sum)
+        f.write(log)
         
     cap.release()
     cv2.destroyAllWindows()
@@ -120,25 +124,28 @@ def frame_by_frame_processing():
     
     print("Frame-by-frame processing completed!")
     
-def gemini_video_processing():
-    with open(TEXT_FOLDER_PATH + LOG_NAME + "/summary_gemini.md", "w", encoding="utf-8") as f:
-        sum = gemini_api.parse_video(VIDEO_FOLDER_PATH + VIDEO_NAME, INSTRUCTION)
-        f.write(sum)
+def gemini_video_processing(pre_flight_info):
+    with open(TEXT_FOLDER_PATH + LOG_NAME + "/log_gemini.md", "w", encoding="utf-8") as f:
+        log = gemini_api.parse_video(VIDEO_FOLDER_PATH + VIDEO_NAME, log_gen_prompts.video_to_complex_log, pre_flight_info)
+        f.write(log)
 
     print("Gemini video processing completed!")
     
 if __name__ == "__main__":
     LOG_NAME = input("Enter the log name: ").strip()
     
-    # create the end folder for this flight log
+    # Create the end folder for this flight log
     if os.path.exists(TEXT_FOLDER_PATH + LOG_NAME):
         print("flight log generated already")
         exit()
     os.mkdir(TEXT_FOLDER_PATH + LOG_NAME)
+    
+    # Input the pre-flight information
+    pre_flight_info = input.input_drone_flight_log(VIDEO_FOLDER_PATH + VIDEO_NAME)
 
     # Create threads for both processes
-    thread1 = threading.Thread(target=frame_by_frame_processing, name="FrameProcessor")
-    thread2 = threading.Thread(target=gemini_video_processing, name="GeminiProcessor")
+    thread1 = threading.Thread(target=frame_by_frame_processing, args=(pre_flight_info,), name="FrameProcessor")
+    thread2 = threading.Thread(target=gemini_video_processing, args=(pre_flight_info,), name="GeminiProcessor")
     
     print("Starting both video processing threads...")
     
@@ -150,4 +157,14 @@ if __name__ == "__main__":
     thread1.join()
     thread2.join()
     
-    print("Both video processing tasks completed!")
+    print("Both video processing tasks completed! Start generating merged log")
+    
+    with open(TEXT_FOLDER_PATH + LOG_NAME + "/log_claude.md", 'r') as f:
+        log_frame_by_frame = f.read()
+        
+    with open(TEXT_FOLDER_PATH + LOG_NAME + "/log_gemini.md", 'r') as f:
+        log_gemini = f.read()
+        
+    with open(TEXT_FOLDER_PATH + LOG_NAME + "/Flight_log.md", "w", encoding="utf-8") as f:
+        final_log = claude_api.merge_logs(log_frame_by_frame, log_gemini, log_gen_prompts.merge_logs_prompt)
+        f.write(final_log)

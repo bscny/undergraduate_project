@@ -88,7 +88,7 @@ def parse_image_batch_json(image_path):
     
     print(response.text)
     
-def parse_video(video_path, instruction_prompt):
+def parse_video(video_path, prompt, additional_info = None):
     load_dotenv()
     
     client = genai.Client(api_key = os.getenv("GOOGLE_API_KEY"))
@@ -116,8 +116,11 @@ def parse_video(video_path, instruction_prompt):
     # Construct the content using the file reference
     contents = [
         myfile,
-        instruction_prompt
+        prompt
     ]
+    
+    if additional_info != None:
+        contents.append(additional_info)
     
     generate_content_config = types.GenerateContentConfig(
         temperature = 0,
@@ -125,10 +128,10 @@ def parse_video(video_path, instruction_prompt):
         response_mime_type = "text/plain",
     )
     
-    print("finish uploading video, start gemini video understanding")
+    print(f"finish uploading video {myfile.name}, start gemini video understanding")
     
     response = client.models.generate_content(
-        model = "gemini-2.0-flash",
+        model = "gemini-2.5-flash",
         contents = contents,
         config = generate_content_config
     )

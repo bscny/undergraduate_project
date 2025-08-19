@@ -5,7 +5,7 @@
 **Date:** 2025-02-18  
 **Start Time:** 10:00  
 **End Time:** 10:03  
-**Total Duration:** 3 minutes
+**Total Duration:** 2 minutes 37 seconds
 
 ## FLIGHT PURPOSE & OPERATIONS
 
@@ -35,9 +35,9 @@
 
 ## CAMERA & RECORDING SETTINGS
 
-**Video Resolution:** 4k  
-**Frame Rate:** 30 fps  
-**Recording Format:** MP4  
+**Video Resolution:** 3840x2160  
+**Frame Rate:** 29.97002997002997 fps  
+**Recording Format:** MP4   
 
 ## SAFETY CONSIDERATIONS
 

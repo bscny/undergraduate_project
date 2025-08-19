@@ -152,3 +152,39 @@ def summarize(captions, instruction, prompt):
     )
     
     return response.output_text
+
+def merge_logs(log1, log2, prompt):
+    load_dotenv()
+
+    client = OpenAI(api_key = os.getenv("OPENAI_API_KEY"))
+    
+    content = []
+    
+    content.append({
+        "type": "input_text",
+        "text": prompt
+    })
+    
+    content.append({
+        "type": "input_text",
+        "text": log1
+    })
+    
+    content.append({
+        "type": "input_text",
+        "text": log2
+    })
+    
+    response = client.responses.create(
+        model="gpt-4o",
+        temperature = 0,
+        max_output_tokens = 2000,
+        input=[
+            {
+                "role": "user",
+                "content": content
+            }
+        ],
+    )
+    
+    return response.output_text

@@ -137,7 +137,7 @@ def summarize(captions, instruction, prompt):
 
     return message.content[0].text
 
-def flight_log_from_captions(captions, prompt, additional_info):
+def flight_log(main_info, prompt, additional_info):
     load_dotenv()
 
     client = anthropic.Anthropic(api_key = os.getenv("ANTHROPIC_API_KEY"))
@@ -156,7 +156,44 @@ def flight_log_from_captions(captions, prompt, additional_info):
     
     content.append({
         "type": "text",
-        "text": captions
+        "text": main_info
+    })
+    
+    message = client.messages.create(
+        model = "claude-sonnet-4-20250514",
+        max_tokens = 5000,
+        temperature = 0,
+        # system = "You are a world-class poet. Respond only with short poems.",
+        messages = [
+            {
+                "role": "user",
+                "content": content
+            }
+        ]
+    )
+
+    return message.content[0].text
+
+def merge_logs(log1, log2, prompt):
+    load_dotenv()
+
+    client = anthropic.Anthropic(api_key = os.getenv("ANTHROPIC_API_KEY"))
+    
+    content = []
+    
+    content.append({
+        "type": "text",
+        "text": prompt
+    })
+    
+    content.append({
+        "type": "text",
+        "text": log1
+    })
+    
+    content.append({
+        "type": "text",
+        "text": log2
     })
     
     message = client.messages.create(

@@ -1,6 +1,18 @@
 from datetime import datetime
+import cv2
 
-def input_drone_flight_log():   
+def input_drone_flight_log(video_path):
+    cap = cv2.VideoCapture(video_path)
+    
+    if not cap.isOpened():
+        print("Error: Could not open video during input.")
+        exit()
+        
+    frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    fps = cap.get(cv2.CAP_PROP_FPS)
+    w  = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    
     print("=== DRONE FLIGHT LOG DATA ENTRY ===\n")
     
     # Flight Identification
@@ -21,7 +33,10 @@ def input_drone_flight_log():
     
     start_time = input("Start Time (HH:MM): ").strip()
     end_time = input("End Time (HH:MM): ").strip()
-    total_duration = input("Total Duration (minutes): ").strip()
+    duration_sec = frame_count / fps if fps > 0 else 0
+    minutes = int(duration_sec // 60)
+    seconds = int(duration_sec % 60)
+    total_duration = f"{minutes} min {seconds} sec"
     
     print("\nFLIGHT PURPOSE & OPERATIONS")
     print("-" * 27)
@@ -39,8 +54,8 @@ def input_drone_flight_log():
     print("\nCAMERA & RECORDING SETTINGS")
     print("-" * 27)
     
-    video_resolution = input("Video Resolution (e.g., 4K, 1080p): ").strip()
-    frame_rate = input("Frame Rate (fps): ").strip()
+    video_resolution = f"{w}x{h}"
+    frame_rate = fps
     recording_format = input("Recording Format (e.g., MP4, MOV): ").strip()
     
     # Create formatted string content
@@ -78,7 +93,7 @@ def input_drone_flight_log():
 # Example usage
 if __name__ == "__main__":
     # Input flight log data
-    formatted_string = input_drone_flight_log()
+    formatted_string = input_drone_flight_log("assets/large_files/videos/city.MP4")
     
     # Display the formatted string
     print("\n" + "=" * 50)
