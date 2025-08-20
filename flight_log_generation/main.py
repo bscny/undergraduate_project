@@ -15,9 +15,9 @@ import input as inp
 
 # define some constant here
 # path
-LOG_NAME = "City"
+LOG_NAME = "TBD"
 VIDEO_FOLDER_PATH = "assets/large_files/videos/"
-VIDEO_NAME = "city.mp4"
+VIDEO_NAME = "industrial_zone.mp4"
 IMAGE_FOLDER_PATH = "assets/large_files/image2parse/"
 # IMAGE_FOLDER_PATH = "assets/large_files/images/"
 TEXT_FOLDER_PATH = "assets/flight_logs/"
