@@ -1,17 +1,18 @@
+import setup_path
 import airsim
 
-from dotenv import load_dotenv
 import numpy as np
 import os
+import tempfile
 import pprint
 import cv2
 
-load_dotenv()
-
 # connect to the AirSim simulator
-client = airsim.MultirotorClient(ip=os.getenv("WINDOWS_IP"))
+client = airsim.MultirotorClient()
 client.confirmConnection()
 client.enableApiControl(True)
+
+client.simPrintLogMessage("hello starting~")
 
 state = client.getMultirotorState()
 s = pprint.pformat(state)
