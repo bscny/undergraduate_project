@@ -4,6 +4,7 @@ from utils.image import image_processor
 import os
 import json
 
+# FLIGHT LOG GENERATING RELATED--------------------------------------------------------------------------------
 # parse a given image with wolf's pipeline
 def parse_image(image_path, prompt, prev_desc = None):
     load_dotenv()
@@ -46,59 +47,6 @@ def parse_image(image_path, prompt, prev_desc = None):
     )
 
     return message.content[0].text
-    
-# parse a given image batch to json files
-def parse_image_batch_json(image_folder_path, start_index, end_index, prompt, prev_json = None, prev_frame = None):
-    load_dotenv()
-
-    client = anthropic.Anthropic(api_key = os.getenv("ANTHROPIC_API_KEY"))
-    
-    content = []
-    
-    content.append({
-        "type": "text",
-        "text": prompt
-    })
-    
-    if prev_json is not None:
-        content.append({
-            "type": "text",
-            "text": "previous frame's metadata: " + json.dumps(prev_json)
-        })
-        
-        content.append({
-            "type": "image",
-            "source": {
-                "type": "base64",
-                "media_type": "image/jpeg",
-                "data": prev_frame
-            }
-        })
-    
-    for i in range(start_index, end_index + 1):
-        content.append({
-            "type": "image",
-            "source": {
-                "type": "base64",
-                "media_type": "image/jpeg",
-                "data": image_processor.encode_image(f"{image_folder_path}temp_{i}.jpg")
-            }
-        })
-    
-    message = client.messages.create(
-        model = "claude-3-7-sonnet-20250219",
-        max_tokens = 5000,
-        temperature = 0,
-        # system = "You are a world-class poet. Respond only with short poems.",
-        messages = [
-            {
-                "role": "user",
-                "content": content
-            }
-        ]
-    )
-
-    print(message.content[0].text)
     
 def summarize(captions, instruction, prompt):
     load_dotenv()
@@ -210,3 +158,48 @@ def merge_logs(log1, log2, prompt):
     )
 
     return message.content[0].text
+
+# AUTO PILOT RELATED RELATED--------------------------------------------------------------------------------
+def decision_making(order, prompt, past_navigations) -> dict:
+    load_dotenv()
+
+    client = anthropic.Anthropic(api_key = os.getenv("ANTHROPIC_API_KEY"))
+    
+    content = []
+    
+    content.append({
+        "type": "text",
+        "text": prompt
+    })
+    
+    content.append({
+        "type": "text",
+        "text": "Past instructions (from old to new):\n" + "\n".join(past_navigations)
+    })
+    
+    content.append({
+        "type": "text",
+        "text": "User instruction:" + order
+    })
+    
+    message = client.messages.create(
+        model = "claude-sonnet-4-20250514",
+        max_tokens = 5000,
+        temperature = 0,
+        # system = "You are a world-class poet. Respond only with short poems.",
+        messages = [
+            {
+                "role": "user",
+                "content": content
+            }
+        ]
+    )
+
+    raw_text = message.content[0].text.strip("`")
+
+    try:
+        parsed = json.loads(raw_text)
+    except json.JSONDecodeError as e:
+        raise ValueError(f"Response is not valid JSON: {e}\nRaw output: {raw_text}")
+
+    return parsed
