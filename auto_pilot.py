@@ -18,7 +18,7 @@ if __name__ == "__main__":
         # VLM start planning instructions
         print("Start thinking...")
         plan = claude_api.decision_making(order, auto_pilot_prompt.navigation_prompt, drone.navigation_list)
-        print(f"Done! total of {len(plan)} actions")
+        print(f"Done! total of {len(plan)} actions\n")
         
         num = 1
         for action in plan:
@@ -40,7 +40,7 @@ if __name__ == "__main__":
             
             num += 1
             
-        print("ALL DONE~")
+        print("ALL DONE~\n")
         
     drone.cleanup()
     print("operation closed~ Well done pilot!")

@@ -13,9 +13,10 @@ class Drone:
         self.client.simPrintLogMessage("Hello World~~")
 
         # define some constant here
-        self.DUR = 5  # in seconds
-        self.SPEED = 1  # in meters
-        self.ROTATE_SPEED = 5  # in meters
+        self.LINEAR_DUR = 3  # in seconds
+        self.ANGULAR_DUR = 1  # in seconds
+        self.SPEED = 20  # in m/s
+        self.ROTATE_SPEED = 10  # in deg/s
         self.INIT_POS = self.get_position()  # this has x_val, y_val, z_val
         
         # define some private variables
@@ -34,6 +35,7 @@ class Drone:
             return
         
         print("Taking off...")
+        self.client.simPrintLogMessage("Taking off...")
         self.client.takeoffAsync().join()
         self.client.moveToZAsync(self.INIT_POS.z_val - height, 1).join()
 
@@ -48,6 +50,8 @@ class Drone:
             return
         
         print("Landing...")
+        self.client.simPrintLogMessage("Landing...")
+        self.client.moveToZAsync(self.INIT_POS.z_val - 2, 1).join()
         self.client.landAsync().join()
         self.action_list.append({
             "action": "land"
@@ -65,8 +69,11 @@ class Drone:
     def move_forward(self, value):
         self.check_takeoff()
         
-        print(f"Moving forward for {value}m at {(value/self.DUR):.2f}m/s...")
-        self.client.moveByVelocityBodyFrameAsync(vx=(value/self.DUR), vy=0, vz=0, duration=self.DUR).join()
+        # print message out
+        print(f"Moving forward {value}m at {self.SPEED}m/s for {(value/self.SPEED):.2f} seconds...")
+        self.client.simPrintLogMessage(f"Moving forward {value}m at {self.SPEED}m/s for {(value/self.SPEED):.2f} seconds...")
+
+        self.client.moveByVelocityBodyFrameAsync(vx=self.SPEED, vy=0, vz=0, duration=value/self.SPEED).join()
         self.action_list.append({
             "action": "move_forward",
             "params": {"distance": value}
@@ -75,8 +82,11 @@ class Drone:
     def rotate_counter_clock(self, value):
         self.check_takeoff()
         
-        print(f"Rotating counter clockwise for {value} degree at {self.ROTATE_SPEED}deg/s...")
-        self.client.rotateToYawAsync(value, self.ROTATE_SPEED).join()
+        # print message out
+        print(f"Rotating {value} degree clockwise at {self.ROTATE_SPEED}deg/s for {(value/self.ROTATE_SPEED):.2f} seconds...")
+        self.client.simPrintLogMessage(f"Rotating {value} degree clockwise at {self.ROTATE_SPEED}deg/s for {(value/self.ROTATE_SPEED):.2f} seconds...")
+
+        self.client.rotateByYawRateAsync(yaw_rate=self.ROTATE_SPEED, duration=value/self.ROTATE_SPEED).join()
         self.action_list.append({
             "action": "rotate_counter_clock",
             "params": {"angle": value}
