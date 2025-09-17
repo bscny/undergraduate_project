@@ -197,9 +197,4 @@ def decision_making(order, prompt, past_navigations) -> dict:
 
     raw_text = message.content[0].text.strip("`")
 
-    try:
-        parsed = json.loads(raw_text)
-    except json.JSONDecodeError as e:
-        raise ValueError(f"Response is not valid JSON: {e}\nRaw output: {raw_text}")
-
-    return parsed
+    return raw_text

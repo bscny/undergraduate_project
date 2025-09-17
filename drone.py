@@ -15,8 +15,8 @@ class Drone:
         # define some constant here
         self.LINEAR_DUR = 3  # in seconds
         self.ANGULAR_DUR = 1  # in seconds
-        self.SPEED = 20  # in m/s
-        self.ROTATE_SPEED = 10  # in deg/s
+        self.SPEED = 7  # in m/s
+        self.ROTATE_SPEED = 45  # in deg/s
         self.INIT_POS = self.get_position()  # this has x_val, y_val, z_val
         
         # define some private variables
@@ -33,6 +33,10 @@ class Drone:
         
         if self.flying == True:
             return
+        
+        # start recording if it's the first takeoff
+        if not self.client.isRecording():
+            self.client.startRecording()
         
         print("Taking off...")
         self.client.simPrintLogMessage("Taking off...")
@@ -51,7 +55,7 @@ class Drone:
         
         print("Landing...")
         self.client.simPrintLogMessage("Landing...")
-        self.client.moveToZAsync(self.INIT_POS.z_val - 2, 1).join()
+        # self.client.moveToZAsync(self.INIT_POS.z_val - 2, 1).join()
         self.client.landAsync().join()
         self.action_list.append({
             "action": "land"
@@ -79,7 +83,7 @@ class Drone:
             "params": {"distance": value}
         })
         
-    def rotate_counter_clock(self, value):
+    def rotate(self, value):
         self.check_takeoff()
         
         # print message out
@@ -88,7 +92,7 @@ class Drone:
 
         self.client.rotateByYawRateAsync(yaw_rate=self.ROTATE_SPEED, duration=value/self.ROTATE_SPEED).join()
         self.action_list.append({
-            "action": "rotate_counter_clock",
+            "action": "rotate",
             "params": {"angle": value}
         })
     
@@ -100,7 +104,10 @@ class Drone:
         return pos
         
     def cleanup(self):
-        """Cleanup and disconnect drone"""
+        # for recording
+        if self.client.isRecording():
+            self.client.stopRecording()
+
         print("Cleaning up...")
         if self.client is not None:
             self.client.armDisarm(False)

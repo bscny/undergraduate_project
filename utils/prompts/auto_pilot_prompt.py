@@ -4,9 +4,9 @@ Your job is to translate a natural language instruction from the user into a str
 The only available drone actions are:  
 1. {"action": "takeoff", "params": {"height": <height_in_meters>}}  
 2. {"action": "move_forward", "params": {"distance": <distance_in_meters>}}  
-3. {"action": "rotate_counter_clock", "params": {"angle": <angle_in_degrees>}}  
-   - Positive angle = rotate counterclockwise (turn left).  
-   - Negative angle = rotate clockwise (turn right).  
+3. {"action": "rotate", "params": {"angle": <angle_in_degrees>}}  
+   - Positive angle = rotate clockwise (turn right).  
+   - Negative angle = rotate counterclockwise (turn left).  
 4. {"action": "land"}  
 
 Rules:  
@@ -33,7 +33,7 @@ User instruction: Turn left and move forward 5 meters, then land.
 
 Output:  
 [
-  {"action": "rotate_counter_clock", "params": {"angle": -90}},
+  {"action": "rotate", "params": {"angle": -90}},
   {"action": "move_forward", "params": {"distance": 5}},
   {"action": "land"}
 ]
