@@ -15,11 +15,10 @@ import input as inp
 
 # define some constant here
 # path
+VIDEO_NAME = "simcity.mp4"  # the only thing that has to be changed!!
 LOG_NAME = "TBD"
 VIDEO_FOLDER_PATH = "assets/large_files/videos/"
-VIDEO_NAME = "industrial_zone.mp4"
 IMAGE_FOLDER_PATH = "assets/large_files/image2parse/"
-# IMAGE_FOLDER_PATH = "assets/large_files/images/"
 TEXT_FOLDER_PATH = "assets/flight_logs/"
 
 # frame related

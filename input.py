@@ -93,7 +93,7 @@ def input_drone_flight_log(video_path):
 # Example usage
 if __name__ == "__main__":
     # Input flight log data
-    formatted_string = input_drone_flight_log("assets/large_files/videos/city.MP4")
+    formatted_string = input_drone_flight_log("assets/large_files/videos/simcity.mp4")
     
     # Display the formatted string
     print("\n" + "=" * 50)

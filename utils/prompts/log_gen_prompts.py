@@ -13,6 +13,7 @@ INSTRUCTIONS:
 - Do not fabricate specific numbers, dates, or technical details not visible in the video
 - For duration, use the actual video length
 - Combine both sources of information appropriately
+- Future Considerations must be written in direct relation to the Purpose of Flight
 
 FOCUS ON THESE VIDEO-OBSERVABLE ELEMENTS:
 - Flight duration (video length)

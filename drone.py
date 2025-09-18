@@ -23,6 +23,26 @@ class Drone:
         self.flying = False
         self.action_list = []  # lowest level
         self.navigation_list = []  # mid level
+        self.altitude = self.INIT_POS.z_val  # record this to have consistent fly height
+        
+    def set_posotion(self, x, y, z, yaw):
+        pose = airsim.Pose(
+            airsim.Vector3r(x, y, z),  # X, Y, Z in NED
+            airsim.to_quaternion(0, 0, yaw)  # roll, pitch, yaw
+        )
+
+        self.client.simSetVehiclePose(pose=pose, ignore_collision=True)
+
+    def cleanup(self):
+        # for recording
+        if self.client.isRecording():
+            self.client.stopRecording()
+
+        print("Cleaning up...")
+        if self.client is not None:
+            self.client.armDisarm(False)
+            self.client.enableApiControl(False)
+            self.client.reset()
 
     # BELOWS ARE MEMBER FUNCTIONS THAT CONTROL DRONE ACTIONS
     # basic actions
@@ -34,20 +54,21 @@ class Drone:
         if self.flying == True:
             return
         
-        # start recording if it's the first takeoff
-        if not self.client.isRecording():
-            self.client.startRecording()
-        
         print("Taking off...")
         self.client.simPrintLogMessage("Taking off...")
         self.client.takeoffAsync().join()
         self.client.moveToZAsync(self.INIT_POS.z_val - height, 1).join()
-
+        
+        self.altitude = self.INIT_POS.z_val - height
         self.flying = True
         self.action_list.append({
             "action": "takeoff",
             "params":  {"height": height}
         })
+        
+        # start recording if it's the first takeoff
+        if not self.client.isRecording():
+            self.client.startRecording()
         
     def land(self):
         if self.flying == False:
@@ -55,7 +76,7 @@ class Drone:
         
         print("Landing...")
         self.client.simPrintLogMessage("Landing...")
-        # self.client.moveToZAsync(self.INIT_POS.z_val - 2, 1).join()
+        self.client.moveToZAsync(self.INIT_POS.z_val - 3, 1).join()
         self.client.landAsync().join()
         self.action_list.append({
             "action": "land"
@@ -78,6 +99,7 @@ class Drone:
         self.client.simPrintLogMessage(f"Moving forward {value}m at {self.SPEED}m/s for {(value/self.SPEED):.2f} seconds...")
 
         self.client.moveByVelocityBodyFrameAsync(vx=self.SPEED, vy=0, vz=0, duration=value/self.SPEED).join()
+        self.client.moveToZAsync(self.altitude, 1).join()  # keep consistent fly height
         self.action_list.append({
             "action": "move_forward",
             "params": {"distance": value}
@@ -90,7 +112,12 @@ class Drone:
         print(f"Rotating {value} degree clockwise at {self.ROTATE_SPEED}deg/s for {(value/self.ROTATE_SPEED):.2f} seconds...")
         self.client.simPrintLogMessage(f"Rotating {value} degree clockwise at {self.ROTATE_SPEED}deg/s for {(value/self.ROTATE_SPEED):.2f} seconds...")
 
-        self.client.rotateByYawRateAsync(yaw_rate=self.ROTATE_SPEED, duration=value/self.ROTATE_SPEED).join()
+        offset = 1
+        if value < 0:
+            offset = -1
+        
+        self.client.rotateByYawRateAsync(yaw_rate=self.ROTATE_SPEED * offset, duration=value * offset/self.ROTATE_SPEED).join()
+        self.client.moveToZAsync(self.altitude, 1).join()  # keep consistent fly height
         self.action_list.append({
             "action": "rotate",
             "params": {"angle": value}
@@ -102,14 +129,3 @@ class Drone:
         pos = state.kinematics_estimated.position
         # print(f"Position: X={pos.x_val:.2f}, Y={pos.y_val:.2f}, Z={pos.z_val:.2f}")
         return pos
-        
-    def cleanup(self):
-        # for recording
-        if self.client.isRecording():
-            self.client.stopRecording()
-
-        print("Cleaning up...")
-        if self.client is not None:
-            self.client.armDisarm(False)
-            self.client.enableApiControl(False)
-            self.client.reset()
