@@ -3,6 +3,18 @@ from openai import OpenAI
 from utils.image import image_processor
 from utils.prompts import prompts_json
 import os
+
+def hi():
+    load_dotenv()
+    
+    client = OpenAI(api_key = os.getenv("OPENAI_API_KEY"))
+    
+    response = client.responses.create(
+        model="gpt-5",
+        input="Write a one-sentence bedtime story about a unicorn."
+    )
+
+    print(response.output_text)
     
 # parse a given image to json files
 def parse_images_json(image_path):
@@ -14,8 +26,8 @@ def parse_images_json(image_path):
     base64_image = image_processor.encode_image(image_path)
     
     response = client.responses.create(
-        model="gpt-4o",
-        temperature = 0,
+        model="gpt-5",
+        # temperature = 0,
         max_output_tokens = 2000,
         input=[
             {
@@ -46,8 +58,8 @@ def parse_image_batch_json(image_path):
     base64_image2 = image_processor.encode_image(image_path + "temp_2.jpg")
     
     response = client.responses.create(
-        model="gpt-4o",
-        temperature = 0,
+        model="gpt-5",
+        # temperature = 0,
         max_output_tokens = 2000,
         input=[
             {
@@ -104,8 +116,8 @@ def parse_image(image_path, prompt, prev_desc = None):
     })
     
     response = client.responses.create(
-        model="gpt-4o",
-        temperature = 0.5,
+        model="gpt-5",
+        # temperature = 0.5,
         max_output_tokens = 2000,
         input=[
             {
@@ -140,8 +152,8 @@ def summarize(captions, instruction, prompt):
     })
     
     response = client.responses.create(
-        model="gpt-4o",
-        temperature = 0,
+        model="gpt-5",
+        # temperature = 0,
         max_output_tokens = 2000,
         input=[
             {
@@ -176,8 +188,8 @@ def merge_logs(log1, log2, prompt):
     })
     
     response = client.responses.create(
-        model="gpt-4o",
-        temperature = 0,
+        model="gpt-5",
+        # temperature = 0,
         max_output_tokens = 2000,
         input=[
             {
