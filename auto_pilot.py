@@ -76,7 +76,7 @@ if __name__ == "__main__":
         logs += "\n"
         
     # save the logs to 
-    with open(TEXT_FOLDER_PATH + VIDEO_NAME.removesuffix(".mp4") + ".md", "w", encoding="utf-8") as f:   
+    with open(TEXT_FOLDER_PATH + VIDEO_NAME.removesuffix(".mp4") + ".txt", "w", encoding="utf-8") as f:
         f.write(logs)
     
     drone.cleanup()

@@ -160,7 +160,7 @@ def merge_logs(log1, log2, prompt):
     return message.content[0].text
 
 # AUTO PILOT RELATED RELATED--------------------------------------------------------------------------------
-def decision_making(order, prompt, past_navigations) -> dict:
+def decision_making(order, prompt, past_navigations, frames_path) -> dict:
     load_dotenv()
 
     client = anthropic.Anthropic(api_key = os.getenv("ANTHROPIC_API_KEY"))
