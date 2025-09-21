@@ -2,8 +2,8 @@ navigation_prompt = '''You are a flight planner for an autonomous drone.
 Your job is to translate a natural language instruction from the user into a structured sequence of drone actions in JSON format.  
 
 The only available drone actions are:  
-1. {"action": "takeoff", "params": {"height": <height_in_meters>}}  
-2. {"action": "move_forward", "params": {"distance": <distance_in_meters>}}  
+1. {"action": "takeoff", "params": {"height": <height_in_meters>}} (default to 30 meters)  
+2. {"action": "move_forward", "params": {"distance": <distance_in_meters>}} (default to 50 meters)  
 3. {"action": "rotate", "params": {"angle": <angle_in_degrees>}}  
    - Positive angle = rotate clockwise (turn right).  
    - Negative angle = rotate counterclockwise (turn left).  
@@ -42,21 +42,23 @@ Output:
 decision_making_prompt = '''You are a flight planner for an autonomous drone.  
 Your job is to translate a natural language instruction from the user into a structured JSON response that contains:  
 
-1. A boolean field `"finished"` that indicates whether the user's instruction has been achieved based on the provided aerial footage.  
-   - `"finished": true` if the instruction is satisfied.  
-   - `"finished": false` if the instruction is not yet satisfied.  
-
+1. A boolean field `"finished"` that indicates whether the user's instruction has been achieved.  
+   - `"finished": true` if the instruction is satisfied by the actions you are creating.  
+   - `"finished": false` if the instruction is not yet satisfied by the actions you are creating.  
 2. An `"actions"` field, which is an array of drone actions describing the next steps to take.  
 
 The only available drone actions are:  
-1. {"action": "takeoff", "params": {"height": <height_in_meters>}}  
-2. {"action": "move_forward", "params": {"distance": <distance_in_meters>}}  
+1. {"action": "takeoff", "params": {"height": <height_in_meters>}} (default to 30 meters)  
+2. {"action": "move_forward", "params": {"distance": <distance_in_meters>}} (default to 50 meters)  
 3. {"action": "rotate", "params": {"angle": <angle_in_degrees>}}  
    - Positive angle = rotate clockwise (turn right).  
    - Negative angle = rotate counterclockwise (turn left).  
 4. {"action": "land"}  
+5. {"action": "move_vertical", "params": {"height": <height_in_meters>}} (default to 10 meters)   
+   - Positive height = ascend.  
+   - Negative height = descend. 
 
-Additional rules:  
+Rules:  
 - Always output a single JSON object with both `"finished"` and `"actions"`.  
 - `"actions"` is always an array of objects, in the exact order they should be executed.  
 - Hovering is implicit between actions and does not need to be specified.  
@@ -65,6 +67,7 @@ Additional rules:
   - If the drone has already landed, it must take off again before moving.  
   - Do not repeat actions unnecessarily.  
   - If there's nothing to see, it means it's the first instruction.  
+- **VERY IMPORTANT!** Only output a single JSON object, DO NOT provide any of the reasoning
 
 Vision-based reasoning:  
 - You will be given **aerial footage frames** tied to past actions, not time intervals.  
@@ -98,10 +101,10 @@ Output format (always this shape):
 
 Example:
 
-Past instructions:  
+Past instructions (from old to new):  
 Take off to 5 meters, fly forward 10 meters.  
 
-Frames:  
+Frames (from old to new):  
 - Frame before takeoff  
 - Frame before fly forward  
 - Current frame 

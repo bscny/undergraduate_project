@@ -30,52 +30,63 @@ if __name__ == "__main__":
     
     logs = "# All The Navigation and Action recorded\n\n"
     while True:
-        order = input("input your instruction: (type 'finish' to end the operation)")
+        order = input("input your instruction: (type 'finish' to end the operation)\n")
         if order.lower() == "finish":
             break
         
+        while True:
         # VLM start planning instructions
-        print("Start thinking...")
-        raw_plan = claude_api.decision_making(order, auto_pilot_prompt.navigation_prompt, drone.navigation_list)
-        
-        try:
-            plan = json.loads(raw_plan)
-        except json.JSONDecodeError as e:
-            print(f"Response is not valid JSON: {e}\nRaw output: {raw_plan}")
-            continue
-    
-        drone.navigation_list.append(order)
-        logs += f"{order}:\n"
-        print(f"Done! total of {len(plan)} actions\n")
-        
-        num = 1
-        for action in plan:
-            act = action.get("action")
-            params = action.get("params", {})
+            print("Start thinking...")
+            raw_decision = claude_api.decision_making(order, auto_pilot_prompt.decision_making_prompt, drone.navigation_list, drone.frames_queue)
             
-            print(f"Start executing instruction number {num}: {act}")
+            try:
+                decision = json.loads(raw_decision)
+            except json.JSONDecodeError as e:
+                print(f"Response is not valid JSON: {e}\nRaw output: {raw_decision}")
+                continue
 
-            if act == "takeoff":
-                drone.takeoff(params.get("height", 3))
-                logs += f"{num}: takeoff, height: {params.get('height', 3)}\n"
-            elif act == "move_forward":
-                drone.move_forward(params.get("distance", 1))
-                logs += f"{num}: move forward, distance: {params.get('distance', 1)}\n"
-            elif act == "rotate":
-                drone.rotate(params.get("angle", 0))
-                logs += f"{num}: rotate, angle: {params.get('angle', 0)}\n"
-            elif act == "land":
-                drone.land()
-                logs += f"{num}: land\n"
-            else:
-                print(f"Unknown action: {act}")
+            plan = decision.get("actions")
+            finished = decision.get("finished")
+            drone.navigation_list.append(order)
+            logs += f"{order}:\n"
+            print(f"Done! total of {len(plan)} actions\n")
             
-            num += 1
+            num = 1
+            for action in plan:
+                act = action.get("action")
+                params = action.get("params", {})
+                
+                print(f"Start executing instruction number {num}: {act}")
+
+                if act == "takeoff":
+                    drone.takeoff(params.get("height", 30))
+                    logs += f"{num}: takeoff, height: {params.get('height', 30)}\n"
+                elif act == "move_forward":
+                    drone.move_forward(params.get("distance", 50))
+                    logs += f"{num}: move forward, distance: {params.get('distance', 50)}\n"
+                elif act == "rotate":
+                    drone.rotate(params.get("angle", 0))
+                    logs += f"{num}: rotate, angle: {params.get('angle', 0)}\n"
+                elif act == "move_vertical":
+                    drone.move_vertical(params.get("height", 10))
+                    logs += f"{num}: move vertically, height: {params.get('height', 10)}\n"
+                elif act == "land":
+                    drone.land()
+                    logs += f"{num}: land\n"
+                else:
+                    print(f"Unknown action: {act}")
+                
+                num += 1
+                
+            if finished == True:
+                break
+            
+            drone.take_picture()  # this is the current frame of next iteration
             
         print("ALL DONE~\n")
         logs += "\n"
         
-    # save the logs to 
+    # save the logs to
     with open(TEXT_FOLDER_PATH + VIDEO_NAME.removesuffix(".mp4") + ".txt", "w", encoding="utf-8") as f:
         f.write(logs)
     

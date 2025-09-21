@@ -2,6 +2,8 @@ import base64
 import cv2
 import os
 from natsort import natsorted
+import io
+from PIL import Image
 
 # Function to encode the image
 def encode_image(image_path):   
@@ -54,3 +56,38 @@ def create_video_opencv(folder_path, output_path, fps=30):
     video.release()
     cv2.destroyAllWindows()  # Clean up
     print(f"Video saved as {output_path}")
+    
+# from binary image code to a resized base64 string
+def resize_with_aspect_ratio(binary_code, target_width, target_height, maintain_aspect=True) -> str:   
+    image = Image.open(io.BytesIO(binary_code))
+    
+    # print(f"Original size: {image.size}")
+    
+    if maintain_aspect:
+        # Calculate aspect ratio preserving dimensions
+        original_ratio = image.width / image.height
+        target_ratio = target_width / target_height
+        
+        if original_ratio > target_ratio:
+            # Image is wider than target ratio
+            new_width = target_width
+            new_height = int(target_width / original_ratio)
+        else:
+            # Image is taller than target ratio
+            new_width = int(target_height * original_ratio)
+            new_height = target_height
+        
+        # print(f"Aspect ratio preserved size: {new_width}x{new_height}")
+        resized_image = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
+    else:
+        # Stretch to exact dimensions
+        resized_image = image.resize((target_width, target_height), Image.Resampling.LANCZOS)
+        print(f"Stretched to: {target_width}x{target_height}")
+    
+    # Convert back to base64
+    buffer = io.BytesIO()
+    format = image.format if image.format else 'JPEG'
+    resized_image.save(buffer, format=format, quality=85)
+    resized_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
+    
+    return resized_base64

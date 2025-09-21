@@ -160,7 +160,43 @@ def merge_logs(log1, log2, prompt):
     return message.content[0].text
 
 # AUTO PILOT RELATED RELATED--------------------------------------------------------------------------------
-def decision_making(order, prompt, past_navigations, frames_path) -> dict:
+def test(prompt, image):
+    load_dotenv()
+
+    client = anthropic.Anthropic(api_key = os.getenv("ANTHROPIC_API_KEY"))
+    
+    content = []
+    
+    content.append({
+        "type": "text",
+        "text": prompt
+    })
+    
+    content.append({
+        "type": "image",
+        "source": {
+            "type": "base64",
+            "media_type": "image/png",
+            "data": image
+        }
+    })
+    
+    message = client.messages.create(
+        model = "claude-sonnet-4-20250514",
+        max_tokens = 5000,
+        temperature = 0,
+        # system = "You are a world-class poet. Respond only with short poems.",
+        messages = [
+            {
+                "role": "user",
+                "content": content
+            }
+        ]
+    )
+    
+    print(message.content[0].text)
+    
+def decision_making(order, prompt, past_navigations, frames_queue) -> dict:
     load_dotenv()
 
     client = anthropic.Anthropic(api_key = os.getenv("ANTHROPIC_API_KEY"))
@@ -176,6 +212,21 @@ def decision_making(order, prompt, past_navigations, frames_path) -> dict:
         "type": "text",
         "text": "Past instructions (from old to new):\n" + "\n".join(past_navigations)
     })
+    
+    content.append({
+        "type": "text",
+        "text": "Frames (from old to new): \n"
+    })
+    
+    for frame in frames_queue:
+        content.append({
+            "type": "image",
+            "source": {
+                "type": "base64",
+                "media_type": "image/png",
+                "data": frame
+            }
+        })
     
     content.append({
         "type": "text",

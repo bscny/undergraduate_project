@@ -3,6 +3,9 @@ from dotenv import load_dotenv
 import os
 import base64
 
+# custom package
+from utils.image import image_processor
+
 load_dotenv()
 
 class Drone:   
@@ -17,9 +20,12 @@ class Drone:
         self.LINEAR_DUR = 3  # in seconds
         self.ANGULAR_DUR = 1  # in seconds
         self.SPEED = 7  # in m/s
+        self.VERTICAL_SPEED = 1  # in m/s
         self.ROTATE_SPEED = 45  # in deg/s
         self.INIT_POS = self.get_position()  # this has x_val, y_val, z_val
         self.MAX_PAST_FRAMES = 4
+        self.RESIZE_WIDTH = 640
+        self.RESIZE_HEIGHT = 480
         
         # define some private variables
         self.flying = False
@@ -49,9 +55,9 @@ class Drone:
             
     def take_picture(self):           
         # take pic
-        base64_string = self.client.simGetImage("3", airsim.ImageType.Scene)
+        bin_code = self.client.simGetImage("3", airsim.ImageType.Scene)
         try:
-            decoded_bytes = base64.b64encode(base64_string).decode("utf-8")
+            decoded_base64_str = image_processor.resize_with_aspect_ratio(bin_code, self.RESIZE_WIDTH, self.RESIZE_HEIGHT)
         except Exception as e:
             print(f"Error encoding frames when taking picture: {e}")
             self.client.simPrintLogMessage(f"Error encoding frames when taking picture: {e}")
@@ -62,11 +68,11 @@ class Drone:
             # Remove the oldest frame if queue is full
             self.frames_queue.pop(0)
 
-        self.frames_queue.append(decoded_bytes)
+        self.frames_queue.append(decoded_base64_str)
 
     # BELOWS ARE MEMBER FUNCTIONS THAT CONTROL DRONE ACTIONS
     # basic actions
-    def takeoff(self, height = 3):
+    def takeoff(self, height = 30):
         if height <= 0:
             print("can't fly under ground...")
             return
@@ -78,7 +84,7 @@ class Drone:
         self.client.simPrintLogMessage("Taking off...")
         self.take_picture()
         self.client.takeoffAsync().join()
-        self.client.moveToZAsync(self.INIT_POS.z_val - height, 1).join()
+        self.client.moveToZAsync(self.INIT_POS.z_val - height, self.VERTICAL_SPEED).join()
         
         self.altitude = self.INIT_POS.z_val - height
         self.flying = True
@@ -98,7 +104,7 @@ class Drone:
         print("Landing...")
         self.take_picture()
         self.client.simPrintLogMessage("Landing...")
-        self.client.moveToZAsync(self.INIT_POS.z_val - 3, 1).join()
+        self.client.moveToZAsync(self.INIT_POS.z_val - 3, self.VERTICAL_SPEED).join()
         self.client.landAsync().join()
         self.action_list.append({
             "action": "land"
@@ -110,9 +116,28 @@ class Drone:
     def check_takeoff(self):
         if self.flying == False:
             print("Try to move drone without taking off, please wait until drone is up!")
-            self.takeoff()
+            self.takeoff(-self.altitude)
     
     # moving
+    def move_vertical(self, value):
+        self.check_takeoff()
+        
+        offset = -1
+        if value < 0:  # fly down
+            offset = 1
+        
+        # print message out
+        print(f"Moving vertically {value}m at {self.VERTICAL_SPEED}m/s for {(abs(value)/self.VERTICAL_SPEED):.2f} seconds...")
+        self.client.simPrintLogMessage(f"Moving vertically {value}m at {self.VERTICAL_SPEED}m/s for {(abs(value)/self.SPEED):.2f} seconds...")
+
+        self.take_picture()
+        self.client.moveByVelocityBodyFrameAsync(vx=0, vy=0, vz=self.VERTICAL_SPEED * offset, duration=abs(value)/self.VERTICAL_SPEED).join()
+        self.altitude -= value
+        self.action_list.append({
+            "action": "move_vertical",
+            "params": {"height": value}
+        })
+
     def move_forward(self, value):
         self.check_takeoff()
         
@@ -122,7 +147,7 @@ class Drone:
 
         self.take_picture()
         self.client.moveByVelocityBodyFrameAsync(vx=self.SPEED, vy=0, vz=0, duration=value/self.SPEED).join()
-        self.client.moveToZAsync(self.altitude, 1).join()  # keep consistent fly height
+        self.client.moveToZAsync(self.altitude, self.VERTICAL_SPEED).join()  # keep consistent fly height
         self.action_list.append({
             "action": "move_forward",
             "params": {"distance": value}
@@ -131,17 +156,17 @@ class Drone:
     def rotate(self, value):
         self.check_takeoff()
         
-        # print message out
-        print(f"Rotating {value} degree clockwise at {self.ROTATE_SPEED}deg/s for {(value/self.ROTATE_SPEED):.2f} seconds...")
-        self.client.simPrintLogMessage(f"Rotating {value} degree clockwise at {self.ROTATE_SPEED}deg/s for {(value/self.ROTATE_SPEED):.2f} seconds...")
-
         offset = 1
-        if value < 0:
+        if value < 0:  # fly left
             offset = -1
-        
+
+        # print message out
+        print(f"Rotating {value} degree clockwise at {self.ROTATE_SPEED}deg/s for {(value * offset/self.ROTATE_SPEED):.2f} seconds...")
+        self.client.simPrintLogMessage(f"Rotating {value} degree clockwise at {self.ROTATE_SPEED}deg/s for {(value * offset/self.ROTATE_SPEED):.2f} seconds...")
+
         self.take_picture()
         self.client.rotateByYawRateAsync(yaw_rate=self.ROTATE_SPEED * offset, duration=value * offset/self.ROTATE_SPEED).join()
-        self.client.moveToZAsync(self.altitude, 1).join()  # keep consistent fly height
+        self.client.moveToZAsync(self.altitude, self.VERTICAL_SPEED).join()  # keep consistent fly height
         self.action_list.append({
             "action": "rotate",
             "params": {"angle": value}
