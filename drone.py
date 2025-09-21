@@ -84,6 +84,7 @@ class Drone:
         self.client.simPrintLogMessage("Taking off...")
         self.take_picture()
         self.client.takeoffAsync().join()
+        self.client.moveToZAsync(self.INIT_POS.z_val - height, 10).join()
         self.client.moveToZAsync(self.INIT_POS.z_val - height, self.VERTICAL_SPEED).join()
         
         self.altitude = self.INIT_POS.z_val - height

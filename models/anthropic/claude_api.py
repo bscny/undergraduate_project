@@ -210,7 +210,7 @@ def decision_making(order, prompt, past_navigations, frames_queue) -> dict:
     
     content.append({
         "type": "text",
-        "text": "Past instructions (from old to new):\n" + "\n".join(past_navigations)
+        "text": "Past instructions (from old to new):\n" + past_navigations
     })
     
     content.append({

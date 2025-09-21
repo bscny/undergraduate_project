@@ -1,0 +1,53 @@
+# All The Navigation and Action recorded
+
+takeoff for 150m and fly 200m:
+1: takeoff, height: 150
+2: move forward, distance: 200
+
+turn left for 20deg:
+1: rotate, angle: -20
+
+fly ahead until u see solar pennals on yellow roof buildings:
+1: move forward, distance: 50
+fly ahead until u see solar pennals on yellow roof buildings:
+
+fly ahead until u see obvious solar pannels:
+
+fly ahead for 300m:
+1: move forward, distance: 300
+
+fly randomly(but approximately ahead) to try to discover a roundabout:
+1: rotate, angle: 30
+2: move forward, distance: 150
+3: rotate, angle: -45
+4: move forward, distance: 100
+fly randomly(but approximately ahead) to try to discover a roundabout:
+
+turn right for 45 deg and fly ahead for 200m:
+1: rotate, angle: 45
+2: move forward, distance: 200
+
+turn right for 40 deg:
+1: rotate, angle: 40
+
+fly randomly ahead until u see a lake:
+1: rotate, angle: -30
+2: move forward, distance: 150
+fly randomly ahead until u see a lake:
+
+turn right and fly 300m:
+1: rotate, angle: 90
+2: move forward, distance: 300
+
+turn left for 40 deg and fly ahead for 300m:
+1: rotate, angle: -40
+2: move forward, distance: 300
+
+fly ahead :
+1: move forward, distance: 50
+
+fly ahead for 100m and turn left and keep on flying for 200m:
+1: move forward, distance: 100
+2: rotate, angle: -90
+3: move forward, distance: 200
+

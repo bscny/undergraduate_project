@@ -1,0 +1,53 @@
+# All The Navigation and Action recorded
+
+takeoff 150m and fly 200m:
+1: takeoff, height: 150
+2: move forward, distance: 200
+
+turn left 20deg and fly 300m:
+1: rotate, angle: -20
+2: move forward, distance: 300
+
+fly randomly untill u see a roundabout:
+1: rotate, angle: 45
+2: move forward, distance: 120
+3: rotate, angle: -60
+4: move forward, distance: 80
+fly randomly untill u see a roundabout:
+1: rotate, angle: 75
+2: move forward, distance: 100
+3: rotate, angle: -30
+4: move forward, distance: 120
+fly randomly untill u see a roundabout:
+
+fly in a square that has a length of 150m:
+1: move forward, distance: 150
+2: rotate, angle: 90
+3: move forward, distance: 150
+4: rotate, angle: 90
+5: move forward, distance: 150
+6: rotate, angle: 90
+7: move forward, distance: 150
+8: rotate, angle: 90
+
+turn right for 30deg:
+1: rotate, angle: 30
+
+fly ahead until u see a lake:
+1: move forward, distance: 100
+fly ahead until u see a lake:
+1: move forward, distance: 100
+fly ahead until u see a lake:
+
+fly forward for 150m:
+1: move forward, distance: 150
+
+turn left for 45 deg and fly forward for 150m and turn right 45 deg and fly ahead for 200m:
+1: rotate, angle: -45
+2: move forward, distance: 150
+3: rotate, angle: 45
+4: move forward, distance: 200
+
+fly ahead for 100m:
+1: move forward, distance: 100
+

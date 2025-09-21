@@ -4,14 +4,12 @@ import json
 from models.anthropic import claude_api
 
 from utils.prompts import auto_pilot_prompt
-from utils.image import image_processor
-
 from drone import Drone
 
 # define some constant here
 # path
 VIDEO_FOLDER_PATH = "assets/large_files/videos/"
-VIDEO_NAME = "simcity.mp4"
+VIDEO_NAME = "simcity-2.mp4"
 FRAME_FOLDER_PATH = "assets/large_files/airsim_frames"
 TEXT_FOLDER_PATH = "assets/action_lists/"
 
@@ -28,7 +26,7 @@ if __name__ == "__main__":
     drone = Drone()
     drone.set_posotion(INIT_X, INIT_Y, INIT_Z, INIT_YAW)
     
-    logs = "# All The Navigation and Action recorded\n\n"
+    logs = ""
     while True:
         order = input("input your instruction: (type 'finish' to end the operation)\n")
         if order.lower() == "finish":
@@ -37,7 +35,7 @@ if __name__ == "__main__":
         while True:
         # VLM start planning instructions
             print("Start thinking...")
-            raw_decision = claude_api.decision_making(order, auto_pilot_prompt.decision_making_prompt, drone.navigation_list, drone.frames_queue)
+            raw_decision = claude_api.decision_making(order, auto_pilot_prompt.decision_making_prompt, logs, drone.frames_queue)
             
             try:
                 decision = json.loads(raw_decision)
@@ -86,7 +84,8 @@ if __name__ == "__main__":
         print("ALL DONE~\n")
         logs += "\n"
         
-    # save the logs to
+    # save the logs to file
+    logs = "# All The Navigation and Action recorded\n\n" + logs
     with open(TEXT_FOLDER_PATH + VIDEO_NAME.removesuffix(".mp4") + ".txt", "w", encoding="utf-8") as f:
         f.write(logs)
     
