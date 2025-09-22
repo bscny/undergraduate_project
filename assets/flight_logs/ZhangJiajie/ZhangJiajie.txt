@@ -1,0 +1,38 @@
+# All The Navigation and Action recorded
+
+takeoff for 80m:
+1: takeoff, height: 80
+
+find me an old temple:
+1: move forward, distance: 100
+2: rotate, angle: 45
+3: move forward, distance: 80
+find me an old temple:
+
+descent properly on top of the temple so i can have a better view:
+1: move vertically, height: -30
+
+fly around the temple in a square:
+1: move forward, distance: 30
+2: rotate, angle: 90
+3: move forward, distance: 30
+4: rotate, angle: 90
+5: move forward, distance: 30
+6: rotate, angle: 90
+7: move forward, distance: 30
+8: rotate, angle: 90
+fly around the temple in a square:
+
+ascend 30m and fly forward for 100m and turn left:
+1: move vertically, height: 30
+2: move forward, distance: 100
+3: rotate, angle: -90
+
+fly a triangle that has a length of 100m:
+1: move forward, distance: 100
+2: rotate, angle: 120
+3: move forward, distance: 100
+4: rotate, angle: 120
+5: move forward, distance: 100
+6: rotate, angle: 120
+

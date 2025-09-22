@@ -15,7 +15,7 @@ import input as inp
 
 # define some constant here
 # path
-VIDEO_NAME = "simcity-2.mp4"  # the only thing that has to be changed!!
+VIDEO_NAME = "ZhangJiajie.mp4"  # the only thing that has to be changed!!
 LOG_NAME = "TBD"
 VIDEO_FOLDER_PATH = "assets/large_files/videos/"
 IMAGE_FOLDER_PATH = "assets/large_files/image2parse/"

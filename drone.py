@@ -20,7 +20,7 @@ class Drone:
         self.LINEAR_DUR = 3  # in seconds
         self.ANGULAR_DUR = 1  # in seconds
         self.SPEED = 7  # in m/s
-        self.VERTICAL_SPEED = 1  # in m/s
+        self.VERTICAL_SPEED = 3  # in m/s
         self.ROTATE_SPEED = 45  # in deg/s
         self.INIT_POS = self.get_position()  # this has x_val, y_val, z_val
         self.MAX_PAST_FRAMES = 4

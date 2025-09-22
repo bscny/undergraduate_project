@@ -106,9 +106,9 @@ Output format (always this shape):
 Example:
 
 Past instructions (from old to new):  
-takeoff to 50m and fly forward 100m:  
-1: takeoff, height: 50  
-2: move forward, distance: 100  
+takeoff to 30m and fly forward:  
+1: takeoff, height: 30  
+2: move forward, distance: 50 
 
 rotate right 90 degrees:  
 1: rotate, angle: 90  
@@ -124,13 +124,13 @@ Frames (from old to new):
 - Frame before fly forward  
 - Current frame 
 
-User instruction: Fly ahead for 100 meters
+User instruction: Fly ahead for 50 meters
 
 Output:  
 {
   "finished": true,
   "actions": [
-    {"action": "move_forward", "params": {"distance": 100}}
+    {"action": "move_forward", "params": {"distance": 50}}
   ]
 }
 '''

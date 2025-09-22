@@ -9,7 +9,7 @@ from drone import Drone
 # define some constant here
 # path
 VIDEO_FOLDER_PATH = "assets/large_files/videos/"
-VIDEO_NAME = "simcity-2.mp4"
+VIDEO_NAME = "ZhangJiajie.mp4"
 FRAME_FOLDER_PATH = "assets/large_files/airsim_frames"
 TEXT_FOLDER_PATH = "assets/action_lists/"
 
@@ -17,10 +17,10 @@ TEXT_FOLDER_PATH = "assets/action_lists/"
 FPS = 20
 
 # drone related
-INIT_X = 300
-INIT_Y = -830
-INIT_Z = -5
-INIT_YAW = 90
+INIT_X = 160
+INIT_Y = 0
+INIT_Z = -50
+INIT_YAW = 160
 
 if __name__ == "__main__":
     drone = Drone()
