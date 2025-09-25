@@ -6,6 +6,25 @@ from google.genai import types
 from utils.image import image_processor
 from utils.prompts import prompts_json
 
+def hi():
+    load_dotenv()
+    
+    client = genai.Client(api_key = os.getenv("GOOGLE_API_KEY"))
+    
+    generate_content_config = types.GenerateContentConfig(
+        temperature = 0,
+        max_output_tokens = 2000,
+        response_mime_type = "text/plain",
+    )
+    
+    response = client.models.generate_content(
+        model = "gemini-2.0-flash",
+        contents = ["hello"],
+        config = generate_content_config
+    )
+
+    print(response.text)
+
 # parse a given image to json files
 def parse_images_json(image_path):
     load_dotenv()

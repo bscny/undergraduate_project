@@ -4,6 +4,33 @@ from utils.image import image_processor
 import os
 import json
 
+def hi():
+    load_dotenv()
+
+    client = anthropic.Anthropic(api_key = os.getenv("ANTHROPIC_API_KEY"))
+    
+    content = []
+    
+    content.append({
+        "type": "text",
+        "text": "hello"
+    })
+    
+    message = client.messages.create(
+        model = "claude-sonnet-4-20250514",
+        max_tokens = 5000,
+        temperature = 0,
+        # system = "You are a world-class poet. Respond only with short poems.",
+        messages = [
+            {
+                "role": "user",
+                "content": content
+            }
+        ]
+    )
+
+    print(message.content[0].text)
+
 # FLIGHT LOG GENERATING RELATED--------------------------------------------------------------------------------
 # parse a given image with wolf's pipeline
 def parse_image(image_path, prompt, prev_desc = None):
