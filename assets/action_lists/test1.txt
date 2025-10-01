@@ -1,0 +1,50 @@
+# All The Navigation and Action recorded
+
+take off and fly in a square with 300m length:
+1: takeoff, height: 30
+2: move forward, distance: 300
+3: rotate, angle: 90
+4: move forward, distance: 300
+5: rotate, angle: 90
+6: move forward, distance: 300
+7: rotate, angle: 90
+8: move forward, distance: 300
+9: rotate, angle: 90
+take off and fly in a square with 300m length:
+
+fly forward for 50m :
+1: move forward, distance: 50
+
+descend for 10m:
+1: move vertically, height: -10
+
+fly forward for 30m:
+1: move forward, distance: 30
+
+ascend 10m and fly forward for 100m and fly right for 200m:
+1: move vertically, height: 10
+2: move forward, distance: 100
+3: rotate, angle: 90
+4: move forward, distance: 200
+5: rotate, angle: -90
+
+fly back to the original pos when drone takeoff:
+1: rotate, angle: 180
+2: move forward, distance: 200
+3: rotate, angle: -90
+4: move forward, distance: 100
+5: move vertically, height: -10
+6: rotate, angle: 180
+7: move forward, distance: 30
+8: move vertically, height: 10
+9: rotate, angle: 180
+10: move forward, distance: 50
+11: rotate, angle: -90
+12: move forward, distance: 300
+13: rotate, angle: -90
+14: move forward, distance: 300
+15: rotate, angle: -90
+16: move forward, distance: 300
+17: rotate, angle: -90
+18: move forward, distance: 300
+

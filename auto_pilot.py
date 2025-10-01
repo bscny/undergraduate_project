@@ -9,7 +9,7 @@ from drone import Drone
 # define some constant here
 # path
 VIDEO_FOLDER_PATH = "assets/large_files/videos/"
-VIDEO_NAME = "ZhangJiajie.mp4"
+VIDEO_NAME = "test.mp4"
 FRAME_FOLDER_PATH = "assets/large_files/airsim_frames"
 TEXT_FOLDER_PATH = "assets/action_lists/"
 
@@ -17,6 +17,7 @@ TEXT_FOLDER_PATH = "assets/action_lists/"
 FPS = 20
 
 # drone related
+CUSTOM_POS = False
 INIT_X = 160
 INIT_Y = 0
 INIT_Z = -50
@@ -24,7 +25,8 @@ INIT_YAW = 160
 
 if __name__ == "__main__":
     drone = Drone()
-    drone.set_posotion(INIT_X, INIT_Y, INIT_Z, INIT_YAW)
+    if CUSTOM_POS:
+        drone.set_posotion(INIT_X, INIT_Y, INIT_Z, INIT_YAW)
     
     logs = ""
     while True:

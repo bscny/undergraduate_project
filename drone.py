@@ -26,6 +26,7 @@ class Drone:
         self.MAX_PAST_FRAMES = 4
         self.RESIZE_WIDTH = 640
         self.RESIZE_HEIGHT = 480
+        self.RECORD = False
         
         # define some private variables
         self.flying = False
@@ -44,7 +45,7 @@ class Drone:
 
     def cleanup(self):
         # for recording
-        if self.client.isRecording():
+        if self.RECORD and self.client.isRecording():
             self.client.stopRecording()
 
         print("Cleaning up...")
@@ -95,7 +96,7 @@ class Drone:
         })
         
         # start recording if it's the first takeoff
-        if not self.client.isRecording():
+        if self.RECORD and (not self.client.isRecording()):
             self.client.startRecording()
         
     def land(self):
