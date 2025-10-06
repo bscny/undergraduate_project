@@ -9,7 +9,7 @@ from drone import Drone
 # define some constant here
 # path
 VIDEO_FOLDER_PATH = "assets/large_files/videos/"
-VIDEO_NAME = "test.mp4"
+VIDEO_NAME = "try.mp4"
 FRAME_FOLDER_PATH = "assets/large_files/airsim_frames"
 TEXT_FOLDER_PATH = "assets/action_lists/"
 
@@ -30,25 +30,42 @@ if __name__ == "__main__":
     
     logs = ""
     while True:
-        order = input("input your instruction: (type 'finish' to end the operation)\n")
-        if order.lower() == "finish":
+        instruction = input("input your instruction: (type 'finish' to end the operation)\n")
+        if instruction.lower() == "finish":
             break
         
+        # add mask for abstract + scenario based command
+        # filtering
+        raw_filter = claude_api.instruction_filter(instruction, auto_pilot_prompt.instruction_filter_prompt)
+        try:
+            filter = json.loads(raw_filter)
+        except json.JSONDecodeError as e:
+            print(f"Filter response is not valid JSON: {e}\nRaw output: {raw_filter}")
+            continue
+        
+        abstract = filter.get("abstract")
+        if abstract == True:
+            mission_type = filter.get("mission_type")
+            
+            # distributing
+            print(mission_type)
+            continue
+        
         while True:
-        # VLM start planning instructions
+            # VLM start planning (decision making + motion planning)
             print("Start thinking...")
-            raw_decision = claude_api.decision_making(order, auto_pilot_prompt.decision_making_prompt, logs, drone.frames_queue)
+            raw_decision = claude_api.decision_making(instruction, auto_pilot_prompt.decision_making_prompt, logs, drone.frames_queue)
             
             try:
                 decision = json.loads(raw_decision)
             except json.JSONDecodeError as e:
-                print(f"Response is not valid JSON: {e}\nRaw output: {raw_decision}")
+                print(f"Decision response is not valid JSON: {e}\nRaw output: {raw_decision}")
                 continue
 
             plan = decision.get("actions")
             finished = decision.get("finished")
-            drone.navigation_list.append(order)
-            logs += f"{order}:\n"
+            drone.navigation_list.append(instruction)
+            logs += f"{instruction}:\n"
             print(f"Done! total of {len(plan)} actions\n")
             
             num = 1
@@ -56,7 +73,7 @@ if __name__ == "__main__":
                 act = action.get("action")
                 params = action.get("params", {})
                 
-                print(f"Start executing instruction number {num}: {act}")
+                print(f"Start executing action number {num}: {act}")
 
                 if act == "takeoff":
                     drone.takeoff(params.get("height", 30))

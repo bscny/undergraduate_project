@@ -223,7 +223,41 @@ def test(prompt, image):
     
     print(message.content[0].text)
     
-def decision_making(order, prompt, past_navigations, frames_queue) -> dict:
+def instruction_filter(instruction, prompt) -> str:
+    load_dotenv()
+
+    client = anthropic.Anthropic(api_key = os.getenv("ANTHROPIC_API_KEY"))
+    
+    content = []
+    
+    content.append({
+        "type": "text",
+        "text": prompt
+    })
+    
+    content.append({
+        "type": "text",
+        "text": "User instruction:" + instruction
+    })
+    
+    message = client.messages.create(
+        model = "claude-sonnet-4-20250514",
+        max_tokens = 5000,
+        temperature = 0,
+        # system = "You are a world-class poet. Respond only with short poems.",
+        messages = [
+            {
+                "role": "user",
+                "content": content
+            }
+        ]
+    )
+
+    raw_text = message.content[0].text.strip("`")
+
+    return raw_text
+    
+def decision_making(instruction, prompt, past_navigations, frames_queue) -> str:
     load_dotenv()
 
     client = anthropic.Anthropic(api_key = os.getenv("ANTHROPIC_API_KEY"))
@@ -257,7 +291,7 @@ def decision_making(order, prompt, past_navigations, frames_queue) -> dict:
     
     content.append({
         "type": "text",
-        "text": "User instruction:" + order
+        "text": "User instruction:" + instruction
     })
     
     message = client.messages.create(

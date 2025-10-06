@@ -1,0 +1,23 @@
+# All The Navigation and Action recorded
+
+takeoff 100m and fly in a circle with radius of 100m:
+1: takeoff, height: 100
+2: move forward, distance: 100
+3: rotate, angle: 45
+4: move forward, distance: 71
+5: rotate, angle: 45
+6: move forward, distance: 71
+7: rotate, angle: 45
+8: move forward, distance: 71
+9: rotate, angle: 45
+10: move forward, distance: 71
+11: rotate, angle: 45
+12: move forward, distance: 71
+13: rotate, angle: 45
+14: move forward, distance: 71
+15: rotate, angle: 45
+16: move forward, distance: 71
+17: rotate, angle: 45
+18: move forward, distance: 71
+takeoff 100m and fly in a circle with radius of 100m:
+
