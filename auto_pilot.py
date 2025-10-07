@@ -4,6 +4,7 @@ import json
 from models.anthropic import claude_api
 
 from utils.prompts import auto_pilot_prompt
+from mission import predefined_mission
 from drone import Drone
 
 # define some constant here
@@ -22,6 +23,10 @@ INIT_X = 160
 INIT_Y = 0
 INIT_Z = -50
 INIT_YAW = 160
+
+# Mission Type
+RETURN_FLIGHT = 0
+SURVEILLANCE_AREA = 1
 
 if __name__ == "__main__":
     drone = Drone()
@@ -45,10 +50,17 @@ if __name__ == "__main__":
         
         abstract = filter.get("abstract")
         if abstract == True:
+            print("encountering a special type of predefined mission: ", end="")
             mission_type = filter.get("mission_type")
             
             # distributing
-            print(mission_type)
+            if mission_type == RETURN_FLIGHT:
+                print("Return Flight")
+                logs = predefined_mission.return_flight(drone, logs)
+            elif mission_type == SURVEILLANCE_AREA:
+                print("Surveillance Area")
+            
+            print("ALL DONE~\n")
             continue
         
         while True:

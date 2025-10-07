@@ -1,23 +1,38 @@
 # All The Navigation and Action recorded
 
-takeoff 100m and fly in a circle with radius of 100m:
-1: takeoff, height: 100
-2: move forward, distance: 100
-3: rotate, angle: 45
-4: move forward, distance: 71
-5: rotate, angle: 45
-6: move forward, distance: 71
-7: rotate, angle: 45
-8: move forward, distance: 71
-9: rotate, angle: 45
-10: move forward, distance: 71
-11: rotate, angle: 45
-12: move forward, distance: 71
-13: rotate, angle: 45
-14: move forward, distance: 71
-15: rotate, angle: 45
-16: move forward, distance: 71
-17: rotate, angle: 45
-18: move forward, distance: 71
-takeoff 100m and fly in a circle with radius of 100m:
+yakeoff 50m:
+1: takeoff, height: 50
 
+fly a S shape that has a total distance of 300m:
+1: move forward, distance: 75
+2: rotate, angle: -45
+3: move forward, distance: 75
+4: rotate, angle: 90
+5: move forward, distance: 75
+6: rotate, angle: -45
+7: move forward, distance: 75
+
+fly back 40m:
+1: rotate, angle: 180
+2: move forward, distance: 40
+
+turn left 30deg abd fly 100m and turn right 75 deg and fly 200:
+1: rotate, angle: -30
+2: move forward, distance: 100
+3: rotate, angle: 75
+4: move forward, distance: 200
+
+fly until theres no house to be seen:
+1: move forward, distance: 50
+fly until theres no house to be seen:
+1: move forward, distance: 50
+fly until theres no house to be seen:
+1: move forward, distance: 50
+fly until theres no house to be seen:
+1: move forward, distance: 50
+fly until theres no house to be seen:
+
+[Special Predefined mission]: Return Flight
+1: rotate, angle: -168.37388148160858
+2: move forward, distance: 278.82058512385714
+3: rotate, angle: -56.62611851839142

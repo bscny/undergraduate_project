@@ -69,6 +69,7 @@ Rules:
   - Do not repeat actions unnecessarily.  
   - If there's nothing to see, it means it's the first instruction.
 - **VERY IMPORTANT!** Only output a single JSON object, DO NOT provide any of the reasoning
+- Ignore Special Predefined missions in the past instructions
 
 Vision-based reasoning:  
 - You will be given **aerial footage frames** tied to past actions, not time intervals.  

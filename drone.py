@@ -1,7 +1,6 @@
 import airsim
 from dotenv import load_dotenv
 import os
-import base64
 
 # custom package
 from utils.image import image_processor
