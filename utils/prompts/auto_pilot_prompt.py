@@ -140,7 +140,7 @@ Output:
 instruction_filter_prompt = '''You are a filter for an autonomous drone instruction interpreter. You will receive a natural language instruction. Determine whether the instruction expresses an intention to:
 
 1. **Return flight** to the original takeoff position (examples: "return to home", "go back to takeoff", "RTH", "come home", "return to base", "land where we took off").
-2. **Surveillance the area** (examples: "survey/scan the area", "loiter and watch", "monitor this location", "patrol this perimeter", "surveil", "observe the surroundings").
+2. **Surveillance the area** (examples: "survey/scan the area", "loiter and watch", "monitor this location", "patrol this perimeter", "surveil").
 
 Rules:
 - If the instruction expresses a **return flight** intention, output a JSON object with exactly these two attributes:
