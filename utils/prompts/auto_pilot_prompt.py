@@ -145,7 +145,7 @@ instruction_filter_prompt = '''You are a filter for an autonomous drone instruct
 Rules:
 - If the instruction expresses a **return flight** intention, output a JSON object with exactly these two attributes:
   `{ "abstract": true, "mission_type": 0 }`
-- Otherwise, if the instruction expresses a **surveillance** intention, output a JSON object with exactly these two attributes:
+- If the instruction expresses a **surveillance** intention, output a JSON object with exactly these two attributes:
   `{ "abstract": true, "mission_type": 1 }`
 - Otherwise (neither intention clearly present), output a JSON object with exactly this single attribute:
   `{ "abstract": false }`

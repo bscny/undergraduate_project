@@ -1,35 +1,5 @@
 # All The Navigation and Action recorded
 
-takeoff 30 m:
-1: takeoff, height: 30
-
-fly in a square of 10m as length:
-1: move forward, distance: 10
-2: rotate, angle: 90
-3: move forward, distance: 10
-4: rotate, angle: 90
-5: move forward, distance: 10
-6: rotate, angle: 90
-7: move forward, distance: 10
-8: rotate, angle: 90
-
-fly ahead for 100m and fly right:
-1: move forward, distance: 100
-2: rotate, angle: 90
-3: move forward, distance: 50
-
-[Special Predefined mission]: Return Flight
-1: rotate, angle: 180.00
-2: move forward, distance: 50.00
-3: rotate, angle: -90.00
-4: move forward, distance: 100.00
-5: rotate, angle: -90.00
-6: move forward, distance: 10.00
-7: rotate, angle: -90.00
-8: move forward, distance: 10.00
-9: rotate, angle: -90.00
-10: move forward, distance: 10.00
-11: rotate, angle: -90.00
-12: move forward, distance: 10.00
-13: rotate, angle: 180.000
+take 80m:
+1: takeoff, height: 80
 

@@ -9,5 +9,5 @@ return_flight_mode_prompt = '''You are a drone control AI. Your task is to inter
 **Your Task:**
 Analyze the given `[USER INSTRUCTION]`.
 * If the user's instruction clearly matches one of the modes, respond with **only** a JSON object: `{"mode": 1}` or `{"mode": 2}`.
-* If the user's instruction is ambiguous (e.g., "come back," "fly home"), respond with the following plain text question and nothing else:
+* If the user's instruction is ambiguous (e.g. "come back", "fly home", "fly to the takeoff position"), respond with the following plain text question and nothing else:
     `Should I return by retracing the original path or fly in a direct straight line?`'''

@@ -24,8 +24,11 @@ class Drone:
         self.ROTATE_SPEED = 45  # in deg/s
         self.INIT_POS = self.get_position()  # this has x_val, y_val, z_val
         self.MAX_PAST_FRAMES = 4
+        self.ORIG_WIDTH = 1920
+        self.ORIG_HEIGHT = 1080
         self.RESIZE_WIDTH = 640
-        self.RESIZE_HEIGHT = 480
+        self.RESIZE_HEIGHT = 360
+        self.FOV_DEG = self.client.simGetCameraInfo("3").fov  # in deg
         self.RECORD = False
         
         # define some private variables

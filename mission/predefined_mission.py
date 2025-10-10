@@ -146,3 +146,38 @@ def return_flight(drone: Drone, instruction, logs):
         logs += f"3: rotate, angle: {final_rotation:.3f}\n"
     
     return logs + "\n"
+
+def areal_scan(drone: Drone):
+    # scan in a Grid Pattern (Lawnmower Pattern)
+    # Configuration for the scan pattern
+    # Calculate the optimal spacing parameters
+    h_fov_radians = math.radians(drone.FOV_DEG)
+    v_fov_radians = 2 * math.atan(math.tan(h_fov_radians / 2) * (drone.ORIG_HEIGHT / drone.ORIG_WIDTH))
+    
+    ground_width = 2 * drone.altitude * math.tan(h_fov_radians / 2)
+    overlap_factor = 0.7  # 30% overlap
+    
+    leg_distance = 20  # Distance to fly forward on each leg (meters)
+    num_legs = 5  # Number of parallel legs to fly
+    spacing = ground_width * overlap_factor  # Distance between parallel legs (meters)
+    
+    drone.check_takeoff()
+    
+    # Execute the lawnmower pattern
+    for i in range(num_legs):
+        # Fly forward along current leg
+        drone.move_forward(leg_distance)
+        
+        # Don't move after the last leg
+        if i < num_legs - 1:
+            # Determine turn direction based on which leg we're on
+            if i % 2 == 0:
+                # Turn right, move spacing, turn right again
+                drone.rotate(90)
+                drone.move_forward(spacing)
+                drone.rotate(90)
+            else:
+                # Turn left, move spacing, turn left again
+                drone.rotate(-90)
+                drone.move_forward(spacing)
+                drone.rotate(-90)

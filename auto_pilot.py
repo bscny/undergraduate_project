@@ -61,7 +61,8 @@ if __name__ == "__main__":
                 system_print("Return Flight")
                 logs = predefined_mission.return_flight(drone, instruction, logs)
             elif mission_type == SURVEILLANCE_AREA:
-                system_print("Surveillance Area")
+                system_print("Areal Surveillance")
+                # logs = predefined_mission.
             
             system_print("ALL DONE~\n")
             continue
