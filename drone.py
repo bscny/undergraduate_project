@@ -4,6 +4,7 @@ import os
 
 # custom package
 from utils.image import image_processor
+from output import drone_print
 
 load_dotenv()
 
@@ -47,7 +48,7 @@ class Drone:
         if self.RECORD and self.client.isRecording():
             self.client.stopRecording()
 
-        print("Cleaning up...")
+        drone_print("Cleaning up...")
         if self.client is not None:
             self.client.armDisarm(False)
             self.client.enableApiControl(False)
@@ -59,7 +60,7 @@ class Drone:
         try:
             decoded_base64_str = image_processor.resize_with_aspect_ratio(bin_code, self.RESIZE_WIDTH, self.RESIZE_HEIGHT)
         except Exception as e:
-            print(f"Error encoding frames when taking picture: {e}")
+            drone_print(f"Error encoding frames when taking picture: {e}")
             self.client.simPrintLogMessage(f"Error encoding frames when taking picture: {e}")
             self.cleanup()
             exit()
@@ -74,13 +75,13 @@ class Drone:
     # basic actions
     def takeoff(self, height = 30):
         if height <= 0:
-            print("can't fly under ground...")
+            drone_print("can't fly under ground...")
             return
         
         if self.flying == True:
             return
         
-        print("Taking off...")
+        drone_print("Taking off...")
         self.client.simPrintLogMessage("Taking off...")
         self.take_picture()
         self.client.takeoffAsync().join()
@@ -102,7 +103,7 @@ class Drone:
         if self.flying == False:
             return
         
-        print("Landing...")
+        drone_print("Landing...")
         self.take_picture()
         self.client.simPrintLogMessage("Landing...")
         self.client.moveToZAsync(self.INIT_POS.z_val - 3, self.VERTICAL_SPEED).join()
@@ -116,7 +117,7 @@ class Drone:
         
     def check_takeoff(self):
         if self.flying == False:
-            print("Try to move drone without taking off, please wait until drone is up!")
+            drone_print("Try to move drone without taking off, please wait until drone is up!")
             self.takeoff(-self.altitude)
     
     # moving
@@ -128,7 +129,7 @@ class Drone:
             offset = 1
         
         # print message out
-        print(f"Moving vertically {value}m at {self.VERTICAL_SPEED}m/s for {(abs(value)/self.VERTICAL_SPEED):.2f} seconds...")
+        drone_print(f"Moving vertically {value}m at {self.VERTICAL_SPEED}m/s for {(abs(value)/self.VERTICAL_SPEED):.2f} seconds...")
         self.client.simPrintLogMessage(f"Moving vertically {value}m at {self.VERTICAL_SPEED}m/s for {(abs(value)/self.SPEED):.2f} seconds...")
 
         self.take_picture()
@@ -143,7 +144,7 @@ class Drone:
         self.check_takeoff()
         
         # print message out
-        print(f"Moving forward {value}m at {self.SPEED}m/s for {(value/self.SPEED):.2f} seconds...")
+        drone_print(f"Moving forward {value}m at {self.SPEED}m/s for {(value/self.SPEED):.2f} seconds...")
         self.client.simPrintLogMessage(f"Moving forward {value}m at {self.SPEED}m/s for {(value/self.SPEED):.2f} seconds...")
 
         self.take_picture()
@@ -162,7 +163,7 @@ class Drone:
             offset = -1
 
         # print message out
-        print(f"Rotating {value} degree clockwise at {self.ROTATE_SPEED}deg/s for {(value * offset/self.ROTATE_SPEED):.2f} seconds...")
+        drone_print(f"Rotating {value} degree clockwise at {self.ROTATE_SPEED}deg/s for {(value * offset/self.ROTATE_SPEED):.2f} seconds...")
         self.client.simPrintLogMessage(f"Rotating {value} degree clockwise at {self.ROTATE_SPEED}deg/s for {(value * offset/self.ROTATE_SPEED):.2f} seconds...")
 
         self.take_picture()
@@ -177,5 +178,5 @@ class Drone:
     def get_position(self):
         state = self.client.getMultirotorState()
         pos = state.kinematics_estimated.position
-        # print(f"Position: X={pos.x_val:.2f}, Y={pos.y_val:.2f}, Z={pos.z_val:.2f}")
+        # drone_print(f"Position: X={pos.x_val:.2f}, Y={pos.y_val:.2f}, Z={pos.z_val:.2f}")
         return pos

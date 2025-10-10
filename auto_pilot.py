@@ -6,6 +6,7 @@ from models.anthropic import claude_api
 from utils.prompts import auto_pilot_prompt
 from mission import predefined_mission
 from drone import Drone
+from output import system_print, drone_print, init_colorama
 
 # define some constant here
 # path
@@ -30,12 +31,14 @@ SURVEILLANCE_AREA = 1
 
 if __name__ == "__main__":
     drone = Drone()
+    init_colorama()
     if CUSTOM_POS:
         drone.set_posotion(INIT_X, INIT_Y, INIT_Z, INIT_YAW)
     
     logs = ""
     while True:
-        instruction = input("input your instruction: (type 'finish' to end the operation)\n")
+        system_print("input your instruction: (type 'finish' to end the operation)")
+        instruction = input()
         if instruction.lower() == "finish":
             break
         
@@ -45,47 +48,47 @@ if __name__ == "__main__":
         try:
             filter = json.loads(raw_filter)
         except json.JSONDecodeError as e:
-            print(f"Filter response is not valid JSON: {e}\nRaw output: {raw_filter}")
+            system_print(f"Filter response is not valid JSON: {e}\nRaw output: {raw_filter}")
             continue
         
         abstract = filter.get("abstract")
         if abstract == True:
-            print("encountering a special type of predefined mission: ", end="")
+            system_print("encountering a special type of predefined mission: ", end="")
             mission_type = filter.get("mission_type")
             
             # distributing
             if mission_type == RETURN_FLIGHT:
-                print("Return Flight")
-                logs = predefined_mission.return_flight(drone, logs)
+                system_print("Return Flight")
+                logs = predefined_mission.return_flight(drone, instruction, logs)
             elif mission_type == SURVEILLANCE_AREA:
-                print("Surveillance Area")
+                system_print("Surveillance Area")
             
-            print("ALL DONE~\n")
+            system_print("ALL DONE~\n")
             continue
         
         while True:
             # VLM start planning (decision making + motion planning)
-            print("Start thinking...")
+            system_print("Start thinking...")
             raw_decision = claude_api.decision_making(instruction, auto_pilot_prompt.decision_making_prompt, logs, drone.frames_queue)
             
             try:
                 decision = json.loads(raw_decision)
             except json.JSONDecodeError as e:
-                print(f"Decision response is not valid JSON: {e}\nRaw output: {raw_decision}")
+                system_print(f"Decision response is not valid JSON: {e}\nRaw output: {raw_decision}")
                 continue
 
             plan = decision.get("actions")
             finished = decision.get("finished")
             drone.navigation_list.append(instruction)
             logs += f"{instruction}:\n"
-            print(f"Done! total of {len(plan)} actions\n")
+            drone_print(f"Done! total of {len(plan)} actions\n")
             
             num = 1
             for action in plan:
                 act = action.get("action")
                 params = action.get("params", {})
                 
-                print(f"Start executing action number {num}: {act}")
+                drone_print(f"Start executing action number {num}: {act}")
 
                 if act == "takeoff":
                     drone.takeoff(params.get("height", 30))
@@ -103,7 +106,7 @@ if __name__ == "__main__":
                     drone.land()
                     logs += f"{num}: land\n"
                 else:
-                    print(f"Unknown action: {act}")
+                    drone_print(f"Unknown action: {act}")
                 
                 num += 1
                 
@@ -112,7 +115,7 @@ if __name__ == "__main__":
             
             drone.take_picture()  # this is the current frame of next iteration
             
-        print("ALL DONE~\n")
+        system_print("ALL DONE~\n")
         logs += "\n"
         
     # save the logs to file
@@ -121,7 +124,7 @@ if __name__ == "__main__":
         f.write(logs)
     
     drone.cleanup()
-    print("operation closed~ Well done pilot!\n")
-    print("Follow the following steps to get the drone footage:")
-    print(f"Step 1: check in {FRAME_FOLDER_PATH} to find the correct folder with current time stamp")
-    print(f"step 2: run:\n./create_video.sh ./{FRAME_FOLDER_PATH}/<the time stamp>/images/ {FPS} {VIDEO_NAME}")
+    system_print("operation closed~ Well done pilot!\n")
+    system_print("Follow the following steps to get the drone footage:")
+    system_print(f"Step 1: check in {FRAME_FOLDER_PATH} to find the correct folder with current time stamp")
+    system_print(f"step 2: run:\n./create_video.sh ./{FRAME_FOLDER_PATH}/<the time stamp>/images/ {FPS} {VIDEO_NAME}")

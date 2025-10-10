@@ -187,27 +187,11 @@ def merge_logs(log1, log2, prompt):
     return message.content[0].text
 
 # AUTO PILOT RELATED RELATED--------------------------------------------------------------------------------
-def test(prompt, image):
+def conversation(contents):
     load_dotenv()
 
     client = anthropic.Anthropic(api_key = os.getenv("ANTHROPIC_API_KEY"))
-    
-    content = []
-    
-    content.append({
-        "type": "text",
-        "text": prompt
-    })
-    
-    content.append({
-        "type": "image",
-        "source": {
-            "type": "base64",
-            "media_type": "image/png",
-            "data": image
-        }
-    })
-    
+       
     message = client.messages.create(
         model = "claude-sonnet-4-20250514",
         max_tokens = 5000,
@@ -216,12 +200,12 @@ def test(prompt, image):
         messages = [
             {
                 "role": "user",
-                "content": content
+                "content": contents
             }
         ]
     )
     
-    print(message.content[0].text)
+    return message.content[0].text.strip("`")
     
 def instruction_filter(instruction, prompt) -> str:
     load_dotenv()
