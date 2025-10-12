@@ -132,8 +132,8 @@ class Drone:
             offset = 1
         
         # print message out
-        drone_print(f"Moving vertically {value}m at {self.VERTICAL_SPEED}m/s for {(abs(value)/self.VERTICAL_SPEED):.2f} seconds...")
-        self.client.simPrintLogMessage(f"Moving vertically {value}m at {self.VERTICAL_SPEED}m/s for {(abs(value)/self.SPEED):.2f} seconds...")
+        drone_print(f"Moving vertically {value:.2f}m at {self.VERTICAL_SPEED}m/s for {(abs(value)/self.VERTICAL_SPEED):.2f} seconds...")
+        self.client.simPrintLogMessage(f"Moving vertically {value:.2f}m at {self.VERTICAL_SPEED}m/s for {(abs(value)/self.SPEED):.2f} seconds...")
 
         self.take_picture()
         self.client.moveByVelocityBodyFrameAsync(vx=0, vy=0, vz=self.VERTICAL_SPEED * offset, duration=abs(value)/self.VERTICAL_SPEED).join()
@@ -147,8 +147,8 @@ class Drone:
         self.check_takeoff()
         
         # print message out
-        drone_print(f"Moving forward {value}m at {self.SPEED}m/s for {(value/self.SPEED):.2f} seconds...")
-        self.client.simPrintLogMessage(f"Moving forward {value}m at {self.SPEED}m/s for {(value/self.SPEED):.2f} seconds...")
+        drone_print(f"Moving forward {value:.2f}m at {self.SPEED}m/s for {(value/self.SPEED):.2f} seconds...")
+        self.client.simPrintLogMessage(f"Moving forward {value:.2f}m at {self.SPEED}m/s for {(value/self.SPEED):.2f} seconds...")
 
         self.take_picture()
         self.client.moveByVelocityBodyFrameAsync(vx=self.SPEED, vy=0, vz=0, duration=value/self.SPEED).join()
@@ -166,8 +166,8 @@ class Drone:
             offset = -1
 
         # print message out
-        drone_print(f"Rotating {value} degree clockwise at {self.ROTATE_SPEED}deg/s for {(value * offset/self.ROTATE_SPEED):.2f} seconds...")
-        self.client.simPrintLogMessage(f"Rotating {value} degree clockwise at {self.ROTATE_SPEED}deg/s for {(value * offset/self.ROTATE_SPEED):.2f} seconds...")
+        drone_print(f"Rotating {value:.2f} degree clockwise at {self.ROTATE_SPEED}deg/s for {(value * offset/self.ROTATE_SPEED):.2f} seconds...")
+        self.client.simPrintLogMessage(f"Rotating {value:.2f} degree clockwise at {self.ROTATE_SPEED}deg/s for {(value * offset/self.ROTATE_SPEED):.2f} seconds...")
 
         self.take_picture()
         self.client.rotateByYawRateAsync(yaw_rate=self.ROTATE_SPEED * offset, duration=value * offset/self.ROTATE_SPEED).join()
