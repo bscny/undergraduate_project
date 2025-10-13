@@ -19,17 +19,21 @@ At the same time, the drone system will adopt a “logbook-like” recording app
 
 In the experiment, AirSim (Unreal Engine) will be used as the drone simulation environment to reduce experimental costs and shorten the development cycle. Since AirSim’s simulated control inputs are identical to those of real-world drones and Unreal Engine can realistically replicate real-world environments, overcoming the challenge of improving VLM data transmission speed and reducing latency would make this technology directly applicable to real-world drone control—thus advancing the automation and intelligent applications of drones in the future.
 
-## Simple Demo
+## Simple Demo (Majority in English)
 
-1. case 1: Simulate City
+1. case 1: Simulate Private recreational area (containing newest predefined abstract missions)
+    - [demo video on YouTube](https://youtu.be/Sefa05ckpKo)
+    - [actual drone footage](https://youtu.be/FY_GNWHaYxg)
+    - [Flight Log report](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/Private_Land/Flight_log.md)
+2. case 2: Simulate City
     - [demo video on YouTube](https://youtu.be/Dh1qoBHkMp8)
     - [actual drone footage](https://youtu.be/RewiEn2s4N4)
     - [Flight Log report](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/SimCity2/Flight_log.md)
-2. case 2: 張家界 (ZhangJiajie)
+3. case 3: 張家界 (ZhangJiajie)
     - [demo video on YouTube](https://youtu.be/hiHjvGYlLNw)
     - [actual drone footage](https://youtu.be/7FV5pVGj-oc)
     - [Flight Log report](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/ZhangJiajie/Flight_log.md)
-3. Flight Logs from real world drone footage:
+4. Flight Logs from real world drone footage:
     1. [嘉義(Jiayi City)](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/City/Flight_log.md), [影片連結](https://youtu.be/UZp3Tht_wmE)
     2. [冰山(Ice mountain)](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/Ice_Mountains/Flight_log.md), [影片連結](https://www.pexels.com/video/aerial-footage-of-trees-on-mountains-8761176)
     3. [警車跟隨(Following a police car)](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/Police_Car_operation/Flight_log.md), [影片連結](https://www.pexels.com/video/drone-footage-of-a-police-car-driving-on-long-highway-5490959/)
