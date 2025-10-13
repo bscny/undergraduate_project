@@ -167,10 +167,10 @@ def areal_scan(drone: Drone, logs):
     v_fov_radians = 2 * math.atan(math.tan(h_fov_radians / 2) * (drone.ORIG_HEIGHT / drone.ORIG_WIDTH))
     
     ground_width = 2 * (drone.INIT_POS.z_val - drone.altitude) * math.tan(h_fov_radians / 2)
-    overlap_factor = 0.5  # 50% overlap
+    overlap_factor = 0.7  # 70% overlap
     
     # flying through total of {leg_distance * (num_legs -1) * spacing} m^2 rectangle
-    leg_distance = 100  # Distance to fly forward on each leg (meters)
+    leg_distance = 200  # Distance to fly forward on each leg (meters)
     num_legs = 4  # Number of parallel legs to fly
     spacing = ground_width * overlap_factor  # Distance between parallel legs (meters)
     

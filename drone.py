@@ -9,12 +9,20 @@ from output import drone_print
 load_dotenv()
 
 class Drone:   
-    def __init__(self):
+    def __init__(self, custom_weather = False):
         self.client = airsim.MultirotorClient(ip=os.getenv("WINDOWS_IP"))
         self.client.confirmConnection()
         self.client.enableApiControl(True)
         self.client.armDisarm(True)
         self.client.simPrintLogMessage("Hello World~~")
+        
+        # the weather API
+        if custom_weather:
+            self.client.simEnableWeather(True)
+            self.client.simSetWeatherParameter(airsim.WeatherParameter.Rain, 1.0)
+            self.client.simSetWeatherParameter(airsim.WeatherParameter.Fog, 0.02)
+            self.client.simSetTimeOfDay(is_enabled=True, start_datetime="2024-10-13 23:30:00", is_start_datetime_dst=False, 
+                                        celestial_clock_speed=1, update_interval_secs=60, move_sun=True)
 
         # define some constant here
         self.LINEAR_DUR = 3  # in seconds

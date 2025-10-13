@@ -11,7 +11,7 @@ from output import system_print, drone_print, init_colorama
 # define some constant here
 # path
 VIDEO_FOLDER_PATH = "assets/large_files/videos/"
-VIDEO_NAME = "try.mp4"
+VIDEO_NAME = "private_land.mp4"
 FRAME_FOLDER_PATH = "assets/large_files/airsim_frames"
 TEXT_FOLDER_PATH = "assets/action_lists/"
 
@@ -19,18 +19,19 @@ TEXT_FOLDER_PATH = "assets/action_lists/"
 FPS = 20
 
 # drone related
-CUSTOM_POS = False
-INIT_X = 160
+CUSTOM_WEATHER = False
+CUSTOM_POS = True
+INIT_X = 350
 INIT_Y = 0
-INIT_Z = -50
-INIT_YAW = 160
+INIT_Z = -5
+INIT_YAW = 47
 
 # Mission Type
 RETURN_FLIGHT = 0
 SURVEILLANCE_AREA = 1
 
 if __name__ == "__main__":
-    drone = Drone()
+    drone = Drone(custom_weather=CUSTOM_WEATHER)
     init_colorama()
     if CUSTOM_POS:
         drone.set_posotion(INIT_X, INIT_Y, INIT_Z, INIT_YAW)

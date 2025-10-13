@@ -1,0 +1,58 @@
+# All The Navigation and Action recorded
+
+takeoff 40m:
+1: takeoff, height: 40
+
+fly agead 100m:
+1: move forward, distance: 100
+
+[Special Predefined mission]: Areal Scan
+1: rotate, angle: -90.00
+2: move forward, distance: 100.00
+3: rotate, angle: 90.00
+4: move forward, distance: 200.00
+5: rotate, angle: 90.00
+6: move forward, distance: 55.91
+7: rotate, angle: 90.00
+8: move forward, distance: 200.00
+9: rotate, angle: -90.00
+10: move forward, distance: 55.91
+11: rotate, angle: -90.00
+12: move forward, distance: 200.00
+13: rotate, angle: 90.00
+14: move forward, distance: 55.91
+15: rotate, angle: 90.00
+16: move forward, distance: 200.00
+
+rotate 180:
+1: rotate, angle: 180
+
+fly 300m:
+1: move forward, distance: 300
+
+[Special Predefined mission]: Areal Scan
+1: move forward, distance: 55.91
+2: rotate, angle: 90.00
+3: move forward, distance: 55.91
+4: rotate, angle: 90.00
+5: move forward, distance: 111.81
+6: rotate, angle: 90.00
+7: move forward, distance: 111.81
+8: rotate, angle: 90.00
+9: move forward, distance: 167.72
+10: rotate, angle: 90.00
+11: move forward, distance: 167.72
+12: rotate, angle: 90.00
+
+turn right 45deg:
+1: rotate, angle: 45
+
+fly until u see a football court:
+1: move forward, distance: 100
+fly until u see a football court:
+
+[Special Predefined mission]: Return Flight
+1: rotate, angle: -31.142
+2: move forward, distance: 454.326
+3: rotate, angle: 166.142
+
