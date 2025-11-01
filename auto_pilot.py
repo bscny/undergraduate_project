@@ -4,7 +4,8 @@ import json
 from models.anthropic import claude_api
 
 from utils.prompts import auto_pilot_prompt
-from mission import predefined_mission
+from predefined_missions.return_flight import return_flight
+from predefined_missions.areal_scan import areal_scan
 from drone import Drone
 from output import system_print, drone_print, init_colorama
 
@@ -60,10 +61,10 @@ if __name__ == "__main__":
             # distributing
             if mission_type == RETURN_FLIGHT:
                 system_print("Return Flight")
-                logs = predefined_mission.return_flight(drone, instruction, logs)
+                logs = return_flight(drone, instruction, logs)
             elif mission_type == SURVEILLANCE_AREA:
                 system_print("Areal Surveillance")
-                logs = predefined_mission.areal_scan(drone, logs)
+                logs = areal_scan(drone, logs)
             
             system_print("ALL DONE~\n")
             continue

@@ -34,15 +34,15 @@ In the experiment, AirSim (Unreal Engine) will be used as the drone simulation e
     - [actual drone footage](https://youtu.be/7FV5pVGj-oc)
     - [Flight Log report](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/ZhangJiajie/Flight_log.md)
 4. Flight Logs from real world drone footage:
-    1. [嘉義(Jiayi City)](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/City/Flight_log.md), [影片連結](https://youtu.be/UZp3Tht_wmE)
-    2. [冰山(Ice mountain)](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/Ice_Mountains/Flight_log.md), [影片連結](https://www.pexels.com/video/aerial-footage-of-trees-on-mountains-8761176)
+    1. [嘉義(Jiayi City)](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/City/Flight_log.md), [影片連結(video link)](https://youtu.be/UZp3Tht_wmE)
+    2. [冰山(Ice mountain)](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/Ice_Mountains/Flight_log.md), [影片連結(video link)](https://www.pexels.com/video/aerial-footage-of-trees-on-mountains-8761176)
     3. [警車跟隨(Following a police car)](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/Police_Car_operation/Flight_log.md), [影片連結](https://www.pexels.com/video/drone-footage-of-a-police-car-driving-on-long-highway-5490959/)
-    4. [工業區(Industrial zone)](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/Industrial_Zone/Flight_log.md), [影片連結](https://www.pexels.com/video/flight-over-industrial-zone-with-drone-19395434/)
-    5. [示威街道(Protest street)](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/Protest/Flight_log.md), [影片連結](https://www.pexels.com/video/drone-footage-of-city-and-streets-in-daylight-6254278/)
+    4. [工業區(Industrial zone)](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/Industrial_Zone/Flight_log.md), [影片連結(video link)](https://www.pexels.com/video/flight-over-industrial-zone-with-drone-19395434/)
+    5. [示威街道(Protest street)](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/Protest/Flight_log.md), [影片連結(video link)](https://www.pexels.com/video/drone-footage-of-city-and-streets-in-daylight-6254278/)
 
 ## Presentation
 
-Project is still in progress... the newest reported slide is [here](https://www.canva.com/design/DAGztpVkxZI/gzrc3zIlRoArxwzMpO0iCw/edit). The newest unreported one is [here](https://www.canva.com/design/DAG1INEF2rw/is1T_kj2NwZLC1EUYIRpKA/edit)
+Project is still in progress... the newest reported slide is [here](https://www.canva.com/design/DAG1INEF2rw/is1T_kj2NwZLC1EUYIRpKA/edit). The newest unreported one is [here](https://www.canva.com/design/DAG3eSMop1g/Dzm7TNy3ObWNv407-phCSg/edit)
 
 ## Phases
 
