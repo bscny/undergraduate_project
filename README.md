@@ -36,7 +36,7 @@ In the experiment, AirSim (Unreal Engine) will be used as the drone simulation e
 4. Flight Logs from real world drone footage:
     1. [嘉義(Jiayi City)](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/City/Flight_log.md), [影片連結(video link)](https://youtu.be/UZp3Tht_wmE)
     2. [冰山(Ice mountain)](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/Ice_Mountains/Flight_log.md), [影片連結(video link)](https://www.pexels.com/video/aerial-footage-of-trees-on-mountains-8761176)
-    3. [警車跟隨(Following a police car)](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/Police_Car_operation/Flight_log.md), [影片連結](https://www.pexels.com/video/drone-footage-of-a-police-car-driving-on-long-highway-5490959/)
+    3. [警車跟隨(Following a police car)](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/Police_Car_operation/Flight_log.md), [影片連結(video link)](https://www.pexels.com/video/drone-footage-of-a-police-car-driving-on-long-highway-5490959/)
     4. [工業區(Industrial zone)](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/Industrial_Zone/Flight_log.md), [影片連結(video link)](https://www.pexels.com/video/flight-over-industrial-zone-with-drone-19395434/)
     5. [示威街道(Protest street)](https://github.com/bscny/undergraduate_project/blob/main/assets/flight_logs/Protest/Flight_log.md), [影片連結(video link)](https://www.pexels.com/video/drone-footage-of-city-and-streets-in-daylight-6254278/)
 
