@@ -200,3 +200,48 @@ def merge_logs(log1, log2, prompt):
     )
     
     return response.output_text
+
+# AUTO PILOT RELATED RELATED--------------------------------------------------------------------------------
+def path_correction(instruction, prompt, current_frame) -> str:
+    load_dotenv()
+
+    client = OpenAI(api_key = os.getenv("OPENAI_API_KEY"))
+    
+    content = []
+    
+    content.append({
+        "type": "input_text",
+        "text": prompt
+    })
+    
+    content.append({
+        "type": "input_text",
+        "text": "The user instruction is: " + instruction
+    })
+    
+    content.append({
+        "type": "input_text",
+        "text": "The current frame is: \n"
+    })
+    
+    content.append({
+        "type": "input_image",
+        "image_url": f"data:image/jpeg;base64,{current_frame}",
+        "detail": "high",
+    })
+    
+    response = client.responses.create(
+        model="gpt-4o",
+        temperature = 0,
+        max_output_tokens = 2000,
+        input=[
+            {
+                "role": "user",
+                "content": content
+            }
+        ],
+    )
+
+    raw_text = response.output_text.strip("`").strip("json")
+
+    return raw_text

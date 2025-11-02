@@ -1,0 +1,417 @@
+{
+	"frames": [
+		{
+			"frame_id": 1,
+			"landmarks": [
+				{
+					"landmark_name": "basketball court",
+					"position": "middle-left",
+					"visual_description": "A green and blue outdoor basketball court with white markings and surrounding blue border."
+				},
+				{
+					"landmark_name": "temple",
+					"position": "top-left",
+					"visual_description": "A traditional Asian temple structure with orange/terracotta roof tiles and ornate architectural details."
+				},
+				{
+					"landmark_name": "covered walkway",
+					"position": "middle",
+					"visual_description": "A long wooden walkway with white railings and roof covering, connecting different areas of the complex."
+				},
+				{
+					"landmark_name": "main road",
+					"position": "right",
+					"visual_description": "A wide multi-lane asphalt road with yellow center line markings running north-south."
+				},
+				{
+					"landmark_name": "commercial building",
+					"position": "right",
+					"visual_description": "A long rectangular building with a light blue roof and white walls along the right edge of the frame."
+				},
+				{
+					"landmark_name": "plaza",
+					"position": "bottom-left",
+					"visual_description": "A large paved open area with reddish tile pattern visible in the bottom left corner."
+				}
+			],
+			"anomalies": [],
+			"visibility": {
+				"weather": "sunny",
+				"background_scene": "city"
+			}
+		},
+		{
+			"frame_id": 2,
+			"landmarks": [
+				{
+					"landmark_name": "temple",
+					"position": "middle-left",
+					"visual_description": "A traditional Asian temple complex with multiple orange/terracotta tiled roofs, ornate architectural details, and decorative elements."
+				},
+				{
+					"landmark_name": "parking lot",
+					"position": "top-left",
+					"visual_description": "A large organized parking area with numerous white and some colored vehicles arranged in rows on reddish pavement."
+				},
+				{
+					"landmark_name": "main road",
+					"position": "right",
+					"visual_description": "A wide multi-lane asphalt road with yellow center line markings running north-south."
+				},
+				{
+					"landmark_name": "commercial building",
+					"position": "bottom-right",
+					"visual_description": "A rectangular building with a light blue roof and white walls visible in the corner of the frame."
+				},
+				{
+					"landmark_name": "covered walkway",
+					"position": "bottom",
+					"visual_description": "Part of a wooden walkway with white railings visible at the bottom of the frame."
+				},
+				{
+					"landmark_name": "red-roofed building",
+					"position": "middle",
+					"visual_description": "A building with a distinctive bright red metal roof adjacent to the temple complex."
+				},
+				{
+					"landmark_name": "green space",
+					"position": "left",
+					"visual_description": "An area with dense green trees and vegetation along the left edge of the frame."
+				}
+			],
+			"anomalies": [],
+			"visibility": {
+				"weather": "sunny",
+				"background_scene": "city"
+			}
+		},
+		{
+			"frame_id": 3,
+			"landmarks": [
+				{
+					"landmark_name": "parking lot",
+					"position": "middle-left",
+					"visual_description": "A large organized parking area with numerous white and some colored vehicles arranged in rows on reddish pavement."
+				},
+				{
+					"landmark_name": "main road",
+					"position": "middle",
+					"visual_description": "A wide multi-lane asphalt road with yellow center line markings running horizontally across the frame."
+				},
+				{
+					"landmark_name": "temple",
+					"position": "bottom-right",
+					"visual_description": "Partial view of a traditional Asian temple with orange/terracotta roof tiles visible in the bottom right corner."
+				},
+				{
+					"landmark_name": "red-roofed building",
+					"position": "bottom-right",
+					"visual_description": "A building with a distinctive bright red metal roof adjacent to the temple complex."
+				},
+				{
+					"landmark_name": "green space",
+					"position": "left",
+					"visual_description": "An area with dense green trees and vegetation along the left edge of the frame."
+				},
+				{
+					"landmark_name": "secondary parking lot",
+					"position": "right",
+					"visual_description": "Another parking area with fewer vehicles visible on the right side of the frame."
+				},
+				{
+					"landmark_name": "intersection",
+					"position": "top-left",
+					"visual_description": "A road intersection with white pedestrian crosswalk markings visible in the top left corner."
+				}
+			],
+			"anomalies": [],
+			"visibility": {
+				"weather": "sunny",
+				"background_scene": "city"
+			}
+		},
+		{
+			"frame_id": 4,
+			"landmarks": [
+				{
+					"landmark_name": "main road",
+					"position": "middle",
+					"visual_description": "A wide multi-lane asphalt road with yellow center line markings running horizontally across the frame."
+				},
+				{
+					"landmark_name": "parking lot",
+					"position": "top-right",
+					"visual_description": "A large parking area with numerous vehicles arranged in rows visible in the top right portion of the frame."
+				},
+				{
+					"landmark_name": "intersection",
+					"position": "left",
+					"visual_description": "A road intersection with white pedestrian crosswalk markings visible on the left side."
+				},
+				{
+					"landmark_name": "temple",
+					"position": "bottom-right",
+					"visual_description": "A small portion of a traditional Asian temple with orange roof tiles visible in the bottom right corner."
+				},
+				{
+					"landmark_name": "urban buildings",
+					"position": "left",
+					"visual_description": "Several multi-story urban buildings with various architectural styles along the left edge of the frame."
+				},
+				{
+					"landmark_name": "tree-lined median",
+					"position": "middle",
+					"visual_description": "A row of trees planted in the median dividing the main road, casting shadows on the pavement."
+				}
+			],
+			"anomalies": [],
+			"visibility": {
+				"weather": "sunny",
+				"background_scene": "city"
+			}
+		},
+		{
+			"frame_id": 5,
+			"landmarks": [
+				{
+					"landmark_name": "main road",
+					"position": "middle",
+					"visual_description": "A wide multi-lane asphalt road with yellow center line markings running horizontally across the frame."
+				},
+				{
+					"landmark_name": "parking lot",
+					"position": "middle-right",
+					"visual_description": "A large parking area with numerous vehicles arranged in rows visible in the right portion of the frame."
+				},
+				{
+					"landmark_name": "intersection",
+					"position": "left",
+					"visual_description": "A road intersection with white pedestrian crosswalk markings visible on the left side."
+				},
+				{
+					"landmark_name": "urban buildings",
+					"position": "left",
+					"visual_description": "Several multi-story urban buildings with various architectural styles along the left edge of the frame."
+				},
+				{
+					"landmark_name": "tree-lined median",
+					"position": "middle",
+					"visual_description": "A row of trees planted in the median dividing the main road, casting shadows on the pavement."
+				},
+				{
+					"landmark_name": "temple",
+					"position": "bottom-right",
+					"visual_description": "A small portion of a traditional Asian temple with orange roof tiles visible in the bottom right corner."
+				}
+			],
+			"anomalies": [],
+			"visibility": {
+				"weather": "sunny",
+				"background_scene": "city"
+			}
+		}
+	],
+	"motion": [
+		{
+			"frame_pair": [
+				1,
+				2
+			],
+			"movement_direction": "top-left"
+		},
+		{
+			"frame_pair": [
+				2,
+				3
+			],
+			"movement_direction": "top"
+		},
+		{
+			"frame_pair": [
+				3,
+				4
+			],
+			"movement_direction": "left"
+		},
+		{
+			"frame_pair": [
+				4,
+				5
+			],
+			"movement_direction": "bottom"
+		}
+	],
+	"inference": [
+		{
+			"type": "landmark",
+			"name": "temple",
+			"frame_pair": [
+				1,
+				2
+			],
+			"inference_probability": 0.98
+		},
+		{
+			"type": "landmark",
+			"name": "main road",
+			"frame_pair": [
+				1,
+				2
+			],
+			"inference_probability": 0.99
+		},
+		{
+			"type": "landmark",
+			"name": "commercial building",
+			"frame_pair": [
+				1,
+				2
+			],
+			"inference_probability": 0.95
+		},
+		{
+			"type": "landmark",
+			"name": "covered walkway",
+			"frame_pair": [
+				1,
+				2
+			],
+			"inference_probability": 0.90
+		},
+		{
+			"type": "landmark",
+			"name": "temple",
+			"frame_pair": [
+				2,
+				3
+			],
+			"inference_probability": 0.95
+		},
+		{
+			"type": "landmark",
+			"name": "parking lot",
+			"frame_pair": [
+				2,
+				3
+			],
+			"inference_probability": 0.98
+		},
+		{
+			"type": "landmark",
+			"name": "main road",
+			"frame_pair": [
+				2,
+				3
+			],
+			"inference_probability": 0.99
+		},
+		{
+			"type": "landmark",
+			"name": "red-roofed building",
+			"frame_pair": [
+				2,
+				3
+			],
+			"inference_probability": 0.97
+		},
+		{
+			"type": "landmark",
+			"name": "green space",
+			"frame_pair": [
+				2,
+				3
+			],
+			"inference_probability": 0.96
+		},
+		{
+			"type": "landmark",
+			"name": "main road",
+			"frame_pair": [
+				3,
+				4
+			],
+			"inference_probability": 0.99
+		},
+		{
+			"type": "landmark",
+			"name": "parking lot",
+			"frame_pair": [
+				3,
+				4
+			],
+			"inference_probability": 0.92
+		},
+		{
+			"type": "landmark",
+			"name": "intersection",
+			"frame_pair": [
+				3,
+				4
+			],
+			"inference_probability": 0.97
+		},
+		{
+			"type": "landmark",
+			"name": "temple",
+			"frame_pair": [
+				3,
+				4
+			],
+			"inference_probability": 0.90
+		},
+		{
+			"type": "landmark",
+			"name": "main road",
+			"frame_pair": [
+				4,
+				5
+			],
+			"inference_probability": 0.99
+		},
+		{
+			"type": "landmark",
+			"name": "parking lot",
+			"frame_pair": [
+				4,
+				5
+			],
+			"inference_probability": 0.95
+		},
+		{
+			"type": "landmark",
+			"name": "intersection",
+			"frame_pair": [
+				4,
+				5
+			],
+			"inference_probability": 0.98
+		},
+		{
+			"type": "landmark",
+			"name": "urban buildings",
+			"frame_pair": [
+				4,
+				5
+			],
+			"inference_probability": 0.97
+		},
+		{
+			"type": "landmark",
+			"name": "tree-lined median",
+			"frame_pair": [
+				4,
+				5
+			],
+			"inference_probability": 0.99
+		},
+		{
+			"type": "landmark",
+			"name": "temple",
+			"frame_pair": [
+				4,
+				5
+			],
+			"inference_probability": 0.93
+		}
+	]
+}

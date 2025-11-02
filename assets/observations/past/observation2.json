@@ -1,0 +1,250 @@
+{
+  "frames": [
+    {
+      "frame_id": 1,
+      "landmarks": [
+        {
+          "landmark_name": "main road",
+          "position": "bottom",
+          "visual_description": "A wide multi-lane asphalt road with yellow center line markings running horizontally across the bottom portion of the frame."
+        },
+        {
+          "landmark_name": "parking lot",
+          "position": "middle",
+          "visual_description": "A large concrete parking area with numerous vehicles arranged in rows, taking up most of the central portion of the frame."
+        },
+        {
+          "landmark_name": "intersection",
+          "position": "bottom-left",
+          "visual_description": "A road intersection with white pedestrian crosswalk markings visible in the bottom left corner."
+        },
+        {
+          "landmark_name": "urban buildings",
+          "position": "left",
+          "visual_description": "Several multi-story urban buildings with various architectural styles and orange-brown facades along the left edge of the frame."
+        },
+        {
+          "landmark_name": "tree-lined median",
+          "position": "bottom",
+          "visual_description": "A row of trees planted in the median dividing the main road, casting shadows on the pavement."
+        },
+        {
+          "landmark_name": "temple",
+          "position": "bottom-right",
+          "visual_description": "A small portion of a traditional Asian temple with orange roof tiles visible in the bottom right corner."
+        }
+      ],
+      "anomalies": [],
+      "visibility": {
+        "weather": "sunny",
+        "background_scene": "city"
+      }
+    },
+    {
+      "frame_id": 2,
+      "landmarks": [
+        {
+          "landmark_name": "main road",
+          "position": "middle",
+          "visual_description": "A wide multi-lane asphalt road with yellow center line markings running horizontally across the middle portion of the frame."
+        },
+        {
+          "landmark_name": "parking lot",
+          "position": "middle-top",
+          "visual_description": "A large concrete parking area with numerous vehicles arranged in rows, taking up most of the upper-middle portion of the frame."
+        },
+        {
+          "landmark_name": "urban buildings",
+          "position": "bottom-left",
+          "visual_description": "Several multi-story urban buildings with various architectural styles and orange-brown facades visible in the bottom left corner."
+        },
+        {
+          "landmark_name": "secondary parking area",
+          "position": "top",
+          "visual_description": "A smaller parking area with vehicles arranged in a line along the top edge of the frame, adjacent to what appears to be a narrow road or path."
+        }
+      ],
+      "anomalies": [],
+      "visibility": {
+        "weather": "sunny",
+        "background_scene": "city"
+      }
+    },
+    {
+      "frame_id": 3,
+      "landmarks": [
+        {
+          "landmark_name": "main road",
+          "position": "bottom",
+          "visual_description": "A wide multi-lane asphalt road with yellow center line markings running horizontally across the bottom portion of the frame."
+        },
+        {
+          "landmark_name": "parking lot",
+          "position": "bottom-middle",
+          "visual_description": "A large concrete parking area with numerous vehicles arranged in rows, visible in the bottom-middle portion of the frame."
+        },
+        {
+          "landmark_name": "water channel",
+          "position": "middle",
+          "visual_description": "A narrow water channel or irrigation ditch running horizontally across the middle of the frame, with vegetation growing along its banks."
+        },
+        {
+          "landmark_name": "rural road",
+          "position": "middle",
+          "visual_description": "A narrow rural road with white markers along its edges, running parallel to the water channel."
+        },
+        {
+          "landmark_name": "crop field",
+          "position": "top",
+          "visual_description": "A large agricultural field with green crops planted in rows, occupying the top portion of the frame."
+        }
+      ],
+      "anomalies": [],
+      "visibility": {
+        "weather": "sunny",
+        "background_scene": "agricultural area"
+      }
+    },
+    {
+      "frame_id": 4,
+      "landmarks": [
+        {
+          "landmark_name": "crop field",
+          "position": "middle",
+          "visual_description": "A large agricultural field with green crops planted in rows, occupying most of the frame. The crops appear to be some type of tall grass or grain."
+        },
+        {
+          "landmark_name": "rural road",
+          "position": "bottom",
+          "visual_description": "A narrow rural road with white markers along its edges, visible at the bottom edge of the frame."
+        },
+        {
+          "landmark_name": "water channel",
+          "position": "bottom",
+          "visual_description": "A narrow water channel or irrigation ditch running horizontally across the bottom of the frame, partially visible."
+        }
+      ],
+      "anomalies": [],
+      "visibility": {
+        "weather": "sunny",
+        "background_scene": "agricultural area"
+      }
+    },
+    {
+      "frame_id": 5,
+      "landmarks": [
+        {
+          "landmark_name": "crop field",
+          "position": "middle",
+          "visual_description": "A large agricultural field with green crops planted in rows, occupying most of the frame. The crops appear to be some type of tall grass or grain with visible planting patterns."
+        },
+        {
+          "landmark_name": "dirt path",
+          "position": "left",
+          "visual_description": "A narrow dirt path or access road visible along the left edge of the frame, cutting through the crop field."
+        }
+      ],
+      "anomalies": [],
+      "visibility": {
+        "weather": "sunny",
+        "background_scene": "agricultural area"
+      }
+    }
+  ],
+  "motion": [
+    {
+      "frame_pair": [0, 1],
+      "movement_direction": "top"
+    },
+    {
+      "frame_pair": [1, 2],
+      "movement_direction": "top"
+    },
+    {
+      "frame_pair": [2, 3],
+      "movement_direction": "top"
+    },
+    {
+      "frame_pair": [3, 4],
+      "movement_direction": "top-left"
+    },
+    {
+      "frame_pair": [4, 5],
+      "movement_direction": "top-left"
+    }
+  ],
+  "inference": [
+    {
+      "type": "landmark",
+      "name": "main road",
+      "frame_pair": [0, 1],
+      "inference_probability": 0.95
+    },
+    {
+      "type": "landmark",
+      "name": "parking lot",
+      "frame_pair": [0, 1],
+      "inference_probability": 0.98
+    },
+    {
+      "type": "landmark",
+      "name": "urban buildings",
+      "frame_pair": [0, 1],
+      "inference_probability": 0.90
+    },
+    {
+      "type": "landmark",
+      "name": "main road",
+      "frame_pair": [1, 2],
+      "inference_probability": 0.95
+    },
+    {
+      "type": "landmark",
+      "name": "parking lot",
+      "frame_pair": [1, 2],
+      "inference_probability": 0.90
+    },
+    {
+      "type": "landmark",
+      "name": "water channel",
+      "frame_pair": [2, 3],
+      "inference_probability": 0.95
+    },
+    {
+      "type": "landmark",
+      "name": "rural road",
+      "frame_pair": [2, 3],
+      "inference_probability": 0.95
+    },
+    {
+      "type": "landmark",
+      "name": "crop field",
+      "frame_pair": [2, 3],
+      "inference_probability": 0.98
+    },
+    {
+      "type": "landmark",
+      "name": "crop field",
+      "frame_pair": [3, 4],
+      "inference_probability": 0.99
+    },
+    {
+      "type": "landmark",
+      "name": "rural road",
+      "frame_pair": [3, 4],
+      "inference_probability": 0.85
+    },
+    {
+      "type": "landmark",
+      "name": "water channel",
+      "frame_pair": [3, 4],
+      "inference_probability": 0.85
+    },
+    {
+      "type": "landmark",
+      "name": "crop field",
+      "frame_pair": [4, 5],
+      "inference_probability": 0.99
+    }
+  ]
+}

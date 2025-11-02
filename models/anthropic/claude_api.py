@@ -339,6 +339,6 @@ def path_correction(instruction, prompt, current_frame) -> str:
         ]
     )
 
-    raw_text = message.content[0].text.strip("`")
+    raw_text = message.content[0].text.strip("`").strip("json")
 
     return raw_text

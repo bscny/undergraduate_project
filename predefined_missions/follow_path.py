@@ -4,6 +4,7 @@ import json
 from drone import Drone
 from utils.prompts import scenario_prompt
 from models.anthropic import claude_api
+from models.openai import gpt_api
 from output import drone_print
 
 def follow_path(drone: Drone, instruction, logs):
@@ -15,7 +16,7 @@ def follow_path(drone: Drone, instruction, logs):
     
     # get the true distance between the drone to the top of the frame
     half_ground_width = (drone.INIT_POS.z_val - drone.altitude) * math.tan(v_fov_radians / 2)
-    distance_factor = 1
+    distance_factor = 1.5
     forward_distance = half_ground_width * distance_factor  # the actual fly distance for each step
     
     drone.check_takeoff()
@@ -26,9 +27,9 @@ def follow_path(drone: Drone, instruction, logs):
     # 2. move forward a small distance
     action_count = 0
     threshold = 10
-    counter = 1
+    counter = 0
     while(True):
-        raw_decision = claude_api.path_correction(instruction, scenario_prompt.path_correction_prompt, drone.frames_queue[-1])
+        raw_decision = gpt_api.path_correction(instruction, scenario_prompt.path_correction_prompt, drone.frames_queue[-1])
         
         try:
             decision = json.loads(raw_decision)
@@ -39,9 +40,14 @@ def follow_path(drone: Drone, instruction, logs):
         
         path_detected = decision["path_detected"]
         if not path_detected:
-            drone_print(f"Mission end: {decision["reason"]}")
+            drone_print(f"Mission end: {decision['reason']}")
             return logs + "\n"
         
+        
+        with open(f"assets/observations/chatgpt-4o/{counter}.png", "wb") as f:
+            f.write(drone.temp)
+            
+
         # correction + move
         correction = decision["angle_correction"]
         drone.rotate(correction)
@@ -61,3 +67,5 @@ def follow_path(drone: Drone, instruction, logs):
             if flag == 'n':
                 drone_print(f"Mission end")
                 return logs + "\n"
+            
+            counter = 0

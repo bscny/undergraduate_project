@@ -9,13 +9,13 @@ from output import drone_print
 load_dotenv()
 
 class Drone:   
-    def __init__(self, custom_weather = False):
+    def __init__(self, custom_weather = False, record = False):
         self.client = airsim.MultirotorClient(ip=os.getenv("WINDOWS_IP"))
         self.client.confirmConnection()
         self.client.enableApiControl(True)
         self.client.armDisarm(True)
         self.client.simPrintLogMessage("Hello World~~")
-        
+        self.temp = None
         # the weather API
         if custom_weather:
             self.client.simEnableWeather(True)
@@ -37,7 +37,7 @@ class Drone:
         self.RESIZE_WIDTH = 640
         self.RESIZE_HEIGHT = 360
         self.FOV_DEG = self.client.simGetCameraInfo("3").fov  # in deg
-        self.RECORD = False
+        self.RECORD = record
         
         # define some private variables
         self.flying = False
@@ -81,6 +81,8 @@ class Drone:
             self.frames_queue.pop(0)
 
         self.frames_queue.append(decoded_base64_str)
+        
+        self.temp = bin_code
 
     # BELOWS ARE MEMBER FUNCTIONS THAT CONTROL DRONE ACTIONS
     # basic actions
@@ -159,8 +161,8 @@ class Drone:
         self.client.simPrintLogMessage(f"Moving forward {value:.2f}m at {self.SPEED}m/s for {(value/self.SPEED):.2f} seconds...")
 
         self.client.moveByVelocityBodyFrameAsync(vx=self.SPEED, vy=0, vz=0, duration=value/self.SPEED).join()
-        self.client.moveToZAsync(self.altitude, self.VERTICAL_SPEED).join()  # keep consistent fly height
         self.take_picture()
+        self.client.moveToZAsync(self.altitude, self.VERTICAL_SPEED).join()  # keep consistent fly height
         self.action_list.append({
             "action": "move_forward",
             "params": {"distance": value}

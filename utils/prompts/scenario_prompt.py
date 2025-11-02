@@ -24,7 +24,7 @@ Steps:
 
 Internally: the drone is at the frame center; find the target's vanishing point near the top; calculate the angle between that line and the center vertical line.
 
-Output only one JSON:
+**Output STRICTLY one JSON and NOTHING else:**
 If found:
 {"path_detected": true, "angle_correction": <number between -90 and 90>}
 If not:

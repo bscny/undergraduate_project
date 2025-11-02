@@ -13,7 +13,7 @@ from output import system_print, drone_print, init_colorama
 # define some constant here
 # path
 VIDEO_FOLDER_PATH = "assets/large_files/videos/"
-VIDEO_NAME = "private_land.mp4"
+VIDEO_NAME = "coastline.mp4"
 FRAME_FOLDER_PATH = "assets/large_files/airsim_frames"
 TEXT_FOLDER_PATH = "assets/action_lists/"
 
@@ -21,12 +21,13 @@ TEXT_FOLDER_PATH = "assets/action_lists/"
 FPS = 20
 
 # drone related
+RECORDING = False
 CUSTOM_WEATHER = False
 CUSTOM_POS = True
-INIT_X = 350
-INIT_Y = 0
+INIT_X = 60
+INIT_Y = -6
 INIT_Z = -5
-INIT_YAW = 47
+INIT_YAW = 0
 
 # Mission Type
 RETURN_FLIGHT = 0
@@ -34,7 +35,7 @@ SURVEILLANCE_AREA = 1
 FOLLOW_PATH = 2
 
 if __name__ == "__main__":
-    drone = Drone(custom_weather=CUSTOM_WEATHER)
+    drone = Drone(custom_weather=CUSTOM_WEATHER, record=RECORDING)
     init_colorama()
     if CUSTOM_POS:
         drone.set_posotion(INIT_X, INIT_Y, INIT_Z, INIT_YAW)
@@ -69,7 +70,7 @@ if __name__ == "__main__":
                 logs = areal_scan(drone, logs)
             elif mission_type == FOLLOW_PATH:
                 system_print("Follow Path")
-                logs = follow_path(drone, logs)
+                logs = follow_path(drone, instruction, logs)
             
             system_print("ALL DONE~\n")
             continue
