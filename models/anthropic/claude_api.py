@@ -294,3 +294,51 @@ def decision_making(instruction, prompt, past_navigations, frames_queue) -> str:
     raw_text = message.content[0].text.strip("`")
 
     return raw_text
+
+def path_correction(instruction, prompt, current_frame) -> str:
+    load_dotenv()
+
+    client = anthropic.Anthropic(api_key = os.getenv("ANTHROPIC_API_KEY"))
+    
+    content = []
+    
+    content.append({
+        "type": "text",
+        "text": prompt
+    })
+    
+    content.append({
+        "type": "text",
+        "text": "The user instruction is: " + instruction
+    })
+    
+    content.append({
+        "type": "text",
+        "text": "The current frame is: \n"
+    })
+    
+    content.append({
+        "type": "image",
+        "source": {
+            "type": "base64",
+            "media_type": "image/png",
+            "data": current_frame
+        }
+    })
+    
+    message = client.messages.create(
+        model = "claude-sonnet-4-20250514",
+        max_tokens = 5000,
+        temperature = 0,
+        # system = "You are a world-class poet. Respond only with short poems.",
+        messages = [
+            {
+                "role": "user",
+                "content": content
+            }
+        ]
+    )
+
+    raw_text = message.content[0].text.strip("`")
+
+    return raw_text

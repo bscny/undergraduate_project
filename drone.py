@@ -65,7 +65,7 @@ class Drone:
             self.client.enableApiControl(False)
             self.client.reset()
             
-    def take_picture(self):           
+    def take_picture(self):
         # take pic
         bin_code = self.client.simGetImage("3", airsim.ImageType.Scene)
         try:
@@ -94,10 +94,10 @@ class Drone:
         
         drone_print("Taking off...")
         self.client.simPrintLogMessage("Taking off...")
-        self.take_picture()
         self.client.takeoffAsync().join()
         self.client.moveToZAsync(self.INIT_POS.z_val - height, 10).join()
         self.client.moveToZAsync(self.INIT_POS.z_val - height, self.VERTICAL_SPEED).join()
+        self.take_picture()
         
         self.altitude = self.INIT_POS.z_val - height
         self.flying = True
@@ -115,10 +115,10 @@ class Drone:
             return
         
         drone_print("Landing...")
-        self.take_picture()
         self.client.simPrintLogMessage("Landing...")
         self.client.moveToZAsync(self.INIT_POS.z_val - 3, self.VERTICAL_SPEED).join()
         self.client.landAsync().join()
+        self.take_picture()
         self.action_list.append({
             "action": "land"
         })
@@ -143,8 +143,8 @@ class Drone:
         drone_print(f"Moving vertically {value:.2f}m at {self.VERTICAL_SPEED}m/s for {(abs(value)/self.VERTICAL_SPEED):.2f} seconds...")
         self.client.simPrintLogMessage(f"Moving vertically {value:.2f}m at {self.VERTICAL_SPEED}m/s for {(abs(value)/self.SPEED):.2f} seconds...")
 
-        self.take_picture()
         self.client.moveByVelocityBodyFrameAsync(vx=0, vy=0, vz=self.VERTICAL_SPEED * offset, duration=abs(value)/self.VERTICAL_SPEED).join()
+        self.take_picture()
         self.altitude -= value
         self.action_list.append({
             "action": "move_vertical",
@@ -158,9 +158,9 @@ class Drone:
         drone_print(f"Moving forward {value:.2f}m at {self.SPEED}m/s for {(value/self.SPEED):.2f} seconds...")
         self.client.simPrintLogMessage(f"Moving forward {value:.2f}m at {self.SPEED}m/s for {(value/self.SPEED):.2f} seconds...")
 
-        self.take_picture()
         self.client.moveByVelocityBodyFrameAsync(vx=self.SPEED, vy=0, vz=0, duration=value/self.SPEED).join()
         self.client.moveToZAsync(self.altitude, self.VERTICAL_SPEED).join()  # keep consistent fly height
+        self.take_picture()
         self.action_list.append({
             "action": "move_forward",
             "params": {"distance": value}
@@ -177,9 +177,9 @@ class Drone:
         drone_print(f"Rotating {value:.2f} degree clockwise at {self.ROTATE_SPEED}deg/s for {(value * offset/self.ROTATE_SPEED):.2f} seconds...")
         self.client.simPrintLogMessage(f"Rotating {value:.2f} degree clockwise at {self.ROTATE_SPEED}deg/s for {(value * offset/self.ROTATE_SPEED):.2f} seconds...")
 
-        self.take_picture()
         self.client.rotateByYawRateAsync(yaw_rate=self.ROTATE_SPEED * offset, duration=value * offset/self.ROTATE_SPEED).join()
         self.client.moveToZAsync(self.altitude, self.VERTICAL_SPEED).join()  # keep consistent fly height
+        self.take_picture()
         self.action_list.append({
             "action": "rotate",
             "params": {"angle": value}

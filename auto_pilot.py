@@ -6,6 +6,7 @@ from models.anthropic import claude_api
 from utils.prompts import auto_pilot_prompt
 from predefined_missions.return_flight import return_flight
 from predefined_missions.areal_scan import areal_scan
+from predefined_missions.follow_path import follow_path
 from drone import Drone
 from output import system_print, drone_print, init_colorama
 
@@ -30,6 +31,7 @@ INIT_YAW = 47
 # Mission Type
 RETURN_FLIGHT = 0
 SURVEILLANCE_AREA = 1
+FOLLOW_PATH = 2
 
 if __name__ == "__main__":
     drone = Drone(custom_weather=CUSTOM_WEATHER)
@@ -65,6 +67,9 @@ if __name__ == "__main__":
             elif mission_type == SURVEILLANCE_AREA:
                 system_print("Areal Surveillance")
                 logs = areal_scan(drone, logs)
+            elif mission_type == FOLLOW_PATH:
+                system_print("Follow Path")
+                logs = follow_path(drone, logs)
             
             system_print("ALL DONE~\n")
             continue
@@ -115,8 +120,6 @@ if __name__ == "__main__":
                 
             if finished == True:
                 break
-            
-            drone.take_picture()  # this is the current frame of next iteration
             
         system_print("ALL DONE~\n")
         logs += "\n"

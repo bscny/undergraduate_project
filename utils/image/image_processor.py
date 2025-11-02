@@ -6,7 +6,8 @@ import io
 from PIL import Image
 
 # Function to encode the image
-def encode_image(image_path):   
+def encode_image(image_path):
+    '''from image file to a base64 string'''
     try:
         with open(image_path, "rb") as image_file:
             return base64.b64encode(image_file.read()).decode("utf-8")
@@ -58,7 +59,8 @@ def create_video_opencv(folder_path, output_path, fps=30):
     print(f"Video saved as {output_path}")
     
 # from binary image code to a resized base64 string
-def resize_with_aspect_ratio(binary_code, target_width, target_height, maintain_aspect=True) -> str:   
+def resize_with_aspect_ratio(binary_code, target_width, target_height, maintain_aspect=True) -> str:
+    '''from binary image code to a resized base64 string''' 
     image = Image.open(io.BytesIO(binary_code))
     
     # print(f"Original size: {image.size}")

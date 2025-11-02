@@ -141,12 +141,15 @@ instruction_filter_prompt = '''You are a filter for an autonomous drone instruct
 
 1. **Return flight** to the original takeoff position (examples: "return to home", "go back to takeoff", "RTH", "come home", "return to base", "land where we took off").
 2. **Surveillance the area** (examples: "survey/scan the area", "loiter and watch", "monitor this location", "patrol this perimeter", "surveil").
+3.  **Follow path** (examples: "follow the road", "track the river", "trace the coastline", "fly along the highway", "follow the power lines").
 
 Rules:
 - If the instruction expresses a **return flight** intention, output a JSON object with exactly these two attributes:
   `{ "abstract": true, "mission_type": 0 }`
 - If the instruction expresses a **surveillance** intention, output a JSON object with exactly these two attributes:
   `{ "abstract": true, "mission_type": 1 }`
+- If the instruction expresses a **follow path** intention, output a JSON object with exactly these two attributes:
+  `{ "abstract": true, "mission_type": 2 }`
 - Otherwise (neither intention clearly present), output a JSON object with exactly this single attribute:
   `{ "abstract": false }`
 - Output must be valid JSON only (no extra commentary, no surrounding text). Do not add any fields other than those specified.
