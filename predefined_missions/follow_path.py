@@ -5,6 +5,7 @@ from drone import Drone
 from utils.prompts import scenario_prompt
 from models.anthropic import claude_api
 from models.openai import gpt_api
+from models.google import gemini_api
 from output import drone_print
 
 def follow_path(drone: Drone, instruction, logs):
@@ -29,7 +30,7 @@ def follow_path(drone: Drone, instruction, logs):
     threshold = 10
     counter = 0
     while(True):
-        raw_decision = gpt_api.path_correction(instruction, scenario_prompt.path_correction_prompt, drone.frames_queue[-1])
+        raw_decision = gemini_api.path_correction(instruction, scenario_prompt.path_correction_prompt, drone.frames_queue[-1])
         
         try:
             decision = json.loads(raw_decision)
@@ -43,10 +44,10 @@ def follow_path(drone: Drone, instruction, logs):
             drone_print(f"Mission end: {decision['reason']}")
             return logs + "\n"
         
-        
-        with open(f"assets/observations/chatgpt-4o/{counter}.png", "wb") as f:
+        # testing prupose
+        with open(f"assets/observations/gemini-flash/{counter}.png", "wb") as f:
             f.write(drone.temp)
-            
+            logs += f"{counter}.png:\n"
 
         # correction + move
         correction = decision["angle_correction"]

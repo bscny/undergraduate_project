@@ -42,7 +42,7 @@ def parse_images_json(image_path):
                     data=base64_image,
                     mime_type='image/jpeg',
                 ),
-                types.Part.from_text(text = prompts_json.prompt_json),
+                types.Part.from_text(text = "what did u see"),
             ],
         ),
     ]
@@ -54,7 +54,7 @@ def parse_images_json(image_path):
     )
     
     response = client.models.generate_content(
-        model = "gemini-2.0-flash",
+        model = "gemini-2.5-flash",
         contents = contents,
         config = generate_content_config
     )
@@ -150,7 +150,7 @@ def parse_video(video_path, prompt, additional_info = None):
     print(f"finish uploading video {myfile.name}, start gemini video understanding")
     
     response = client.models.generate_content(
-        model = "gemini-2.5-flash",
+        model = "gemini-2.5-pro",
         contents = contents,
         config = generate_content_config
     )
@@ -164,3 +164,40 @@ def file_api_checker():
     
     for f in client.files.list():
         print(' ', f.state.name, ' ', f.name)
+        
+# AUTO PILOT RELATED RELATED--------------------------------------------------------------------------------
+def path_correction(instruction, prompt, current_frame) -> str:
+    load_dotenv()
+    
+    client = genai.Client(api_key = os.getenv("GOOGLE_API_KEY"))
+    
+    content = [
+        types.Content(
+            role = "user",
+            parts = [
+                types.Part.from_text(text = prompt),
+                types.Part.from_text(text = "The user instruction is: " + instruction),
+                types.Part.from_text(text = "The current frame is: \n"),
+                types.Part.from_bytes(
+                    data=current_frame,
+                    mime_type='image/jpeg',
+                )
+            ],
+        ),
+    ]
+    
+    generate_content_config = types.GenerateContentConfig(
+        temperature = 0,
+        max_output_tokens = 5000,
+        response_mime_type = "text/plain",
+    )
+    
+    response = client.models.generate_content(
+        model = "gemini-2.5-flash",
+        contents = content,
+        config = generate_content_config
+    )
+
+    raw_text = response.text.strip("`").strip("json")
+
+    return raw_text

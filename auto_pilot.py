@@ -63,13 +63,13 @@ if __name__ == "__main__":
             
             # distributing
             if mission_type == RETURN_FLIGHT:
-                system_print("Return Flight")
+                system_print("Return Flight", show_role=False)
                 logs = return_flight(drone, instruction, logs)
             elif mission_type == SURVEILLANCE_AREA:
-                system_print("Areal Surveillance")
+                system_print("Areal Surveillance", show_role=False)
                 logs = areal_scan(drone, logs)
             elif mission_type == FOLLOW_PATH:
-                system_print("Follow Path")
+                system_print("Follow Path", show_role=False)
                 logs = follow_path(drone, instruction, logs)
             
             system_print("ALL DONE~\n")

@@ -1,0 +1,47 @@
+# All The Navigation and Action recorded
+
+takeoff 35m:
+1: takeoff, height: 35
+
+[Special Predefined mission]: Follow Path
+0.png:
+1: rotate, angle: -35.00
+2: move forward, distance: 29.48
+
+1.png:
+3: rotate, angle: 40.00
+4: move forward, distance: 29.48
+
+2.png:
+5: rotate, angle: -38.00
+6: move forward, distance: 29.48
+
+3.png:
+7: rotate, angle: -30.00
+8: move forward, distance: 29.48
+
+4.png:
+9: rotate, angle: 30.00
+10: move forward, distance: 29.48
+
+5.png:
+11: rotate, angle: -60.00
+12: move forward, distance: 29.48
+
+6.png:
+13: rotate, angle: -32.00
+14: move forward, distance: 29.48
+
+7.png:
+15: rotate, angle: 55.00
+16: move forward, distance: 29.48
+
+8.png:
+17: rotate, angle: 8.00
+18: move forward, distance: 29.48
+
+9.png:
+19: rotate, angle: -30.00
+20: move forward, distance: 29.48
+
+

@@ -231,8 +231,8 @@ def path_correction(instruction, prompt, current_frame) -> str:
     })
     
     response = client.responses.create(
-        model="gpt-4o",
-        temperature = 0,
+        model="gpt-5",
+        # temperature = 0,
         max_output_tokens = 2000,
         input=[
             {
