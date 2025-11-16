@@ -58,4 +58,4 @@
 **Flight Performance:** The flight appears stable and smooth, with good control over altitude and movement. Steady tracking of police vehicle throughout rural terrain  
 **Footage Quality:** High quality 4K footage with consistent framing and smooth movement. The footage is clear, well-focused, and well-exposed throughout the duration  
 **Areas for Improvement:** Not mentioned  
-**Future Considerations:** Effective documentation of police road check operations and vehicle interactions with livestock
+**Future Considerations:** For police activity documentation flights, establish multiple predetermined observation altitudes to capture both wide area context and detailed vehicle interactions. Consider coordination protocols when wildlife (cattle) may interfere with traffic stops. Plan for extended flight times during rural patrol documentation as distances between incidents may be greater than urban operations.

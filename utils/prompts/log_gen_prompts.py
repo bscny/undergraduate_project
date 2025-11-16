@@ -207,6 +207,7 @@ INSTRUCTIONS:
 - Combine both information sources appropriately
 - Preserve specific details like landmark names, equipment descriptions, and sequences
 - Convert narrative descriptions into structured log entries
+- Future Considerations must be written in direct relation to the Purpose of Flight, providing objective suggestions.
 
 EXTRACT THESE ELEMENTS FROM THE VISUAL DESCRIPTIONS:
 - Flight duration (if mentioned)
@@ -312,6 +313,7 @@ You are tasked with combining two flight logs from the same drone flight into on
 - Preserve all safety observations and considerations from both logs
 - Include all waypoints, locations, and flight path details mentioned in either log
 - Combine all notes and lessons learned sections thoroughly
+- For Future Considerations, fully understand both concepts and then write a summary that combines them in your own words
 
 ## OUTPUT FORMAT:
 Provide the merged flight log using the same structure and format as the original logs, ensuring every piece of information from both sources is preserved and appropriately integrated.

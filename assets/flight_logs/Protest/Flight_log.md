@@ -57,5 +57,5 @@
 
 **Flight Performance:** Smooth and stable flight with good control demonstrated, smooth transitions from wide establishing shots to detailed crowd coverage  
 **Footage Quality:** High quality 4K footage with clear details, well-exposed, bright lighting throughout enhanced visibility  
-**Areas for Improvement:** Not mentioned/N/A  
-**Future Considerations:** Demonstration coverage captured diverse crowd holding red and white flags and banners advocating for freedom of political prisoners in Belarus, with participants wearing masks for health precautions
+**Areas for Improvement:** N/A  
+**Future Considerations:** For similar protest documentation flights, consider coordinating with local authorities for airspace clearance, ensure adequate battery life for extended coverage of dynamic events, and plan multiple vantage points to capture both wide context shots and detailed crowd activity. Consider wind conditions when filming around tall buildings and palm trees that may create turbulence.

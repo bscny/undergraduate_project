@@ -31,7 +31,7 @@
 **Maximum Distance:** Not visible  
 **Flight Pattern:** ☑ Free Flight  
 **Key Waypoints/Locations:** Sports courts, baseball field, building complex with solar panels, agricultural fields with crops, parking areas, main roads with intersection, abandoned buildings  
-**Flight Path Summary:** Initial vertical ascent over sports court, followed by horizontal movement through building complex with red roofs and solar panels, over agricultural fields, parking lots, abandoned buildings, and ended at sports facilities, maintaining primarily a top-down perspective
+**Flight Path Summary:** Initial vertical ascent over sports court, followed by horizontal movement through building complex with red roofs and solar panels, over agricultural fields, parking lots, abandoned buildings, and ended at sports facilities, maintaining primarily a top-down perspective with good altitude changes and camera movements
 
 ## CAMERA & RECORDING SETTINGS
 
@@ -58,4 +58,4 @@
 **Flight Performance:** Stable, smooth flight with good altitude changes and camera movements  
 **Footage Quality:** Clear and high resolution after initial focus issues, good detail throughout most of flight  
 **Areas for Improvement:** Initial camera focus calibration  
-**Future Considerations:** Monitor for people in sports areas, maintain safe distance from buildings with solar installations
+**Future Considerations:** Monitor for people in sports areas, maintain safe distance from buildings with solar installations. For city safety monitoring purposes, establish regular flight patterns over key infrastructure areas including sports facilities, institutional buildings, and transportation corridors. Consider implementing automated waypoint missions to ensure consistent coverage of critical safety zones. Monitor parking areas and road intersections for traffic flow analysis and emergency response planning.

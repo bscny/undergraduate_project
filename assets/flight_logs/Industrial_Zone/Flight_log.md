@@ -58,4 +58,4 @@
 **Flight Performance:** Smooth and stable flight with consistent perspective changes for comprehensive facility documentation  
 **Footage Quality:** High quality 4K footage with consistent lighting and clear detail of solar panel installations - high resolution, clear, well-exposed, and stable  
 **Areas for Improvement:** N/A  
-**Future Considerations:** Facility shows signs of ongoing construction/expansion activities with crane and scattered materials, suggesting potential for follow-up surveys
+**Future Considerations:** Consider conducting additional flights during different times of day to assess solar panel efficiency and shadow patterns. Document seasonal variations in solar panel performance. Survey potential expansion areas identified by construction materials and crane presence for future solar installations.
