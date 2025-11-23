@@ -9,6 +9,7 @@ from predefined_missions.areal_scan import areal_scan
 from predefined_missions.follow_path import follow_path
 from drone import Drone
 from output import system_print, drone_print, init_colorama
+from drone_settings import CUSTOM_WEATHER, RECORDING, AirSimNH, Coastline, CityEnviron, ZhangJiajie, MSBuild
 
 # define some constant here
 # path
@@ -21,13 +22,7 @@ TEXT_FOLDER_PATH = "assets/action_lists/"
 FPS = 20
 
 # drone related
-RECORDING = False
-CUSTOM_WEATHER = False
-CUSTOM_POS = True
-INIT_X = 60
-INIT_Y = -6
-INIT_Z = -5
-INIT_YAW = 0
+CURRENT_ENV = Coastline
 
 # Mission Type
 RETURN_FLIGHT = 0
@@ -37,8 +32,9 @@ FOLLOW_PATH = 2
 if __name__ == "__main__":
     drone = Drone(custom_weather=CUSTOM_WEATHER, record=RECORDING)
     init_colorama()
-    if CUSTOM_POS:
-        drone.set_posotion(INIT_X, INIT_Y, INIT_Z, INIT_YAW)
+    if CURRENT_ENV["CUSTOM_POS"]:
+        drone.set_posotion(CURRENT_ENV["INIT_X"], CURRENT_ENV["INIT_Y"],
+                           CURRENT_ENV["INIT_Z"], CURRENT_ENV["INIT_YAW"])
     
     logs = ""
     while True:
@@ -132,6 +128,8 @@ if __name__ == "__main__":
     
     drone.cleanup()
     system_print("operation closed~ Well done pilot!\n")
-    system_print("Follow the following steps to get the drone footage:")
-    system_print(f"Step 1: check in {FRAME_FOLDER_PATH} to find the correct folder with current time stamp")
-    system_print(f"step 2: run:\n./create_video.sh ./{FRAME_FOLDER_PATH}/<the time stamp>/images/ {FPS} {VIDEO_NAME}")
+    
+    if RECORDING:
+        system_print("Follow the following steps to get the drone footage:")
+        system_print(f"Step 1: check in {FRAME_FOLDER_PATH} to find the correct folder with current time stamp")
+        system_print(f"step 2: run:\n./create_video.sh ./{FRAME_FOLDER_PATH}/<the time stamp>/images/ {FPS} {VIDEO_NAME}")

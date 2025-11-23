@@ -5,7 +5,6 @@
 - [abstract](#abstract)
 - [simple demo](#simple-demo)
 - [presentation](#presentation)
-- [phases](#phases)
 
 ## Abstract
 
@@ -42,9 +41,7 @@ In the experiment, AirSim (Unreal Engine) will be used as the drone simulation e
 
 ## Presentation
 
-Project is still in progress... the newest reported slide is [here](https://www.canva.com/design/DAG1INEF2rw/is1T_kj2NwZLC1EUYIRpKA/edit). The newest unreported one is [here](https://www.canva.com/design/DAG3eSMop1g/Dzm7TNy3ObWNv407-phCSg/edit)
-
-## Phases
-
-1. First Phase: 無人機回傳航行日誌(Flight Log generation)
-2. Second Phase: 無人機動主航行(Autonomous Flight)
+- The English A1 poster is here (TBD before 12/4)
+- The Chinese A1 poster is here (TBD before 12/4)
+- The full slide is here(https://www.canva.com/design/DAG43gYHQ2M/wSA9zCytnFEF--5swEKbhA/edit) (In English)
+- The concise version is here (TBD before 12/4)
