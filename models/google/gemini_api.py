@@ -193,7 +193,7 @@ def path_correction(instruction, prompt, current_frame) -> str:
     )
     
     response = client.models.generate_content(
-        model = "gemini-2.5-flash",
+        model = "gemini-2.5-pro",
         contents = content,
         config = generate_content_config
     )

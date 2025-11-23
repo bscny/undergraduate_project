@@ -43,5 +43,5 @@ In the experiment, AirSim (Unreal Engine) will be used as the drone simulation e
 
 - The English A1 poster is here (TBD before 12/4)
 - The Chinese A1 poster is here (TBD before 12/4)
-- The full slide is here(https://www.canva.com/design/DAG43gYHQ2M/wSA9zCytnFEF--5swEKbhA/edit) (In English)
+- The full slide is [here](https://www.canva.com/design/DAG43gYHQ2M/wSA9zCytnFEF--5swEKbhA/edit) (In English)
 - The concise version is here (TBD before 12/4)

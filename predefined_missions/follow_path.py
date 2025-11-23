@@ -17,7 +17,7 @@ def follow_path(drone: Drone, instruction, logs):
     
     # get the true distance between the drone to the top of the frame
     half_ground_width = (drone.INIT_POS.z_val - drone.altitude) * math.tan(v_fov_radians / 2)
-    distance_factor = 1.5
+    distance_factor = 5
     forward_distance = half_ground_width * distance_factor  # the actual fly distance for each step
     
     drone.check_takeoff()
@@ -45,9 +45,9 @@ def follow_path(drone: Drone, instruction, logs):
             return logs + "\n"
         
         # testing prupose
-        with open(f"assets/observations/gemini-flash/{counter}.png", "wb") as f:
-            f.write(drone.temp)
-            logs += f"{counter}.png:\n"
+        # with open(f"assets/observations/gemini-flash/{counter}.png", "wb") as f:
+        #     f.write(drone.temp)
+        #     logs += f"{counter}.png:\n"
 
         # correction + move
         correction = decision["angle_correction"]
