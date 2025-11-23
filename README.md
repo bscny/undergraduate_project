@@ -3,7 +3,7 @@
 ## Table of content
 
 - [abstract](#abstract)
-- [simple demo](#simple-demo)
+- [simple demo](#simple-demo-majority-in-english)
 - [presentation](#presentation)
 
 ## Abstract
