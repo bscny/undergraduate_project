@@ -15,7 +15,7 @@ class Drone:
         self.client.enableApiControl(True)
         self.client.armDisarm(True)
         self.client.simPrintLogMessage("Hello World~~")
-        self.temp = None
+        # self.temp = None  # Testing purpose
         # the weather API
         if custom_weather:
             self.client.simEnableWeather(True)
@@ -82,7 +82,7 @@ class Drone:
 
         self.frames_queue.append(decoded_base64_str)
         
-        self.temp = bin_code
+        # self.temp = bin_code  # Testing purpose
 
     # BELOWS ARE MEMBER FUNCTIONS THAT CONTROL DRONE ACTIONS
     # basic actions
