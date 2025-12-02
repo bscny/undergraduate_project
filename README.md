@@ -1,6 +1,6 @@
 # UAV Flight Log Generation and High-Level Mission Planning Using Vision-Language Models
 
-[[English A1 Poster](https://youtu.be/Sefa05ckpKo)] [[Chinese A1 Poster](https://youtu.be/Sefa05ckpKo)] [[English Final Report (pdf)](https://youtu.be/Sefa05ckpKo)] [[Chinese Final Report (pdf)](https://youtu.be/Sefa05ckpKo)] [[English supplementary slide](https://youtu.be/Sefa05ckpKo)]
+[[English A1 Poster](https://github.com/bscny/undergraduate_project/blob/main/docs/posters/Undergraduate_Thesis_Poster.pdf)] [[Chinese A1 Poster](https://github.com/bscny/undergraduate_project/blob/main/docs/posters/Chinese_Undergraduate_thesis_poster.pdf)] [[English Final Report](https://github.com/bscny/undergraduate_project/blob/main/docs/reports/Final_Project_Report.pdf)] [[Chinese Final Report](https://github.com/bscny/undergraduate_project/blob/main/docs/reports/Chinese_Final_Project_Report.pdf)] [[supplementary slide](https://github.com/bscny/undergraduate_project/blob/main/docs/slides/Supplementary_slide.pdf)]
 
 ## Table of content
 
