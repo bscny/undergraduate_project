@@ -1,6 +1,6 @@
 # UAV Flight Log Generation and High-Level Mission Planning Using Vision-Language Models
 
-[[English A1 Poster](https://github.com/bscny/undergraduate_project/blob/main/docs/posters/Undergraduate_Thesis_Poster.pdf)] [[Chinese A1 Poster](https://github.com/bscny/undergraduate_project/blob/main/docs/posters/Chinese_Undergraduate_thesis_poster.pdf)] [[English Final Report](https://github.com/bscny/undergraduate_project/blob/main/docs/reports/Final_Project_Report.pdf)] [[Chinese Final Report](https://github.com/bscny/undergraduate_project/blob/main/docs/reports/Chinese_Final_Project_Report.pdf)] [[supplementary slide](https://github.com/bscny/undergraduate_project/blob/main/docs/slides/Supplementary_slide.pdf)]
+[[English A1 Poster](https://github.com/bscny/undergraduate_project/blob/main/docs/posters/Undergraduate_Thesis_Poster.pdf)] [[Chinese A1 Poster](https://github.com/bscny/undergraduate_project/blob/main/docs/posters/Chinese_Undergraduate_thesis_poster.pdf)] [[English Final Report](https://github.com/bscny/undergraduate_project/blob/main/docs/reports/Final_Project_Report.pdf)] [[Chinese Final Report](https://github.com/bscny/undergraduate_project/blob/main/docs/reports/Chinese_Final_Project_Report.pdf)] [[supplementary slide](https://github.com/bscny/undergraduate_project/blob/main/docs/slides/Supplementary_slide.pdf)] [[presentation slide](https://github.com/bscny/undergraduate_project/blob/main/docs/slides/Presentation_slide.pdf)]
 
 ## Table of content
 
