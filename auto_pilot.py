@@ -71,6 +71,8 @@ if __name__ == "__main__":
             system_print("ALL DONE~\n")
             continue
         
+        counter = 0
+        threshold = 5  # after 5 re-decision making, ask user if wanted to continue
         while True:
             # VLM start planning (decision making + motion planning)
             system_print("Start thinking...")
@@ -114,6 +116,24 @@ if __name__ == "__main__":
                     drone_print(f"Unknown action: {act}")
                 
                 num += 1
+                
+            if finished == True:
+                break
+            
+            counter += 1
+        
+            if counter >= threshold:
+                # ask if user still wants to do the same instruction
+                while True: 
+                    drone_print("Do you still want to execute this instruction? (y to continue, n to stop)")
+                    flag = input()
+                    if flag == 'n':
+                        finished = True
+                        break
+                    elif flag == 'y':
+                        break
+                
+                counter = 0
                 
             if finished == True:
                 break

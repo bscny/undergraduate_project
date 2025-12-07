@@ -63,10 +63,13 @@ def follow_path(drone: Drone, instruction, logs):
         
         if counter >= threshold:
             # ask if user still wants to follow the object
-            drone_print("Do you still want to follow it? (y to continue, n to stop)")
-            flag = input()
-            if flag == 'n':
-                drone_print(f"Mission end")
-                return logs + "\n"
+            while True: 
+                drone_print("Do you still want to follow it? (y to continue, n to stop)")
+                flag = input()
+                if flag == 'n':
+                    drone_print(f"Mission end")
+                    return logs + "\n"
+                elif flag == 'y':
+                    break
             
             counter = 0

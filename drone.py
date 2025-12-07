@@ -42,7 +42,7 @@ class Drone:
         # define some private variables
         self.flying = False
         self.action_list = []  # lowest level
-        self.navigation_list = []  # mid level
+        self.navigation_list = []
         self.altitude = self.INIT_POS.z_val  # record this to have consistent fly height
         self.frames_queue = []
         
