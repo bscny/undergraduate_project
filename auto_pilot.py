@@ -14,7 +14,7 @@ from drone_settings import CUSTOM_WEATHER, RECORDING, AirSimNH, Coastline, CityE
 # define some constant here
 # path
 VIDEO_FOLDER_PATH = "assets/large_files/videos/"
-VIDEO_NAME = "coastline.mp4"
+VIDEO_NAME = "test.mp4"
 FRAME_FOLDER_PATH = "assets/large_files/airsim_frames"
 TEXT_FOLDER_PATH = "assets/action_lists/"
 
@@ -22,7 +22,7 @@ TEXT_FOLDER_PATH = "assets/action_lists/"
 FPS = 20
 
 # drone related
-CURRENT_ENV = Coastline
+CURRENT_ENV = ZhangJiajie
 
 # Mission Type
 RETURN_FLIGHT = 0
